@@ -3,6 +3,8 @@ Android Some of the tools used in development.
 
 ---
 
+[![](https://jitpack.io/v/Jusenr/Tools.svg)](https://jitpack.io/#Jusenr/Tools)
+
 #### To get a Git project into your build: ####
 
 ---

@@ -1,0 +1,55 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply from: "config.gradle"
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.3'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+
+allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+subprojects {
+    configurations.all {
+        resolutionStrategy {
+//            force 'com.android.support:support-v4:23.0.1'
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+//获取版本号
+def getVersionName() {
+    int num = rootProject.ext.VERSION_NUM
+    if (num > 0) {
+        return String.format("%s.%d", rootProject.ext.androids.versionName, rootProject.ext.VERSION_NUM)
+    } else {
+        return rootProject.ext.androids.versionName
+    }
+}
+
+//git提交次数
+int gitVersionCode() {
+    def count = "git rev-list HEAD --count".execute().text.trim()
+    return count.isInteger() ? count.toInteger() : 0
+}
+
+// 获取当前时间
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}

@@ -1,0 +1,155 @@
+apply plugin: rootProject.ext.plugins.application
+
+android {
+    compileSdkVersion rootProject.ext.androids.compileSdkVersion
+    buildToolsVersion rootProject.ext.androids.buildToolsVersion
+
+    defaultConfig {
+        applicationId rootProject.ext.androids.applicationId
+        minSdkVersion rootProject.ext.androids.minSdkVersion
+        targetSdkVersion rootProject.ext.androids.targetSdkVersion
+        versionCode rootProject.ext.androids.versionCode
+        versionName rootProject.ext.androids.versionName
+        manifestPlaceholders rootProject.ext.androids.manifestPlaceholders
+        //logcat日志TAG设置
+        buildConfigField "String", "LOG_TAG", "\"${rootProject.ext.APP_LOG_TAG}\""
+        //必须给出默认值，不然其他渠道包域名初始化为空
+        buildConfigField "boolean", "IS_TEST", "false"
+        buildConfigField "int", "HOST_NOW", "1"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
+        }
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "x86"
+        }
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("../keystore.jks")
+            storePassword "tools123"
+            keyAlias "tools"
+            keyPassword "tools123"
+        }
+    }
+
+    buildTypes {
+        release {
+            // 显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            // 显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.release
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    //源码集
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+            jniLibs.srcDirs = ['libs']
+            assets.srcDirs = ['src/main/assets']
+        }
+    }
+    dexOptions {
+        javaMaxHeapSize "2g"
+    }
+
+    //产品渠道配置
+    productFlavors {
+        inner {
+            buildConfigField "boolean", "IS_TEST", "true"
+            buildConfigField "int", "HOST_NOW", "2"
+            versionName = "T" + rootProject.getVersionName()
+        }
+
+        dev {
+            buildConfigField "boolean", "IS_TEST", "true"
+            buildConfigField "int", "HOST_NOW", "3"
+            versionName = "D" + rootProject.getVersionName()
+        }
+
+        online {
+            versionName = "V" + rootProject.getVersionName()
+        }
+
+        xiaomi { versionName = "V" + defaultConfig.versionName }
+        wandoujia { versionName = "V" + defaultConfig.versionName }
+        huawei { versionName = "V" + defaultConfig.versionName }
+
+        productFlavors.all { flavor ->
+            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+        }
+    }
+
+    //Apk包名自定义
+    applicationVariants.all {
+        variant ->
+            def apkFileName = rootProject.getVersionName()
+            variant.outputs.each {
+                output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        def fileName = outputFile.name.replace(".apk", "-${apkFileName}.apk")
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+            }
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+//    compile project(':toolslibrary')
+    compile 'com.github.Jusenr:Tools:1.2.0'
+
+    testCompile rootProject.ext.dependencies.junit
+
+    compile rootProject.ext.dependencies.constraint_layout
+    compile rootProject.ext.dependencies.appcompat_v7
+
+}
+
+//编译结束后删除unaligned包
+android.applicationVariants.all { variant ->
+    variant.assemble.doLast {
+        variant.outputs.each { output ->
+            println "aligned " + output.outputFile
+            println "unaligned " + output.packageApplication.outputFile
+
+            File file = output.packageApplication.outputFile;
+            if (variant.buildType.zipAlignEnabled && file.getName().contains("unaligned")) {
+                println "deleting " + file.getName()
+                file.delete()
+            }
+        }
+    }
+}

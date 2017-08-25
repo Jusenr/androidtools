@@ -1,0 +1,47 @@
+ext {
+    APP_LOG_TAG = "jusenr_tools_log"//app打印日志的tag
+
+    VERSION_NUM = 0 //内部测试使用的小版本号
+
+    plugins = [
+            application: "com.android.application",
+            library    : "com.android.library",
+            maven      : "com.github.dcendents.android-maven",
+            bintray    : "com.jfrog.bintray",
+    ]
+
+    androids = [
+            compileSdkVersion   : 26,
+            buildToolsVersion   : "26.0.0",
+            minSdkVersion       : 19,
+            targetSdkVersion    : 26,
+            versionCode         : 1,
+            versionName         : "1.0.0",
+            applicationId       : "com.jusenr.tools",
+            manifestPlaceholders: [UMENG_APPKEY_VALUE: "5996bf8e8f4a9d5443000a3f",
+                                   APP_ID            : "6666"],
+    ]
+
+    versions = [
+            junitVersion         : "4.12",
+
+            constraintVersion    : "1.0.2",
+            androidSupportVersion: "26.+",
+
+            gsonVersion          : "2.4",
+            ptlogVersion         : "1.0.0",
+    ]
+
+    dependencies = [
+            junit            : "junit:junit:${versions["junitVersion"]}",
+
+            constraint_layout: "com.android.support.constraint:constraint-layout:${versions["constraintVersion"]}",
+            appcompat_v7     : "com.android.support:appcompat-v7:${versions["androidSupportVersion"]}",
+            cardview_v7      : "com.android.support:cardview-v7:${versions["androidSupportVersion"]}",
+
+            gson             : "com.google.code.gson:gson:${versions["gsonVersion"]}",
+            ptlog            : "com.putao.mobile:ptlog:${versions["ptlogVersion"]}",
+
+            analytics        : "com.umeng.analytics:analytics:latest.integration",
+    ]
+}

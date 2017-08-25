@@ -1,0 +1,37 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">ToolsLibrary</string>
+
+    <string name="logout">再按一次退出程序</string>
+
+    <string name="cancel">取消</string>
+    <string name="confirm">确认</string>
+
+    <!--DateUtils-->
+    <string name="message_text_just_now"> 刚刚</string>
+    <plurals name="message_text_minutes_ago">
+        <item quantity="zero">%d分钟以前</item>
+        <item quantity="one">%d分钟以前</item>
+        <item quantity="other">%d分钟以前</item>
+    </plurals>
+    <plurals name="message_text_hours_ago">
+        <item quantity="zero">%d小时以前</item>
+        <item quantity="one">%d小时以前</item>
+        <item quantity="other">%d小时以前</item>
+    </plurals>
+    <plurals name="message_text_days_ago">
+        <item quantity="zero">%d天以前</item>
+        <item quantity="one">%d天以前</item>
+        <item quantity="other">%d天以前</item>
+    </plurals>
+    <plurals name="message_text_months_ago">
+        <item quantity="zero">%d月以前</item>
+        <item quantity="one">%d月以前</item>
+        <item quantity="other">%d月以前</item>
+    </plurals>
+
+    <string name="man">男</string>
+    <string name="woman">女</string>
+
+    <string name="submit">提交</string>
+
+</resources>

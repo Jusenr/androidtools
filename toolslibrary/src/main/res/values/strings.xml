@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">ToolsLibrary</string>
+
+    <string name="logout">Press again to exit the program.</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+
+    <!--DateUtils-->
+    <string name="message_text_just_now">Just Now</string>
+    <plurals name="message_text_minutes_ago">
+        <item quantity="zero">%d minutes ago</item>
+        <item quantity="one">%d minute ago</item>
+        <item quantity="other">%d minutes ago</item>
+    </plurals>
+    <plurals name="message_text_hours_ago">
+        <item quantity="zero">%d hours ago</item>
+        <item quantity="one">%d hour ago</item>
+        <item quantity="other">%d hours ago</item>
+    </plurals>
+    <plurals name="message_text_days_ago">
+        <item quantity="zero">%d days ago</item>
+        <item quantity="one">%d day ago</item>
+        <item quantity="other">%d days ago</item>
+    </plurals>
+    <plurals name="message_text_months_ago">
+        <item quantity="zero">%d months ago</item>
+        <item quantity="one">%d month ago</item>
+        <item quantity="other">%d months ago</item>
+    </plurals>
+
+    <string name="man">Male</string>
+    <string name="woman">Female</string>
+
+    <string name="submit">Submit</string>
+
+</resources>

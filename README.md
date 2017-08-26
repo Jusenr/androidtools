@@ -3,7 +3,7 @@ Android Some of the tools used in development.
 
 ---
 
-[![](https://jitpack.io/v/Jusenr/Tools.svg)](https://jitpack.io/#Jusenr/Tools)
+[![](https://jitpack.io/v/Jusenr/androidtools.svg)](https://jitpack.io/#Jusenr/androidtools)
 
 #### To get a Git project into your build: ####
 
@@ -23,7 +23,7 @@ Add it in your root build.gradle at the end of repositories:
 
     dependencies {
         ...
-        compile 'com.github.Jusenr:Tools:1.0.0'
+         compile 'com.github.Jusenr:androidtools:1.1.0'
     }
 
 ---

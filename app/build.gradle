@@ -106,11 +106,12 @@ android {
     applicationVariants.all {
         variant ->
             def apkFileName = rootProject.getVersionName()
+            def time = rootProject.releaseTime()
             variant.outputs.each {
                 output ->
                     def outputFile = output.outputFile
                     if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                        def fileName = outputFile.name.replace(".apk", "-${apkFileName}.apk")
+                        def fileName = outputFile.name.replace(".apk", "-${apkFileName}-${time}.apk")
                         output.outputFile = new File(outputFile.parent, fileName)
                     }
             }
@@ -128,8 +129,8 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile project(':toolslibrary')
-//    compile 'com.github.Jusenr:Tools:1.0.0'
+//    compile project(':toolslibrary')
+    compile 'com.github.Jusenr:androidtools:1.1.0'
 
     testCompile rootProject.ext.dependencies.junit
 

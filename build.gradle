@@ -53,3 +53,5 @@ int gitVersionCode() {
 def releaseTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 }
+
+rootProject.ext.androids.versionCode = gitVersionCode()

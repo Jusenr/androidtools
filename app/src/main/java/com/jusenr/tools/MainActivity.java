@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         tv.setText(stringFJNI());
         tvText.setText(stringFromJNI());
         tvText1.setText(AppUtils.getVersionName(this));
+        tvText2.setText(String.valueOf(AppUtils.getVersionCode(this)));
 
         tv.setOnClickListener(new View.OnClickListener() {
             @Override

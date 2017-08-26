@@ -1,11 +1,13 @@
 package com.jusenr.tools;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.jusenr.toolslibrary.utils.AppUtils;
 import com.jusenr.toolslibrary.utils.ToastUtils;
+import com.umeng.analytics.MobclickAgent;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,9 +23,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Example of a call to a native method
         TextView tv = (TextView) findViewById(R.id.sample_text);
-        TextView tv1 = (TextView) findViewById(R.id.tv_text);
+        TextView tvText = (TextView) findViewById(R.id.tv_text);
+        TextView tvText1 = (TextView) findViewById(R.id.tv_text1);
+        TextView tvText2 = (TextView) findViewById(R.id.tv_text2);
         tv.setText(stringFJNI());
-        tv1.setText(stringFromJNI());
+        tvText.setText(stringFromJNI());
+        tvText1.setText(AppUtils.getVersionName(this));
 
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,6 +36,19 @@ public class MainActivity extends AppCompatActivity {
                 ToastUtils.showAlertToast(getApplicationContext(), "Hello See!");
             }
         });
+        tvText1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        tvText2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
     }
 
     /**
@@ -40,4 +58,18 @@ public class MainActivity extends AppCompatActivity {
     public native String stringFromJNI();
 
     public native String stringFJNI();
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(getLocalClassName());
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(getLocalClassName());
+        MobclickAgent.onPause(this);
+    }
 }

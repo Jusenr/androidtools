@@ -128,13 +128,15 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-//    compile project(':toolslibrary')
-    compile 'com.github.Jusenr:Tools:1.0.0'
+    compile project(':toolslibrary')
+//    compile 'com.github.Jusenr:Tools:1.0.0'
 
     testCompile rootProject.ext.dependencies.junit
 
     compile rootProject.ext.dependencies.constraint_layout
     compile rootProject.ext.dependencies.appcompat_v7
+
+    compile rootProject.ext.dependencies.analytics
 
 }
 

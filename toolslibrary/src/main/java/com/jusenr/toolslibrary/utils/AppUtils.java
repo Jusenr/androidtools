@@ -136,11 +136,29 @@ public final class AppUtils {
      * @param name    key
      * @return value信息
      */
-    public static String getMetaData(Context context, String name) {
+    public static int getMetaDataInt(Context context, String name) {
         try {
             ApplicationInfo applicationInfo = context.getPackageManager()
                     .getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
-            return String.valueOf(applicationInfo.metaData.getInt(name));
+            return applicationInfo.metaData.getInt(name);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    /**
+     * 读取application标签下的meta-data信息
+     *
+     * @param context context
+     * @param name    key
+     * @return value信息
+     */
+    public static String getMetaDataString(Context context, String name) {
+        try {
+            ApplicationInfo applicationInfo = context.getPackageManager()
+                    .getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+            return applicationInfo.metaData.getString(name);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

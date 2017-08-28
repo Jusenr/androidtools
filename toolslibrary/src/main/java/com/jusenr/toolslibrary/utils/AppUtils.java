@@ -11,6 +11,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.Settings;
@@ -55,18 +56,57 @@ public final class AppUtils {
     }
 
     /**
-     * 获取应用程序名称
+     * 获取应用程序的名字
      *
-     * @param context context
-     * @return 应用名称
+     * @param context
+     * @param packname 应用包名
+     * @return
      */
-    public static String getPackageName(Context context) {
+    public String getAppName(Context context, String packname) {
+        //包管理操作管理类
+        PackageManager pm = context.getPackageManager();
         try {
-            PackageManager packageManager = context.getPackageManager();
-            PackageInfo packageInfo = packageManager.getPackageInfo(
-                    context.getPackageName(), 0);
-            int labelRes = packageInfo.applicationInfo.labelRes;
-            return context.getResources().getString(labelRes);
+            ApplicationInfo info = pm.getApplicationInfo(packname, 0);
+            return info.loadLabel(pm).toString();
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+
+        }
+        return packname;
+    }
+
+    /**
+     * 获取当前应用程序的名字
+     *
+     * @param context
+     * @return
+     */
+    public String getAppName(Context context) {
+        //包管理操作管理类
+        PackageManager pm = context.getPackageManager();
+        try {
+            ApplicationInfo info = pm.getApplicationInfo(context.getPackageName(), 0);
+            return info.loadLabel(pm).toString();
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+
+        }
+        return context.getPackageName();
+    }
+
+    /**
+     * 获取当前应用程序图标
+     *
+     * @param context
+     * @return
+     */
+    public Drawable getAppIcon(Context context) {
+        try {
+            //包管理操作管理类
+            PackageManager pm = context.getPackageManager();
+            //获取到应用信息
+            ApplicationInfo info = pm.getApplicationInfo(context.getPackageName(), 0);
+            return info.loadIcon(pm);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -74,7 +114,27 @@ public final class AppUtils {
     }
 
     /**
-     * [获取应用程序版本编号信息]
+     * 获取应用程序图标
+     *
+     * @param context
+     * @param packname 应用包名
+     * @return
+     */
+    public Drawable getAppIcon(Context context, String packname) {
+        try {
+            //包管理操作管理类
+            PackageManager pm = context.getPackageManager();
+            //获取到应用信息
+            ApplicationInfo info = pm.getApplicationInfo(packname, 0);
+            return info.loadIcon(pm);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 获取当前应用程序版本编号信息
      *
      * @param context context
      * @return 当前应用的版本编号
@@ -87,6 +147,106 @@ public final class AppUtils {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    /**
+     * 获取应用程序的权限
+     *
+     * @param context
+     * @param packname 应用包名
+     * @return
+     */
+    public String[] getAllPermissions(Context context, String packname) {
+        try {
+            //包管理操作管理类
+            PackageManager pm = context.getPackageManager();
+            PackageInfo packinfo = pm.getPackageInfo(packname, PackageManager.GET_PERMISSIONS);
+            //获取到所有的权限
+            return packinfo.requestedPermissions;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+
+        }
+        return null;
+    }
+
+    /**
+     * 获取当前应用程序的权限
+     *
+     * @param context
+     * @return 权限数组
+     */
+    public String[] getAllPermissions(Context context) {
+        try {
+            //包管理操作管理类
+            PackageManager pm = context.getPackageManager();
+            PackageInfo packinfo = pm.getPackageInfo(context.getPackageName(), PackageManager.GET_PERMISSIONS);
+            //获取到所有的权限
+            return packinfo.requestedPermissions;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+
+        }
+        return null;
+    }
+
+    /**
+     * 获取应用程序的签名
+     *
+     * @param context
+     * @param packname 应用包名
+     * @return
+     */
+    public static String getAppSignature(Context context, String packname) {
+        try {
+            //包管理操作管理类
+            PackageManager pm = context.getPackageManager();
+            PackageInfo packinfo = pm.getPackageInfo(packname, PackageManager.GET_SIGNATURES);
+            //获取当前应用签名
+            return packinfo.signatures[0].toCharsString();
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+
+        }
+        return packname;
+    }
+
+    /**
+     * 获取当前应用程序的签名
+     *
+     * @param context
+     * @return
+     */
+    public static String getAppSignature(Context context) {
+        try {
+            //包管理操作管理类
+            PackageManager pm = context.getPackageManager();
+            PackageInfo packinfo = pm.getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
+            //获取当前应用签名
+            return packinfo.signatures[0].toCharsString();
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+
+        }
+        return context.getPackageName();
+    }
+
+    /**
+     * 获取ApplicationInfo对象
+     *
+     * @param context context
+     * @return
+     */
+    public static ApplicationInfo getApplicationInfo(Context context) {
+        try {
+            ApplicationInfo applicationInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+            return applicationInfo;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -103,6 +263,8 @@ public final class AppUtils {
     }
 
     /**
+     * 获取当前应用版本号
+     *
      * @param context context
      * @return 当前应用的版本名称
      */
@@ -166,19 +328,21 @@ public final class AppUtils {
     }
 
     /**
-     * 获取ApplicationInfo对象
+     * 读取activity标签下的meta-data信息
      *
-     * @param context context
-     * @return
+     * @param activity activity
+     * @param name     key
+     * @return value信息
      */
-    public static ApplicationInfo getApplicationInfo(Context context) {
+    public static String getMetaDataString(Activity activity, String name) {
         try {
-            ApplicationInfo applicationInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
-            return applicationInfo;
+            ActivityInfo activityInfo = activity.getPackageManager()
+                    .getActivityInfo(activity.getComponentName(), PackageManager.GET_META_DATA);
+            return activityInfo.metaData.getString(name);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        return null;
+        return "";
     }
 
     /**
@@ -188,15 +352,15 @@ public final class AppUtils {
      * @param name     key
      * @return value信息
      */
-    public static String getMetaData(Activity activity, String name) {
+    public static int getMetaDataInt(Activity activity, String name) {
         try {
             ActivityInfo activityInfo = activity.getPackageManager()
                     .getActivityInfo(activity.getComponentName(), PackageManager.GET_META_DATA);
-            return activityInfo.metaData.getString(name);
+            return activityInfo.metaData.getInt(name);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        return "";
+        return 0;
     }
 
     /**
@@ -349,6 +513,17 @@ public final class AppUtils {
                 return true;
         }
         return false;
+    }
+
+    /**
+     * 获取当前展示的Activity名称
+     *
+     * @return
+     */
+    private static String getCurrentActivityName(Context context) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        String runningActivity = activityManager.getRunningTasks(1).get(0).topActivity.getClassName();
+        return runningActivity;
     }
 
     /**

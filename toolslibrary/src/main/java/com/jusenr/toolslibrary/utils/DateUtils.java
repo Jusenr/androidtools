@@ -298,6 +298,19 @@ public final class DateUtils {
     /**
      * 获取输入日期是星期几
      *
+     * @param context context
+     * @param date    日期
+     * @return 星期几
+     */
+    public static String getWeekDate(Context context, Date date) {
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        calendar.setTime(date);
+        return context.getResources().getStringArray(R.array.weeks)[calendar.get(calendar.DAY_OF_WEEK) - 1];
+    }
+
+    /**
+     * 获取输入日期是星期几
+     *
      * @param date 日期
      * @return 星期几
      */

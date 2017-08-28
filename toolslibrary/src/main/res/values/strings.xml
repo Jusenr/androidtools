@@ -29,6 +29,7 @@
         <item quantity="other">%d months ago</item>
     </plurals>
 
+    <!--gender-->
     <string name="man">Male</string>
     <string name="woman">Female</string>
 

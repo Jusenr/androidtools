@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         TextView tvText = (TextView) findViewById(R.id.tv_text);
         TextView tvText1 = (TextView) findViewById(R.id.tv_text1);
         TextView tvText2 = (TextView) findViewById(R.id.tv_text2);
+        TextView tvText3 = (TextView) findViewById(R.id.tv_text3);
         tv.setText(stringFJNI());
         tvText.setText(stringFromJNI());
         tvText1.setText(AppUtils.getVersionName(this));
@@ -40,13 +41,19 @@ public class MainActivity extends AppCompatActivity {
         tvText1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                ToastUtils.show(getApplicationContext(), "Think you!");
             }
         });
         tvText2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                ToastUtils.show(getApplicationContext(), "How dou you dou?", 0);
+            }
+        });
+        tvText3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtils.show(getApplicationContext(), "1+1=%d", (Object) 2);
             }
         });
 

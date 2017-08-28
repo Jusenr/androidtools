@@ -46,9 +46,15 @@ public class TotalApplication extends Application {
         MobclickAgent.openActivityDurationTrack(false);
         Logger.i(umeng_appkey);
         Logger.i(umeng_channel);
+
+        Logger.i(getCurPackageName());
     }
 
     private String getLogTag() {
         return BuildConfig.LOG_TAG;
+    }
+
+    private String getCurPackageName() {
+        return getApplicationContext().getPackageName();
     }
 }

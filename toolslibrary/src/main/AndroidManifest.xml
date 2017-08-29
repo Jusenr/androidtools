@@ -11,4 +11,8 @@
 
     </application>
 
+    <activity
+        android:name=".log.PTLogActivity"
+        android:screenOrientation="portrait"/>
+
 </manifest>

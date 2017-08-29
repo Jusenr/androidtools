@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">ToolsLibrary</string>
+    <string name="app_name">Android工具库</string>
 
     <string name="logout">再按一次退出程序</string>
 
@@ -29,6 +29,26 @@
         <item quantity="other">%d月以前</item>
     </plurals>
 
+    <!--PTLog-->
+    <string name="btn_close">close</string>
+    <string name="btn_trace">trace</string>
+    <string name="btn_begin">begin</string>
+    <string name="btn_end">end</string>
+    <string name="btn_count">count</string>
+
+    <string name="title">请选择时间</string>
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="hour">时</string>
+    <string name="minute">分</string>
+
+    <string name="select_date">选择日期</string>
+    <string name="current_date">当前日期</string>
+    <string name="select_time">选择时间</string>
+    <string name="current_time">当前时间</string>
+
+    <!--gender-->
     <string name="man">男</string>
     <string name="woman">女</string>
 

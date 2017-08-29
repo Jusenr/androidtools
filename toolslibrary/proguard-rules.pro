@@ -23,3 +23,36 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# 保持哪些类不被混淆
+-keep public class * extends android.app.Fragment
+-keep public class * extends android.app.Activity
+-keep public class * extends android.support.v7.app.AppCompatActivity
+-keep public class * extends android.app.Application
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+-keep public class * extends android.app.backup.BackupAgentHelper
+-keep public class * extends android.preference.Preference
+-keep public class * extends android.view.View
+
+#如果有引用v4包可以添加下面这行
+-keep public class * extends android.support.v4.app.Fragment
+
+# 保持自定义控件类不被混淆
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context);
+}
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet);
+}
+-keepclasseswithmembers class * {
+   public <init>(android.content.Context, android.util.AttributeSet, int);
+}
+
+# 保持实现Serializable接口的对象类不被混淆
+-keep public class * implements java.io.Serializable {*;}
+
+-keep class com.jusenr.toolslibrary.log.logger.Logger { *; }
+-keep class com.jusenr.toolslibrary.widgets.CustomDatePicker { *; }
+

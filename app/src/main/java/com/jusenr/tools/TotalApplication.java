@@ -4,8 +4,10 @@ import android.app.Application;
 import android.content.pm.ApplicationInfo;
 
 import com.jusenr.tools.api.BaseApi;
+import com.jusenr.toolslibrary.log.logger.FormatStrategy;
+import com.jusenr.toolslibrary.log.logger.Logger;
+import com.jusenr.toolslibrary.log.logger.PrettyFormatStrategy;
 import com.jusenr.toolslibrary.utils.AppUtils;
-import com.jusenr.toolslibrary.utils.Logger;
 import com.jusenr.toolslibrary.utils.PreferenceUtils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -23,17 +25,19 @@ public class TotalApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        //API初始化
         BaseApi.init();
-
         //偏好文件初始化
         PreferenceUtils.init(this);
-        //日志输出
-        Logger.init(getApplicationContext(), getLogTag())
-                .hideThreadInfo()
-//                .setMethodCount(3)
-                .setLogLevel(BuildConfig.IS_TEST ? Logger.LogLevel.FULL : Logger.LogLevel.NONE)
-                .setSaveLog(true);
+        //Logger日志输出
+        FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
+                .showThreadInfo(false)  // (Optional) Whether to show thread info or not. Default true
+//                .methodCount(2)         // (Optional) How many method line to show. Default 2
+//                .methodOffset(7)        // (Optional) Hides internal method calls up to offset. Default 5
+//                .logStrategy(new LogcatLogStrategy()) // (Optional) Changes the log strategy to print out. Default LogCat
+                .tag(getLogTag())   // (Optional) Global tag for every log. Default PRETTY_LOGGER
+                .build();
+        Logger.init(getApplicationContext(), formatStrategy, Logger.DEBUG);
 
         //UMeng
         ApplicationInfo info = AppUtils.getApplicationInfo(getApplicationContext());

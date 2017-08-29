@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:background="@android:color/black">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ScrollView
+            android:id="@+id/sv_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbarSize="2dp"
+            android:scrollbarThumbVertical="@color/color5"
+            android:scrollbars="vertical">
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scrollbars="vertical"
+                android:text=""
+                android:textColor="@android:color/background_light"/>
+        </ScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="?android:attr/colorPrimary"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:ignore="NewApi">
+
+        <Button
+            android:id="@+id/btn_close"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/border_line"
+            android:text="@string/btn_close"
+            android:textColor="@android:color/white"
+            android:textSize="9sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <Button
+            android:id="@+id/btn_trace"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/border_line"
+            android:text="@string/btn_trace"
+            android:textColor="@android:color/white"
+            android:textSize="9sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <Button
+            android:id="@+id/btn_begin"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/border_line"
+            android:text="@string/btn_begin"
+            android:textColor="@android:color/white"
+            android:textSize="9sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <Button
+            android:id="@+id/btn_end"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/border_line"
+            android:text="@string/btn_end"
+            android:textColor="@android:color/white"
+            android:textSize="9sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <Button
+            android:id="@+id/btn_count"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/border_line"
+            android:text="@string/btn_count"
+            android:textColor="@android:color/white"
+            android:textSize="9sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

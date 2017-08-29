@@ -22,8 +22,50 @@ Add it in your root build.gradle at the end of repositories:
 >Step 2. Add the dependency
 
     dependencies {
-        ...
-         compile 'com.github.Jusenr:androidtools:1.1.6'
+         ...
+         compile 'com.github.Jusenr:androidtools:1.2.1'
     }
 
 ---
+
+>Step 3. Add required permissions
+
+    <manifest
+        ...
+        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+        <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+        <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+         <application
+            ...
+               <!--Log view page-->
+               <activity
+                    android:name="com.jusenr.toolslibrary.log.PTLogActivity"
+                    android:screenOrientation="portrait"/>
+
+         </application>
+
+    </manifest>
+
+---
+
+>Step 4. Initialization configuration
+
+
+   \* extends Application{
+
+        @Override
+        public void onCreate() {
+           super.onCreate();
+
+        //AndroidTools initialise.
+        AndroidTools.init(getApplicationContext(), "LogTag");
+
+       }
+   }
+
+
+---
+
+#### Setup Complete!!! ####

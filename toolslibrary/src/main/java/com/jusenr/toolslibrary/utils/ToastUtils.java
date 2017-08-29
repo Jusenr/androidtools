@@ -24,7 +24,7 @@ import static android.widget.Toast.makeText;
  * Author     : Jusenr
  * Date       : 2017/08/25
  * Time       : 14:58
- * Project    ：Tools.
+ * Project    ：AndroidTools.
  */
 public final class ToastUtils {
 

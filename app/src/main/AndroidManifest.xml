@@ -42,7 +42,7 @@
             </intent-filter>
         </activity>
 
-        <!--日志查看页面-->
+        <!--Log view page-->
         <activity
             android:name="com.jusenr.toolslibrary.log.PTLogActivity"
             android:screenOrientation="portrait"/>

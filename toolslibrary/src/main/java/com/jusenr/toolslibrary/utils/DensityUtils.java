@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
  * Author     : Jusenr
  * Date       : 2017/08/25
  * Time       : 14:58
- * Project    ：Tools.
+ * Project    ：AndroidTools.
  */
 public final class DensityUtils {
     public static final String TAG = DensityUtils.class.getSimpleName();

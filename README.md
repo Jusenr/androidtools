@@ -52,20 +52,17 @@ Add it in your root build.gradle at the end of repositories:
 
 >Step 4. Initialization configuration
 
-
-   \* extends Application{
+    App extends Application{
 
         @Override
         public void onCreate() {
            super.onCreate();
 
-        //AndroidTools initialise.
-        AndroidTools.init(getApplicationContext(), "LogTag");
-
+           //AndroidTools initialise.
+           AndroidTools.init(getApplicationContext(), "LogTag");
        }
-   }
-
+    }
 
 ---
 
-#### Setup Complete!!! ####
+#### It was smashing! Setup Complete!!! ####

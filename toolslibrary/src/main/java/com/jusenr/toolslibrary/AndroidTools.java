@@ -24,7 +24,7 @@ public final class AndroidTools {
         PreferenceUtils.init(context);
         //Logger日志输出
         FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
-                .showThreadInfo(false)  // (Optional) Whether to show thread info or not. Default true
+//                .showThreadInfo(false)  // (Optional) Whether to show thread info or not. Default true
 //                .methodCount(2)         // (Optional) How many method line to show. Default 2
 //                .methodOffset(7)        // (Optional) Hides internal method calls up to offset. Default 5
 //                .logStrategy(new LogcatLogStrategy()) // (Optional) Changes the log strategy to print out. Default LogCat

@@ -25,6 +25,7 @@ ext {
     versions = [
             junitVersion         : "4.12",
             debugDbVersion       : "1.0.0",
+            androidtoolsVersion  : "1.2.1",
 
             constraintVersion    : "1.0.2",
             androidSupportVersion: "26.+",
@@ -36,6 +37,7 @@ ext {
     dependencies = [
             junit            : "junit:junit:${versions["junitVersion"]}",
             debug_db         : "com.amitshekhar.android:debug-db:${versions["debugDbVersion"]}",
+            androidtools     : "com.github.Jusenr:androidtools:${versions["androidtoolsVersion"]}",
 
             constraint_layout: "com.android.support.constraint:constraint-layout:${versions["constraintVersion"]}",
             appcompat_v7     : "com.android.support:appcompat-v7:${versions["androidSupportVersion"]}",

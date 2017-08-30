@@ -66,3 +66,16 @@ Add it in your root build.gradle at the end of repositories:
 ---
 
 #### It was smashing! Setup Complete!!! ####
+
+---
+
+#### Express one's thanks ####
+
+Thanks to Guchenkai, Trinea, Riven_chris, Zengshengwen, Leo, Sunnybear, Liuwan, Wangxiaopeng, Orhanobut provides the resources.
+
+---
+
+#### License ####
+
+Apache License Version 2.0, January 2004
+http://www.apache.org/licenses/LICENSE-2.0

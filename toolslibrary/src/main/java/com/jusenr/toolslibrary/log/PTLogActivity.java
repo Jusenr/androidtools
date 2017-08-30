@@ -25,7 +25,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-
+/**
+ * Log view page
+ */
 public class PTLogActivity extends AppCompatActivity implements View.OnClickListener {
     static final String TAG = PTLogActivity.class.getSimpleName();
 

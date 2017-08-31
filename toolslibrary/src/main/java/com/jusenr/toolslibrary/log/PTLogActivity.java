@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.jusenr.toolslibrary.R;
 import com.jusenr.toolslibrary.log.logger.Logger;
 import com.jusenr.toolslibrary.log.logger.PTLogBean;
+import com.jusenr.toolslibrary.utils.StringUtils;
 import com.jusenr.toolslibrary.widgets.CustomDatePicker;
 
 import java.text.ParseException;
@@ -44,6 +45,9 @@ public class PTLogActivity extends AppCompatActivity implements View.OnClickList
     private Date mBeginDate;
     private int mSelectedLogLevel = 0; // default is ALL
     private int mLimit = 100;
+
+    private int selectedLogLevel = 0;
+    private int selectedLogCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,83 +215,83 @@ public class PTLogActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void logLevelSelect() {
-        AlertDialog.Builder b = new AlertDialog.Builder(this);
-        b.setTitle("select the log level");
-        String[] types = {"VERBOSE", "DEBUG", "INFO", "WARN", "ERROR", "ASSERT"};
-        b.setItems(types, new DialogInterface.OnClickListener() {
+        final String[] types = getResources().getStringArray(R.array.loglevels);
+        final int[] typesColor = getResources().getIntArray(R.array.color_level);
+        CharSequence[] charSequences = StringUtils.getCharSequences(types, typesColor);
+        AlertDialog.Builder b = new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.log_level_dialog_title))
+                .setSingleChoiceItems(charSequences, selectedLogLevel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        selectedLogLevel = which;
+                        switch (which) {
+                            case 0:
+                                mSelectedLogLevel = Logger.VERBOSE; // ALL
+                                break;
+                            case 1:
+                                mSelectedLogLevel = Logger.DEBUG;
+                                break;
+                            case 2:
+                                mSelectedLogLevel = Logger.INFO;
+                                break;
+                            case 3:
+                                mSelectedLogLevel = Logger.WARN;
+                                break;
+                            case 4:
+                                mSelectedLogLevel = Logger.ERROR;
+                                break;
+                            case 5:
+                                mSelectedLogLevel = Logger.ASSERT;
+                                break;
+                            default:
+                                break;
+                        }
+                        btn_trace.setText(level2String(mSelectedLogLevel));
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+                        // query the logs with the log level
+                        queryLog();
+                    }
+                });
 
-                dialog.dismiss();
-                switch (which) {
-                    case 0:
-                        mSelectedLogLevel = Logger.VERBOSE; // ALL
-                        break;
-                    case 1:
-                        mSelectedLogLevel = Logger.DEBUG;
-                        break;
-                    case 2:
-                        mSelectedLogLevel = Logger.INFO;
-                        break;
-                    case 3:
-                        mSelectedLogLevel = Logger.WARN;
-                        break;
-                    case 4:
-                        mSelectedLogLevel = Logger.ERROR;
-                        break;
-                    case 5:
-                        mSelectedLogLevel = Logger.ASSERT;
-                        break;
-                    default:
-                        break;
-                }
-                btn_trace.setText(level2String(mSelectedLogLevel));
-
-                // query the logs with the log level
-                queryLog();
-            }
-        });
-
-        b.show();
+        b.create().show();
     }
 
     private void logCountSelect() {
-        AlertDialog.Builder b = new AlertDialog.Builder(this);
-        b.setTitle("select the log count");
         String[] types = {"10", "50", "100", "200", "500"};
-        b.setItems(types, new DialogInterface.OnClickListener() {
+        AlertDialog.Builder b = new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.log_count_dialog_title))
+                .setSingleChoiceItems(types, selectedLogCount, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        selectedLogCount = which;
+                        switch (which) {
+                            case 0:
+                                mLimit = 10; // ALL
+                                break;
+                            case 1:
+                                mLimit = 50;
+                                break;
+                            case 2:
+                                mLimit = 100;
+                                break;
+                            case 3:
+                                mLimit = 200;
+                                break;
+                            case 4:
+                                mLimit = 500;
+                                break;
+                            default:
+                                break;
+                        }
+                        btn_count.setText(String.valueOf(mLimit));
+                        // query the logs with the log level
+                        queryLog();
+                    }
+                });
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                dialog.dismiss();
-                switch (which) {
-                    case 0:
-                        mLimit = 10; // ALL
-                        break;
-                    case 1:
-                        mLimit = 50;
-                        break;
-                    case 2:
-                        mLimit = 100;
-                        break;
-                    case 3:
-                        mLimit = 200;
-                        break;
-                    case 4:
-                        mLimit = 500;
-                        break;
-                    default:
-                        break;
-                }
-                btn_count.setText(String.valueOf(mLimit));
-                // query the logs with the log level
-                queryLog();
-            }
-        });
-
-        b.show();
+        b.create().show();
     }
 
     private void queryLog() {

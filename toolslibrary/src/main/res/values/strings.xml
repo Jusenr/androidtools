@@ -36,6 +36,9 @@
     <string name="btn_end">end</string>
     <string name="btn_count">count</string>
 
+    <string name="log_level_dialog_title">Please select the log level</string>
+    <string name="log_count_dialog_title">Please select the log count</string>
+
     <string name="title">Please select time</string>
     <string name="year">Year</string>
     <string name="month">Month</string>

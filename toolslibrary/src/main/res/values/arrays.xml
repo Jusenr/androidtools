@@ -17,4 +17,23 @@
         <item>Saturday</item>
     </string-array>
 
+    <!--loglevels-->
+    <string-array name="loglevels">
+        <item>VERBOSE</item>
+        <item>DEBUG</item>
+        <item>INFO</item>
+        <item>WARN</item>
+        <item>ERROR</item>
+        <item>ASSERT</item>
+    </string-array>
+
+    <array name="color_level">
+        <item>#000000</item>
+        <item>#CC9999</item>
+        <item>#99CC00</item>
+        <item>#FFBB33</item>
+        <item>#FF4444</item>
+        <item>#AA66CC</item>
+    </array>
+
 </resources>

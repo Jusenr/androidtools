@@ -1,6 +1,9 @@
 package com.jusenr.toolslibrary.utils;
 
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 
 import java.security.MessageDigest;
 import java.util.Comparator;
@@ -357,5 +360,24 @@ public final class StringUtils {
         public int compare(String o1, String o2) {
             return o1.compareTo(o2);
         }
+    }
+
+    /**
+     * 给一组字符串，分别添加颜色后返回
+     *
+     * @param text  字符串数组
+     * @param color 颜色数组
+     * @return
+     */
+    public static CharSequence[] getCharSequences(CharSequence[] text, int[] color) {
+        CharSequence[] charSequences = new CharSequence[text.length];
+        for (int i = 0; i < text.length; i++) {
+            Spannable colorString = new SpannableString(text[i]);
+            colorString.setSpan(new ForegroundColorSpan(color[i]), 0, colorString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            charSequences[i] = colorString;
+        }
+
+        return charSequences;
     }
 }

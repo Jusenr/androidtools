@@ -129,8 +129,8 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-//    compile project(':toolslibrary')
-    compile rootProject.ext.dependencies.androidtools
+    compile project(':toolslibrary')
+//    compile rootProject.ext.dependencies.androidtools
 
     testCompile rootProject.ext.dependencies.junit
     //查看App数据库使用(方法：1.放开注释 2.重新编译 3.使用'DebugDB'字段检索日志 4.访问检索到的连接，OK!)

@@ -15,8 +15,8 @@ ext {
             buildToolsVersion   : "26.0.0",
             minSdkVersion       : 19,
             targetSdkVersion    : 26,
-            versionCode         : 8,
-            versionName         : "1.2.1",
+            versionCode         : 10,
+            versionName         : "1.2.2",
             applicationId       : "com.jusenr.tools",
             manifestPlaceholders: [UMENG_APPKEY_VALUE: "59a1173a7f2c747ef20009a3",
                                    APP_ID            : "6666"],
@@ -25,27 +25,28 @@ ext {
     versions = [
             junitVersion         : "4.12",
             debugDbVersion       : "1.0.0",
-            androidtoolsVersion  : "1.2.1",
+            leakcanaryVersion    : "1.5.1",
+            androidtoolsVersion  : "1.2.2",
 
             constraintVersion    : "1.0.2",
             androidSupportVersion: "26.+",
 
             gsonVersion          : "2.4",
-            ptlogVersion         : "1.0.0",
     ]
 
     dependencies = [
-            junit            : "junit:junit:${versions["junitVersion"]}",
-            debug_db         : "com.amitshekhar.android:debug-db:${versions["debugDbVersion"]}",
-            androidtools     : "com.github.Jusenr:androidtools:${versions["androidtoolsVersion"]}",
+            junit                   : "junit:junit:${versions["junitVersion"]}",
+            debug_db                : "com.amitshekhar.android:debug-db:${versions["debugDbVersion"]}",
+            leakcanary_android      : "com.squareup.leakcanary:leakcanary-android:${versions["leakcanaryVersion"]}",
+            leakcanary_android_no_op: "com.squareup.leakcanary:leakcanary-android-no-op:${versions["leakcanaryVersion"]}",
+            androidtools            : "com.github.Jusenr:androidtools:${versions["androidtoolsVersion"]}",
 
-            constraint_layout: "com.android.support.constraint:constraint-layout:${versions["constraintVersion"]}",
-            appcompat_v7     : "com.android.support:appcompat-v7:${versions["androidSupportVersion"]}",
-            cardview_v7      : "com.android.support:cardview-v7:${versions["androidSupportVersion"]}",
+            constraint_layout       : "com.android.support.constraint:constraint-layout:${versions["constraintVersion"]}",
+            appcompat_v7            : "com.android.support:appcompat-v7:${versions["androidSupportVersion"]}",
+            cardview_v7             : "com.android.support:cardview-v7:${versions["androidSupportVersion"]}",
 
-            gson             : "com.google.code.gson:gson:${versions["gsonVersion"]}",
-            ptlog            : "com.putao.mobile:ptlog:${versions["ptlogVersion"]}",
+            gson                    : "com.google.code.gson:gson:${versions["gsonVersion"]}",
 
-            analytics        : "com.umeng.analytics:analytics:latest.integration",
+            analytics               : "com.umeng.analytics:analytics:latest.integration",
     ]
 }

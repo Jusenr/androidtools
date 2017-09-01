@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jusenr.toolslibrary.R;
 import com.jusenr.toolslibrary.log.logger.Logger;
@@ -30,13 +31,15 @@ import java.util.Locale;
  * Log view page
  */
 public class PTLogActivity extends AppCompatActivity implements View.OnClickListener {
-    static final String TAG = PTLogActivity.class.getSimpleName();
-
+    private static final String TAG = PTLogActivity.class.getSimpleName();
+    private static final String DATE_PATTERN = "yyyy-MM-dd HH:mm";
+    private static final int ONE_DAY = 24 * 60 * 60 * 1000;
     private Button btn_close;
     private Button btn_trace;
     private Button btn_begin;
     private Button btn_end;
     private Button btn_count;
+    private Button btn_delete;
     private TextView tv_content;
     private ScrollView sv_scroll;
     private CustomDatePicker mDatePicker_begin;
@@ -44,10 +47,11 @@ public class PTLogActivity extends AppCompatActivity implements View.OnClickList
     private Date mEndDate;
     private Date mBeginDate;
     private int mSelectedLogLevel = 0; // default is ALL
-    private int mLimit = 100;
+    private int mLimit = 100;// default is 100
 
-    private int selectedLogLevel = 0;
-    private int selectedLogCount = 0;
+    private int selectedLogLevel = 0;// default is VERBOSE
+    private int selectedLogCount = 2;// default is 100
+    private int defaultDeleteTime = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,15 +85,17 @@ public class PTLogActivity extends AppCompatActivity implements View.OnClickList
         } else if (i == R.id.btn_trace) {
             logLevelSelect();
         } else if (i == R.id.btn_begin) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+            SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN, Locale.CHINA);
             String dataStr = sdf.format(mBeginDate);
             mDatePicker_begin.show(dataStr);
         } else if (i == R.id.btn_end) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+            SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN, Locale.CHINA);
             String dataStr = sdf.format(mEndDate);
             mDatePicker_end.show(dataStr);
         } else if (i == R.id.btn_count) {
             logCountSelect();
+        } else if (i == R.id.btn_delete) {
+            logDelete();
         }
     }
 
@@ -113,11 +119,14 @@ public class PTLogActivity extends AppCompatActivity implements View.OnClickList
         btn_count = (Button) this.findViewById(R.id.btn_count);
         btn_count.setOnClickListener(this);
 
+        btn_delete = (Button) this.findViewById(R.id.btn_delete);
+        btn_delete.setOnClickListener(this);
+
         tv_content = (TextView) this.findViewById(R.id.tv_content);
         sv_scroll = (ScrollView) this.findViewById(R.id.sv_scroll);
 
         mEndDate = new Date(System.currentTimeMillis());
-        mBeginDate = new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000); // previous day
+        mBeginDate = new Date(System.currentTimeMillis() - ONE_DAY); // previous day
 
         btn_begin.setText(date2String(mBeginDate));
         btn_end.setText(date2String(mEndDate));
@@ -133,7 +142,7 @@ public class PTLogActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void handle(String time) { // 回调接口，获得选中的时间
                 mBeginDate = string2Date(time);
-                Log.d(TAG, mBeginDate.toString());
+                Log.i(TAG, "initDatePicker start:" + mBeginDate.toString());
                 btn_begin.setText(date2String(mBeginDate));
                 queryLog();
 
@@ -147,7 +156,7 @@ public class PTLogActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void handle(String time) {
                 mEndDate = string2Date(time);
-                Log.d(TAG, mEndDate.toString());
+                Log.i(TAG, "initDatePicker end:" + mEndDate.toString());
 
                 if (mEndDate.getTime() < mBeginDate.getTime()) {
                     mEndDate = new Date();
@@ -258,34 +267,19 @@ public class PTLogActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void logCountSelect() {
-        String[] types = {"10", "50", "100", "200", "500"};
+        final String[] types = getResources().getStringArray(R.array.logcounts);
         AlertDialog.Builder b = new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.log_count_dialog_title))
                 .setSingleChoiceItems(types, selectedLogCount, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+
                         selectedLogCount = which;
-                        switch (which) {
-                            case 0:
-                                mLimit = 10; // ALL
-                                break;
-                            case 1:
-                                mLimit = 50;
-                                break;
-                            case 2:
-                                mLimit = 100;
-                                break;
-                            case 3:
-                                mLimit = 200;
-                                break;
-                            case 4:
-                                mLimit = 500;
-                                break;
-                            default:
-                                break;
-                        }
+                        mLimit = Integer.valueOf(types[which]);
+
                         btn_count.setText(String.valueOf(mLimit));
+
                         // query the logs with the log level
                         queryLog();
                     }
@@ -294,22 +288,54 @@ public class PTLogActivity extends AppCompatActivity implements View.OnClickList
         b.create().show();
     }
 
+    private void logDelete() {
+        final String[] types = getResources().getStringArray(R.array.delete_times);
+        final int[] times = {ONE_DAY, 2 * ONE_DAY, 3 * ONE_DAY, 5 * ONE_DAY, 7 * ONE_DAY, 10 * ONE_DAY};
+        if (defaultDeleteTime == -1) {
+            defaultDeleteTime = times.length - 1;
+        }
+        AlertDialog.Builder b = new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.log_delete_dialog_title))
+                .setSingleChoiceItems(types, defaultDeleteTime, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        defaultDeleteTime = which;
+
+                        Log.d(TAG, "DELETE-->Level:" + level2String(mSelectedLogLevel) +
+                                "\ndate:" + types[which]);
+
+                        Date date = new Date(System.currentTimeMillis() - times[which]);
+                        int deleteLog = Logger.deleteLog(mSelectedLogLevel, date);
+
+                        Toast.makeText(getApplicationContext(), String.format(getString(R.string.delete_toast_text), deleteLog), Toast.LENGTH_SHORT).show();
+
+                        // query the logs with the log level
+                        queryLog();
+                    }
+                });
+
+        b.show();
+    }
+
     private void queryLog() {
-        Log.d(TAG, "Level:" + mSelectedLogLevel + " begin: "
-                + date2String(mBeginDate) + " start: "
-                + date2String(mEndDate) + " limit: "
-                + mLimit);
+        Log.d(TAG, "Level:" + level2String(mSelectedLogLevel) +
+                "\nbegin: " + date2String(mBeginDate) +
+                "\nstart: " + date2String(mEndDate) +
+                "\nlimit: " + mLimit);
+
         List<PTLogBean> logList = Logger.queryLog(mSelectedLogLevel, mBeginDate, mEndDate, mLimit);
+
         setLogContent(logList);
     }
 
     private String date2String(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat(DATE_PATTERN);
         return formatter.format(date);
     }
 
     private Date string2Date(String dateString) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN);
         Date date = null;
         try {
             date = sdf.parse(dateString);

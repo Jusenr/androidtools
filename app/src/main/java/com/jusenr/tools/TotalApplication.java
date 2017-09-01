@@ -7,6 +7,7 @@ import com.jusenr.tools.api.BaseApi;
 import com.jusenr.toolslibrary.AndroidTools;
 import com.jusenr.toolslibrary.log.logger.Logger;
 import com.jusenr.toolslibrary.utils.AppUtils;
+import com.squareup.leakcanary.LeakCanary;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -23,8 +24,17 @@ public class TotalApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         //API initialise.
         BaseApi.init();
+
+        //LeakCanary初始化
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
 
         //AndroidTools initialise.
         AndroidTools.init(getApplicationContext(), getLogTag());
@@ -38,7 +48,7 @@ public class TotalApplication extends Application {
         MobclickAgent.setDebugMode(BuildConfig.IS_TEST);
         MobclickAgent.setCatchUncaughtExceptions(true);
         MobclickAgent.openActivityDurationTrack(false);
-        Logger.i(umeng_appkey);
+
         Logger.i(umeng_channel);
 
         Logger.i(getCurPackageName());

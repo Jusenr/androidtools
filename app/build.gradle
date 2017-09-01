@@ -13,6 +13,7 @@ android {
         manifestPlaceholders rootProject.ext.androids.manifestPlaceholders
         //logcat日志TAG设置
         buildConfigField "String", "LOG_TAG", "\"${rootProject.ext.APP_LOG_TAG}\""
+        buildConfigField "String", "COMPILATION_TIME", "\"${rootProject.releaseTime("yyyy-MM-dd HH:mm")}\""
         //必须给出默认值，不然其他渠道包域名初始化为空
         buildConfigField "boolean", "IS_TEST", "false"
         buildConfigField "int", "HOST_NOW", "1"
@@ -106,7 +107,7 @@ android {
     applicationVariants.all {
         variant ->
             def apkFileName = rootProject.getVersionName()
-            def time = rootProject.releaseTime()
+            def time = rootProject.releaseTime("yyyy-MM-dd")
             variant.outputs.each {
                 output ->
                     def outputFile = output.outputFile
@@ -135,6 +136,10 @@ dependencies {
     testCompile rootProject.ext.dependencies.junit
     //查看App数据库使用(方法：1.放开注释 2.重新编译 3.使用'DebugDB'字段检索日志 4.访问检索到的连接，OK!)
     debugCompile rootProject.ext.dependencies.debug_db
+    //Leakcanary
+    debugCompile rootProject.ext.dependencies.leakcanary_android
+    testCompile rootProject.ext.dependencies.leakcanary_android_no_op
+    releaseCompile rootProject.ext.dependencies.leakcanary_android_no_op
 
     compile rootProject.ext.dependencies.constraint_layout
     compile rootProject.ext.dependencies.appcompat_v7

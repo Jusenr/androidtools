@@ -2,6 +2,7 @@
     <string name="app_name">Android工具库</string>
 
     <string name="logout">再按一次退出程序</string>
+    <string name="submit">提交</string>
 
     <string name="cancel">取消</string>
     <string name="confirm">确认</string>
@@ -30,22 +31,22 @@
     </plurals>
 
     <!--PTLog-->
-    <string name="btn_close">close</string>
-    <string name="btn_trace">trace</string>
-    <string name="btn_begin">begin</string>
-    <string name="btn_end">end</string>
-    <string name="btn_count">count</string>
-
+    <string name="btn_close">关闭</string>
+    <string name="btn_trace">级别</string>
+    <string name="btn_begin">开始</string>
+    <string name="btn_end">结束</string>
+    <string name="btn_count">数量</string>
+    <string name="btn_delete">删除</string>
     <string name="log_dialog_title">请选择日志级别</string>
     <string name="log_count_dialog_title">请选择显示日志数量</string>
-
+    <string name="log_delete_dialog_title">请选择删除时间</string>
+    <string name="delete_toast_text">删除了%d条数据</string>
     <string name="title">请选择时间</string>
     <string name="year">年</string>
     <string name="month">月</string>
     <string name="day">日</string>
     <string name="hour">时</string>
     <string name="minute">分</string>
-
     <string name="select_date">选择日期</string>
     <string name="current_date">当前日期</string>
     <string name="select_time">选择时间</string>
@@ -55,6 +56,6 @@
     <string name="man">男</string>
     <string name="woman">女</string>
 
-    <string name="submit">提交</string>
+
 
 </resources>

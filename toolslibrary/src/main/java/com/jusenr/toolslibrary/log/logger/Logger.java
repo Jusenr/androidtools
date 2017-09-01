@@ -27,7 +27,7 @@ public final class Logger {
     private Logger() {
         //no instance
     }
-    //-----------------------------------------------------------------------------------
+    //--------------------------------------↓-↓-↓-↓-↓--------------------------------
 
     public static int mDisk_log_level = ERROR;
     private static Context mContext = null;
@@ -58,12 +58,17 @@ public final class Logger {
         mContext.startActivity(intent);
     }
 
-    public static List<PTLogBean> queryLog(int priority, Date begin, Date end, int limit) {
+    public static List<PTLogBean> queryLog(@NonNull int priority, @NonNull Date begin, @NonNull Date end, @NonNull int limit) {
         List<PTLogBean> logList = mSqliteHelper.queryLog(priority, begin, end, limit);
         return logList;
     }
 
-    //-----------------------------------------------------------------------------------
+    public static int deleteLog(@NonNull int priority, @NonNull Date date) {
+        int deleteCount = mSqliteHelper.deleteLog(priority, date);
+        return deleteCount;
+    }
+
+    //--------------------------------------↑-↑-↑-↑-↑--------------------------------
 
     public static void printer(Printer printer) {
         Logger.printer = printer;

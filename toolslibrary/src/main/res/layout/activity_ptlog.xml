@@ -48,7 +48,7 @@
 
         <Button
             android:id="@+id/btn_close"
-            android:layout_width="60dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:background="@drawable/border_line"
             android:text="@string/btn_close"
@@ -59,7 +59,7 @@
 
         <Button
             android:id="@+id/btn_trace"
-            android:layout_width="60dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:background="@drawable/border_line"
             android:text="@string/btn_trace"
@@ -94,7 +94,7 @@
 
         <Button
             android:id="@+id/btn_count"
-            android:layout_width="60dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:background="@drawable/border_line"
             android:text="@string/btn_count"
@@ -102,6 +102,18 @@
             android:textSize="9sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
+
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/border_line"
+            android:text="@string/btn_delete"
+            android:textColor="@android:color/white"
+            android:textSize="9sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

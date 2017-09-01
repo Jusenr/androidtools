@@ -46,6 +46,13 @@
         <activity
             android:name="com.jusenr.toolslibrary.log.PTLogActivity"
             android:screenOrientation="portrait"/>
+
+        <!-- Leakcanary -->
+        <!--<service android:name="com.squareup.leakcanary.DisplayLeakService"/>-->
+        <!--<service android:name="com.squareup.leakcanary.internal.HeapAnalyzerService"/>-->
+
+        <!--<activity android:name="com.squareup.leakcanary.internal.DisplayLeakActivity"/>-->
+
     </application>
 
 </manifest>

@@ -21,20 +21,19 @@ public class PTSqliteHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "ptlog";
     public static final String TABLE_NAME = "t_log";
     public static final String COLUMN_ID = "id";
-    public static final String COLUMN_LEVEL ="level";
+    public static final String COLUMN_LEVEL = "level";
     public static final String COLUMN_CONTENT = "content";
     public static final String COLUMN_DATE = "date";
 
     private static final int DB_VERSION = 1;
 
     private PTSqliteHelper(Context context) {
-        super(context,DB_NAME,null,DB_VERSION);
+        super(context, DB_NAME, null, DB_VERSION);
     }
 
     private static PTSqliteHelper instance;
 
-    public static synchronized PTSqliteHelper getInstance(Context context)
-    {
+    public static synchronized PTSqliteHelper getInstance(Context context) {
         if (instance == null)
             instance = new PTSqliteHelper(context);
 
@@ -44,18 +43,17 @@ public class PTSqliteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         try {
-            String sql = "CREATE TABLE " +TABLE_NAME
-                    +"(" +COLUMN_ID+
+            String sql = "CREATE TABLE " + TABLE_NAME
+                    + "(" + COLUMN_ID +
                     " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    +COLUMN_LEVEL+
+                    + COLUMN_LEVEL +
                     " INTEGER, " +
-                    COLUMN_CONTENT+
-                    " VARCHAR, "+
-                    COLUMN_DATE+
+                    COLUMN_CONTENT +
+                    " VARCHAR, " +
+                    COLUMN_DATE +
                     " INTEGER);";
             sqLiteDatabase.execSQL(sql);
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             Log.d("PTSqliteHelper", ex.getMessage());
             return;
         }
@@ -68,30 +66,29 @@ public class PTSqliteHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public void insertLog(int priority, String message){
+    public void insertLog(int priority, String message) {
         SQLiteDatabase db = null;
         try {
             db = this.getWritableDatabase();
             ContentValues contentValues = new ContentValues();
 
-            contentValues.put(PTSqliteHelper.COLUMN_LEVEL,priority);
+            contentValues.put(PTSqliteHelper.COLUMN_LEVEL, priority);
             contentValues.put(PTSqliteHelper.COLUMN_CONTENT, message);
             contentValues.put(PTSqliteHelper.COLUMN_DATE, new Date().getTime());
 
             db.insert(TABLE_NAME, null, contentValues);
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             return;
         }
     }
 
-    public List<PTLogBean> queryLog(int priority, Date begin, Date end, int limit){
+    public List<PTLogBean> queryLog(int priority, Date begin, Date end, int limit) {
         SQLiteDatabase db = null;
         List<PTLogBean> logList = new ArrayList<PTLogBean>();
         try {
             db = this.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE level>=? and date>=? and date<? ORDER BY date DESC LIMIT ?",
-                    new String[] {
+            Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_LEVEL + ">=? AND " + COLUMN_DATE + ">=? AND " + COLUMN_DATE + "<? ORDER BY " + COLUMN_DATE + " DESC LIMIT ?",
+                    new String[]{
                             String.valueOf(priority),
                             String.valueOf(begin.getTime()),
                             String.valueOf(end.getTime()),
@@ -111,8 +108,7 @@ public class PTSqliteHelper extends SQLiteOpenHelper {
 
                 logList.add(logBean);
             }
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             return logList;
         }
 
@@ -120,5 +116,27 @@ public class PTSqliteHelper extends SQLiteOpenHelper {
         List<?> shallowCopy = logList.subList(0, logList.size());
         Collections.reverse(shallowCopy);
         return logList;
+    }
+
+    public int deleteLog(int priority, Date date) {
+        SQLiteDatabase db = null;
+        int deleteCount = -1;
+        try {
+            db = this.getReadableDatabase();
+            deleteCount = db.delete(TABLE_NAME,
+                    COLUMN_LEVEL + ">=? AND " + COLUMN_DATE + "<?",
+                    new String[]{
+                            String.valueOf(priority),
+                            String.valueOf(date.getTime()),
+                    });
+
+        } catch (SQLException ex) {
+            return deleteCount;
+        } finally {
+            if (db != null) {
+                db.close();
+            }
+        }
+        return deleteCount;
     }
 }

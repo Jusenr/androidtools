@@ -19,17 +19,28 @@ import com.jusenr.toolslibrary.utils.PreferenceUtils;
  */
 public final class AndroidTools {
 
-    public static void init(@NonNull Context context, @NonNull String logTag) {
-        //偏好文件初始化
+    public static void init(@NonNull Context context, @NonNull FormatStrategy formatStrategy, int logLevel) {
+        //Preference file initialization.
         PreferenceUtils.init(context);
-        //Logger日志输出
-        FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
+        //AndroidTools initialise.
+        //e.g.
+//        FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
 //                .showThreadInfo(false)  // (Optional) Whether to show thread info or not. Default true
 //                .methodCount(2)         // (Optional) How many method line to show. Default 2
 //                .methodOffset(7)        // (Optional) Hides internal method calls up to offset. Default 5
 //                .logStrategy(new LogcatLogStrategy()) // (Optional) Changes the log strategy to print out. Default LogCat
-                .tag(logTag)   // (Optional) Global tag for every log. Default PRETTY_LOGGER
+//                .tag("logtag")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
+//                .build();
+        Logger.init(context, formatStrategy, logLevel);
+    }
+
+    public static void init(@NonNull Context context, @NonNull String logtag) {
+        //Preference file initialization.
+        PreferenceUtils.init(context);
+        //AndroidTools initialise.
+        FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
+                .tag(logtag)
                 .build();
-        Logger.init(context, formatStrategy, Logger.DEBUG);
+        Logger.init(context, formatStrategy, Logger.VERBOSE);
     }
 }

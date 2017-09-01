@@ -17,4 +17,14 @@
         <item>周六</item>
     </string-array>
 
+    <!--delete_times-->
+    <array name="delete_times">
+        <item>1天前</item>
+        <item>2天前</item>
+        <item>3天前</item>
+        <item>5天前</item>
+        <item>7天前</item>
+        <item>10天前</item>
+    </array>
+
 </resources>

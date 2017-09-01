@@ -27,6 +27,7 @@
         <item>ASSERT</item>
     </string-array>
 
+    <!--color_level-->
     <array name="color_level">
         <item>#000000</item>
         <item>#CC9999</item>
@@ -34,6 +35,26 @@
         <item>#FFBB33</item>
         <item>#FF4444</item>
         <item>#AA66CC</item>
+    </array>
+
+    <!--logcounts-->
+    <array name="logcounts">
+        <item>"10"</item>
+        <item>"50"</item>
+        <item>"100"</item>
+        <item>"200"</item>
+        <item>"500"</item>
+        <item>"1000"</item>
+    </array>
+
+    <!--delete_times-->
+    <array name="delete_times">
+        <item>1 day ago</item>
+        <item>2 days ago</item>
+        <item>3 days ago</item>
+        <item>5 days ago</item>
+        <item>7 days ago</item>
+        <item>10 days ago</item>
     </array>
 
 </resources>

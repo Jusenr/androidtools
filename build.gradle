@@ -49,9 +49,10 @@ int gitVersionCode() {
     return count.isInteger() ? count.toInteger() : 0
 }
 
-// 获取当前时间
-def releaseTime() {
-    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+//获取当前时间
+def releaseTime(def format) {
+    return new Date().format(format)
 }
 
+//VersionCode赋值为git提交次数
 rootProject.ext.androids.versionCode = gitVersionCode()

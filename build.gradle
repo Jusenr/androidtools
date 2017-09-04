@@ -54,6 +54,9 @@ def getVersionName() {
 
 //git提交次数
 int gitVersionCode() {
+    if (System.getenv("CI_BUILD")) {
+        return rootProject.ext.androids.versionCode
+    }
     def count = "git rev-list HEAD --count".execute().text.trim()
     return count.isInteger() ? count.toInteger() : 0
 }

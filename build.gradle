@@ -19,6 +19,14 @@ allprojects {
     repositories {
         jcenter()
         maven { url "https://jitpack.io" }
+        //aar本地库依赖
+        flatDir {
+            dirs 'libs'
+        }
+    }
+    //设置统一编码
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
     }
 }
 

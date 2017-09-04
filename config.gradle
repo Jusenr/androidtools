@@ -26,7 +26,7 @@ ext {
             junitVersion         : "4.12",
             debugDbVersion       : "1.0.0",
             leakcanaryVersion    : "1.5.1",
-            androidtoolsVersion  : "1.+",
+            androidtoolsVersion  : "1.3.+",
 
             constraintVersion    : "1.0.2",
             androidSupportVersion: "26.+",

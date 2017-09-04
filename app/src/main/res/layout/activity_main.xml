@@ -14,39 +14,45 @@
         android:layout_centerInParent="true"
         android:text="Hello World!"/>
 
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:text="Logger show"/>
+
     <LinearLayout
         android:id="@+id/ll_0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_text"
+        android:gravity="center"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_text"
+        <Button
+            android:id="@+id/btn_debug"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:text="Hello World!"/>
+            android:text="debug"/>
 
-        <TextView
-            android:id="@+id/tv_text1"
+        <Button
+            android:id="@+id/btn_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:text="Hello World!"/>
+            android:text="info"/>
 
-        <TextView
-            android:id="@+id/tv_text2"
+        <Button
+            android:id="@+id/btn_warn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:text="Hello World!"/>
+            android:text="warn"/>
 
-        <TextView
-            android:id="@+id/tv_text3"
+        <Button
+            android:id="@+id/btn_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:text="Hello World!"/>
+            android:text="error"/>
 
     </LinearLayout>
 
@@ -54,34 +60,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_0"
+        android:gravity="center"
         android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Hello World!"/>
+
+        <TextView
+            android:id="@+id/tv_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Hello World!"/>
+
+        <TextView
+            android:id="@+id/tv_text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Hello World!"/>
 
         <TextView
             android:id="@+id/tv_text4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:text="Hello World!"/>
-
-        <TextView
-            android:id="@+id/tv_text5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:text="Hello World!"/>
-
-        <TextView
-            android:id="@+id/tv_text6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:text="Hello World!"/>
-
-        <TextView
-            android:id="@+id/tv_text7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_margin="10dp"
             android:text="Hello World!"/>
 
     </LinearLayout>

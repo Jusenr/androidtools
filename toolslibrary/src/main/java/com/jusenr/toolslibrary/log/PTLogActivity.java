@@ -30,7 +30,7 @@ import java.util.Locale;
 /**
  * Log view page
  */
-public class PTLogActivity extends AppCompatActivity implements View.OnClickListener {
+public class PTLogActivity extends AppCompatActivity {
     private static final String TAG = PTLogActivity.class.getSimpleName();
     private static final String DATE_PATTERN = "yyyy-MM-dd HH:mm";
     private static final int ONE_DAY = 24 * 60 * 60 * 1000;
@@ -77,50 +77,62 @@ public class PTLogActivity extends AppCompatActivity implements View.OnClickList
         super.onDestroy();
     }
 
-    @Override
-    public void onClick(View view) {
-        int i = view.getId();
-        if (i == R.id.btn_close) {
-            finish();
-        } else if (i == R.id.btn_trace) {
-            logLevelSelect();
-        } else if (i == R.id.btn_begin) {
-            SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN, Locale.CHINA);
-            String dataStr = sdf.format(mBeginDate);
-            mDatePicker_begin.show(dataStr);
-        } else if (i == R.id.btn_end) {
-            SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN, Locale.CHINA);
-            String dataStr = sdf.format(mEndDate);
-            mDatePicker_end.show(dataStr);
-        } else if (i == R.id.btn_count) {
-            logCountSelect();
-        } else if (i == R.id.btn_delete) {
-            logDelete();
-        }
-    }
-
     private void initUI() {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
 
         btn_close = (Button) this.findViewById(R.id.btn_close);
-        btn_close.setOnClickListener(this);
+        btn_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         btn_trace = (Button) this.findViewById(R.id.btn_trace);
-        btn_trace.setOnClickListener(this);
+        btn_trace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logLevelSelect();
+            }
+        });
 
         btn_begin = (Button) this.findViewById(R.id.btn_begin);
-        btn_begin.setOnClickListener(this);
+        btn_begin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN, Locale.CHINA);
+                String dataStr = sdf.format(mBeginDate);
+                mDatePicker_begin.show(dataStr);
+            }
+        });
 
         btn_end = (Button) this.findViewById(R.id.btn_end);
-        btn_end.setOnClickListener(this);
+        btn_end.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN, Locale.CHINA);
+                String dataStr = sdf.format(mEndDate);
+                mDatePicker_end.show(dataStr);
+            }
+        });
 
         btn_count = (Button) this.findViewById(R.id.btn_count);
-        btn_count.setOnClickListener(this);
+        btn_count.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logCountSelect();
+            }
+        });
 
         btn_delete = (Button) this.findViewById(R.id.btn_delete);
-        btn_delete.setOnClickListener(this);
+        btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logDelete();
+            }
+        });
 
         tv_content = (TextView) this.findViewById(R.id.tv_content);
         sv_scroll = (ScrollView) this.findViewById(R.id.sv_scroll);
@@ -290,9 +302,9 @@ public class PTLogActivity extends AppCompatActivity implements View.OnClickList
 
     private void logDelete() {
         final String[] types = getResources().getStringArray(R.array.delete_times);
-        final int[] times = {ONE_DAY, 2 * ONE_DAY, 3 * ONE_DAY, 5 * ONE_DAY, 7 * ONE_DAY, 10 * ONE_DAY};
+        final int[] times = {ONE_DAY, 2 * ONE_DAY, 3 * ONE_DAY, 5 * ONE_DAY, 7 * ONE_DAY, 10 * ONE_DAY, 0};
         if (defaultDeleteTime == -1) {
-            defaultDeleteTime = times.length - 1;
+            defaultDeleteTime = times.length - 2;
         }
         AlertDialog.Builder b = new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.log_delete_dialog_title))
@@ -302,13 +314,17 @@ public class PTLogActivity extends AppCompatActivity implements View.OnClickList
                         dialog.dismiss();
                         defaultDeleteTime = which;
 
-                        Log.d(TAG, "DELETE-->Level:" + level2String(mSelectedLogLevel) +
-                                "\ndate:" + types[which]);
-
                         Date date = new Date(System.currentTimeMillis() - times[which]);
-                        int deleteLog = Logger.deleteLog(mSelectedLogLevel, date);
+                        int deleteLogCount = -1;
+                        if (which == (times.length - 1)) {
+                            Log.d(TAG, "DELETE-->Level:" + level2String(Logger.VERBOSE) + "\ndate:" + types[which]);
+                            deleteLogCount = Logger.deleteLog(Logger.VERBOSE, date);
+                        } else {
+                            Log.d(TAG, "DELETE-->Level:" + level2String(mSelectedLogLevel) + "\ndate:" + types[which]);
+                            deleteLogCount = Logger.deleteLog(mSelectedLogLevel, date);
+                        }
 
-                        Toast.makeText(getApplicationContext(), String.format(getString(R.string.delete_toast_text), deleteLog), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), String.format(getString(R.string.delete_toast_text), deleteLogCount), Toast.LENGTH_SHORT).show();
 
                         // query the logs with the log level
                         queryLog();

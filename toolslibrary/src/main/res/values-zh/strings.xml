@@ -37,7 +37,7 @@
     <string name="btn_end">结束</string>
     <string name="btn_count">数量</string>
     <string name="btn_delete">删除</string>
-    <string name="log_dialog_title">请选择日志级别</string>
+    <string name="log_level_dialog_title">请选择日志级别</string>
     <string name="log_count_dialog_title">请选择显示日志数量</string>
     <string name="log_delete_dialog_title">请选择删除时间</string>
     <string name="delete_toast_text">删除了%d条数据</string>
@@ -55,7 +55,6 @@
     <!--gender-->
     <string name="man">男</string>
     <string name="woman">女</string>
-
 
 
 </resources>

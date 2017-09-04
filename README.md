@@ -75,6 +75,22 @@ Thanks to Guchenkai, Trinea, Riven_chris, Zengshengwen, Leo, Sunnybear, Liuwan, 
 
 ---
 
+#### Possible solutions to the problem ####
+
+   1. Support packet conflict problem
+
+   Add Build.gradle to the project: The version is the current version of your project.
+
+        subprojects {
+            configurations.all {
+                resolutionStrategy {
+                    force 'com.android.support:support-xx:xx.x.x'
+                }
+            }
+        }
+
+---
+
 #### License ####
 
 Apache License Version 2.0, January 2004

@@ -62,3 +62,6 @@ artifacts {
     archives sourcesJar
     archives javadocJar
 }
+
+//have bug
+//apply from: '../bintray.gradle'

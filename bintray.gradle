@@ -3,7 +3,7 @@ version = PROJ_VERSION
 project.archivesBaseName = PROJ_ARTIFACTID
 
 apply plugin: 'com.jfrog.bintray'
-apply plugin: 'maven-publish'
+//apply plugin: 'maven-publish'
 
 // build a jar with source files
 task sourcesJar(type: Jar) {
@@ -38,71 +38,109 @@ artifacts {
     archives sourcesJar
 }
 
-def pomConfig = {
-    licenses {
-        license {
-            name "The Apache Software License, Version 2.0"
-            url "http://www.apache.org/licenses/LICENSE-2.0.txt"
-            distribution "repo"
-        }
-    }
-    developers {
-        developer {
-            id DEVELOPER_ID
-            name DEVELOPER_NAME
-            email DEVELOPER_EMAIL
-        }
-    }
-    //这里有引号，并且有个空格，否则生成不了依赖，主要是这里的dependencies并不是build.gradle里的dependencies，而gradle会把他当成自身的dependencies处理
-    "dependencies " {
-        dependency {
-            groupId "com.android.support.constraint"
-            artifactId "constraint-layout"
-            "version " "1.0.2"
-            //同dependencies
-        }
-        dependency {
-            groupId "com.android.support"
-            artifactId "appcompat-v7"
-            "version " "26.+"
-        }
-        dependency {
-            groupId "com.android.support"
-            artifactId "cardview-v7"
-            "version " "26.+"
-        }
-        dependency {
-            groupId "com.google.code.gson"
-            artifactId "gson"
-            "version " "2.4"
-        }
-        dependency {
-            groupId "com.google.zxing"
-            artifactId "core"
-            "version " "3.3.0"
-        }
-        dependency {
-            groupId "org.simple"
-            artifactId "androideventbus"
-            "version " "1.0.5.1"
-        }
-    }
-}
+//def pomConfig = {
+//    licenses {
+//        license {
+//            name "The Apache Software License, Version 2.0"
+//            url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+//            distribution "repo"
+//        }
+//    }
+//    developers {
+//        developer {
+//            id DEVELOPER_ID
+//            name DEVELOPER_NAME
+//            email DEVELOPER_EMAIL
+//        }
+//    }
+//    //这里有引号，并且有个空格，否则生成不了依赖，主要是这里的dependencies并不是build.gradle里的dependencies，而gradle会把他当成自身的dependencies处理
+//    "dependencies " {
+//        dependency {
+//            groupId "com.android.support.constraint"
+//            artifactId "constraint-layout"
+//            "version " "1.0.2"
+//            //同dependencies
+//        }
+//        dependency {
+//            groupId "com.android.support"
+//            artifactId "appcompat-v7"
+//            "version " "26.+"
+//        }
+//        dependency {
+//            groupId "com.android.support"
+//            artifactId "cardview-v7"
+//            "version " "26.+"
+//        }
+//        dependency {
+//            groupId "com.google.code.gson"
+//            artifactId "gson"
+//            "version " "2.4"
+//        }
+//        dependency {
+//            groupId "com.google.zxing"
+//            artifactId "core"
+//            "version " "3.3.0"
+//        }
+//        dependency {
+//            groupId "org.simple"
+//            artifactId "androideventbus"
+//            "version " "1.0.5.1"
+//        }
+//    }
+//}
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifactId PROJ_ARTIFACTID
+//publishing {
+//    publications {
+//        mavenJava(MavenPublication) {
+//            artifactId PROJ_ARTIFACTID
+//
+//            pom {
+//                packaging 'aar'
+//            }
+//            pom.withXml {
+//                def root = asNode()
+//                root.appendNode('description', PROJ_DESCRIPTION)
+//                root.children().last() + pomConfig
+//            }
+//        }
+//    }
+//}
 
-            pom {
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
                 packaging 'aar'
-            }
-            pom.withXml {
-                def root = asNode()
-                root.appendNode('description', PROJ_DESCRIPTION)
-                root.children().last() + pomConfig
+                name PROJ_NAME
+                // #CONFIG# // project title
+                url PROJ_WEBSITEURL
+                // Set your license
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id DEVELOPER_ID
+                        name DEVELOPER_NAME
+                        email DEVELOPER_EMAIL
+                    }
+                }
+                scm {
+                    connection PROJ_VCSURL
+                    developerConnection PROJ_VCSURL
+                    url PROJ_WEBSITEURL
+                }
             }
         }
+//        pom.withXml {
+//            def root = asNode()
+//            root.appendNode('description', PROJ_DESCRIPTION)
+////            root.children().last() + pomConfig
+//        }
     }
 }
 
@@ -113,11 +151,9 @@ bintray {
     user = properties.getProperty('BINTRAY_USER');
     key = properties.getProperty('BINTRAY_KEY');
 
-
-
     configurations = ['archives']
-    publications = ['mavenJava']
-    publish = true
+//    publications = ['mavenJava']
+//    publish = true
 
     pkg {
         repo = 'maven'
@@ -127,6 +163,7 @@ bintray {
         issueTrackerUrl = PROJ_ISSUETRACKERURL
         vcsUrl = PROJ_VCSURL
         licenses = ['Apache-2.0']
-        publicDownloadNumbers = true
+//        publicDownloadNumbers = true
+        publish = true
     }
 }

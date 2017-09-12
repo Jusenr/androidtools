@@ -35,12 +35,9 @@ public final class AndroidTools {
     }
 
     public static void init(@NonNull Context context, @NonNull String logtag) {
-        //Preference file initialization.
-        PreferenceUtils.init(context);
-        //AndroidTools initialise.
         FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
                 .tag(logtag)
                 .build();
-        Logger.init(context, formatStrategy, Logger.VERBOSE);
+        init(context, formatStrategy, Logger.VERBOSE);
     }
 }

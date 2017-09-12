@@ -12,7 +12,7 @@
     </application>
 
     <activity
-        android:name=".log.PTLogActivity"
+        android:name="com.jusenr.toolslibrary.log.PTLogActivity"
         android:screenOrientation="portrait"/>
 
 </manifest>

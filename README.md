@@ -5,13 +5,19 @@ Android Some of the tools used in development.
 
 [![](https://jitpack.io/v/Jusenr/androidtools.svg)](https://jitpack.io/#Jusenr/androidtools)
 
+<a href='https://bintray.com/jusenr/maven/androidtools?source=watch' alt='Get automatic notifications about new "androidtools" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a>
+
 #### To get a Git project into your build: ####
 
 ---
 
->Step 1. Add the JitPack repository to your build file
+#####  #####
 
-Add it in your root build.gradle at the end of repositories:
+>Step 1. Dependent Manner
+
+ The First： Add the JitPack repository to your build file
+
+(1) Add it in your root build.gradle at the end of repositories:
 
     allprojects {
             repositories {
@@ -19,14 +25,24 @@ Add it in your root build.gradle at the end of repositories:
                 maven { url 'https://jitpack.io' }
             }
     }
->Step 2. Add the dependency
 
-    dependencies {
+ (2) Add the dependency
+
+        dependencies {
          ...
-         compile 'com.github.Jusenr:androidtools:1.3.2'
-    }
+        compile 'com.github.Jusenr:androidtools:1.3.2'
+        }
 
 ---
+
+  The Second: Add the dependency
+
+          dependencies {
+           ...
+          compile 'com.jusenr.android.library:androidtools:1.3.2'
+          }
+
+-----
 
 >Step 3. Add required permissions
 

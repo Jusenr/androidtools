@@ -1,7 +1,7 @@
 ext {
-    APP_LOG_TAG = "jusenr_tools_log"//app打印日志的tag
+    APP_LOG_TAG = "jusenr_tools_log"//App print log tag
 
-    VERSION_NUM = 0 //内部测试使用的小版本号
+    VERSION_NUM = 0 //Small version number used for internal testing
 
     plugins = [
             application: "com.android.application",

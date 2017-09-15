@@ -10,7 +10,7 @@ import android.view.WindowManager;
 import java.lang.reflect.Method;
 
 /**
- * Description: dp与px转换工具
+ * Description: DP and PX conversion tools class
  * Copyright  : Copyright (c) 2017
  * Email      : jusenr@163.com
  * Author     : Jusenr
@@ -22,33 +22,33 @@ public final class DensityUtils {
     public static final String TAG = DensityUtils.class.getSimpleName();
 
     /**
-     * dp转px
+     * DP turn PX
      *
      * @param context context
-     * @param dpValue dp值
-     * @return px值
+     * @param dpValue dp value
+     * @return px value
      */
     public static int dp2px(Context context, float dpValue) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, context.getResources().getDisplayMetrics());
     }
 
     /**
-     * sp转px
+     * SP turn PX
      *
      * @param context context
-     * @param spValue sp值
-     * @return px值
+     * @param spValue sp value
+     * @return px value
      */
     public static int sp2px(Context context, float spValue) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spValue, context.getResources().getDisplayMetrics());
     }
 
     /**
-     * px转dp
+     * PX turn DP
      *
      * @param context context
-     * @param pxValue px值
-     * @return dp值
+     * @param pxValue px value
+     * @return dp value
      */
     public static float px2dp(Context context, float pxValue) {
         float scale = context.getResources().getDisplayMetrics().density;
@@ -56,11 +56,11 @@ public final class DensityUtils {
     }
 
     /**
-     * px转sp
+     * PX turn sp
      *
      * @param context context
-     * @param pxValue px值
-     * @return dp值
+     * @param pxValue px value
+     * @return dp value
      */
     public static float px2sp(Context context, float pxValue) {
         float scale = context.getResources().getDisplayMetrics().density;
@@ -68,32 +68,32 @@ public final class DensityUtils {
     }
 
     /**
-     * 获取屏幕宽度
+     * Get screen width
      *
-     * @param context
-     * @return
+     * @param context context
+     * @return screen width
      */
-    public static int getScreenW(Context context) {
+    public static int getScreenWidth(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         return wm.getDefaultDisplay().getWidth();
     }
 
     /**
-     * 获取屏幕高度
+     * Get screen height
      *
-     * @param context
-     * @return
+     * @param context context
+     * @return screen height
      */
-    public static int getScreenH(Context context) {
+    public static int getScreenHeight(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         return wm.getDefaultDisplay().getHeight();
     }
 
     /**
-     * 获得设备的屏幕宽度
+     * Gets the screen width of the device
      *
-     * @param context
-     * @return
+     * @param context context
+     * @return screen width of the device
      */
     public static int getDeviceWidth(Context context) {
         WindowManager manager = (WindowManager) context
@@ -102,10 +102,10 @@ public final class DensityUtils {
     }
 
     /**
-     * 获得设备的屏幕高度
+     * Gets the screen height of the device
      *
-     * @param context
-     * @return
+     * @param context context
+     * @return screen height of the device
      */
     public static int getDeviceHeight(Context context) {
         WindowManager manager = (WindowManager) context
@@ -121,10 +121,10 @@ public final class DensityUtils {
     }
 
     /**
-     * 获取屏幕参数(单位：px)
+     * Get screen parameters (unit: PX)
      *
-     * @param context
-     * @return
+     * @param context context
+     * @return screen parameters
      */
     public static Screen getScreenPixels(Context context) {
         DisplayMetrics dm = new DisplayMetrics();
@@ -150,7 +150,10 @@ public final class DensityUtils {
     }
 
     /**
-     * 获取虚拟功能键高度
+     * Gets the virtual function key height
+     *
+     * @param context context
+     * @return virtual function key height
      */
     public static int getVirtualBarHeigh(Context context) {
         int vh = 0;

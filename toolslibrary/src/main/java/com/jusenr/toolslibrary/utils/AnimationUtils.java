@@ -76,7 +76,7 @@ public final class AnimationUtils {
     /**
      * Gets an animation that rotates according to the center of the view itself
      *
-     * @return An animation that rotates according to the center，The default duration is 400ms.
+     * @return An animation that rotates according to the center, The default duration is 400ms.
      */
     public static RotateAnimation getRotateAnimationByCenter() {
         return getRotateAnimationByCenter(DEFAULT_ANIMATION_DURATION, null);
@@ -85,11 +85,11 @@ public final class AnimationUtils {
     /**
      * Gets a transparency gradient animation
      *
-     * @param fromAlpha         开始时的透明度
-     * @param toAlpha           结束时的透明度都
-     * @param durationMillis    持续时间
-     * @param animationListener 动画监听器
-     * @return 一个透明度渐变动画
+     * @param fromAlpha         Transparency at the beginning
+     * @param toAlpha           Transparency at the end
+     * @param durationMillis    duration
+     * @param animationListener Animation monitor
+     * @return A transparency gradient animation
      */
     public static AlphaAnimation getAlphaAnimation(float fromAlpha, float toAlpha, long durationMillis, Animation.AnimationListener animationListener) {
         AlphaAnimation alphaAnimation = new AlphaAnimation(fromAlpha, toAlpha);
@@ -99,139 +99,127 @@ public final class AnimationUtils {
         return alphaAnimation;
     }
 
-
     /**
-     * 获取一个透明度渐变动画
+     * Gets a transparency gradient animation
      *
-     * @param fromAlpha      开始时的透明度
-     * @param toAlpha        结束时的透明度都
-     * @param durationMillis 持续时间
-     * @return 一个透明度渐变动画
+     * @param fromAlpha      Transparency at the beginning
+     * @param toAlpha        Transparency at the end
+     * @param durationMillis duration
+     * @return A transparency gradient animation
      */
     public static AlphaAnimation getAlphaAnimation(float fromAlpha, float toAlpha, long durationMillis) {
         return getAlphaAnimation(fromAlpha, toAlpha, durationMillis, null);
     }
 
-
     /**
-     * 获取一个透明度渐变动画
+     * Gets a transparency gradient animation
      *
-     * @param fromAlpha         开始时的透明度
-     * @param toAlpha           结束时的透明度都
-     * @param animationListener 动画监听器
-     * @return 一个透明度渐变动画，默认持续时间为DEFAULT_ANIMATION_DURATION
+     * @param fromAlpha         Transparency at the beginning
+     * @param toAlpha           Transparency at the end
+     * @param animationListener Animation monitor
+     * @return A transparency gradient animation, The default duration is 400ms.
      */
     public static AlphaAnimation getAlphaAnimation(float fromAlpha, float toAlpha, Animation.AnimationListener animationListener) {
         return getAlphaAnimation(fromAlpha, toAlpha, DEFAULT_ANIMATION_DURATION, animationListener);
     }
 
-
     /**
-     * 获取一个透明度渐变动画
+     * Gets a transparency gradient animation
      *
-     * @param fromAlpha 开始时的透明度
-     * @param toAlpha   结束时的透明度都
-     * @return 一个透明度渐变动画，默认持续时间为DEFAULT_ANIMATION_DURATION
+     * @param fromAlpha Transparency at the beginning
+     * @param toAlpha   Transparency at the end
+     * @return A transparency gradient animation, The default duration is 400ms.
      */
     public static AlphaAnimation getAlphaAnimation(float fromAlpha, float toAlpha) {
         return getAlphaAnimation(fromAlpha, toAlpha, DEFAULT_ANIMATION_DURATION, null);
     }
 
-
     /**
-     * 获取一个由完全显示变为不可见的透明度渐变动画
+     * Gets a transparency gradient animation that changes from full display to invisible.
      *
-     * @param durationMillis    持续时间
-     * @param animationListener 动画监听器
-     * @return 一个由完全显示变为不可见的透明度渐变动画
+     * @param durationMillis    duration
+     * @param animationListener Animation monitor
+     * @return A transparent gradient animation that changes from full display to invisible.
      */
     public static AlphaAnimation getHiddenAlphaAnimation(long durationMillis, Animation.AnimationListener animationListener) {
         return getAlphaAnimation(1.0f, 0.0f, durationMillis, animationListener);
     }
 
-
     /**
-     * 获取一个由完全显示变为不可见的透明度渐变动画
+     * Gets a transparency gradient animation that changes from full display to invisible.
      *
-     * @param durationMillis 持续时间
-     * @return 一个由完全显示变为不可见的透明度渐变动画
+     * @param durationMillis duration
+     * @return A transparent gradient animation that changes from full display to invisible.
      */
     public static AlphaAnimation getHiddenAlphaAnimation(long durationMillis) {
         return getHiddenAlphaAnimation(durationMillis, null);
     }
 
-
     /**
-     * 获取一个由完全显示变为不可见的透明度渐变动画
+     * Gets a transparency gradient animation that changes from full display to invisible.
      *
-     * @param animationListener 动画监听器
-     * @return 一个由完全显示变为不可见的透明度渐变动画，默认持续时间为DEFAULT_ANIMATION_DURATION
+     * @param animationListener Animation monitor
+     * @return A transparent gradient animation that changes from full display to invisible, The default duration is 400ms.
      */
     public static AlphaAnimation getHiddenAlphaAnimation(Animation.AnimationListener animationListener) {
         return getHiddenAlphaAnimation(DEFAULT_ANIMATION_DURATION, animationListener);
     }
 
-
     /**
-     * 获取一个由完全显示变为不可见的透明度渐变动画
+     * Gets a transparency gradient animation that changes from full display to invisible.
      *
-     * @return 一个由完全显示变为不可见的透明度渐变动画，默认持续时间为DEFAULT_ANIMATION_DURATION
+     * @return A transparent gradient animation that changes from full display to invisible,The default duration is 400ms.
      */
     public static AlphaAnimation getHiddenAlphaAnimation() {
         return getHiddenAlphaAnimation(DEFAULT_ANIMATION_DURATION, null);
     }
 
-
     /**
-     * 获取一个由不可见变为完全显示的透明度渐变动画
+     * Gets a transparency gradient animation that changes from invisible to full display.
      *
-     * @param durationMillis    持续时间
-     * @param animationListener 动画监听器
-     * @return 一个由不可见变为完全显示的透明度渐变动画
+     * @param durationMillis    duration
+     * @param animationListener Animation monitor
+     * @return A transparent gradient animation that changes from invisible to full display.
      */
     public static AlphaAnimation getShowAlphaAnimation(long durationMillis, Animation.AnimationListener animationListener) {
         return getAlphaAnimation(0.0f, 1.0f, durationMillis, animationListener);
     }
 
-
     /**
-     * 获取一个由不可见变为完全显示的透明度渐变动画
+     * Gets a transparency gradient animation that changes from invisible to full display.
      *
-     * @param durationMillis 持续时间
-     * @return 一个由不可见变为完全显示的透明度渐变动画
+     * @param durationMillis duration
+     * @return A transparent gradient animation that changes from invisible to full display.
      */
     public static AlphaAnimation getShowAlphaAnimation(long durationMillis) {
         return getAlphaAnimation(0.0f, 1.0f, durationMillis, null);
     }
 
-
     /**
-     * 获取一个由不可见变为完全显示的透明度渐变动画
+     * Gets a transparency gradient animation that changes from invisible to full display.
      *
-     * @param animationListener 动画监听器
-     * @return 一个由不可见变为完全显示的透明度渐变动画，默认持续时间为DEFAULT_ANIMATION_DURATION
+     * @param animationListener Animation monitor
+     * @return A transparent gradient animation that changes from invisible to full display, The default duration is 400ms.
      */
     public static AlphaAnimation getShowAlphaAnimation(Animation.AnimationListener animationListener) {
         return getAlphaAnimation(0.0f, 1.0f, DEFAULT_ANIMATION_DURATION, animationListener);
     }
 
-
     /**
-     * 获取一个由不可见变为完全显示的透明度渐变动画
+     * Gets a transparency gradient animation that changes from invisible to full display.
      *
-     * @return 一个由不可见变为完全显示的透明度渐变动画，默认持续时间为DEFAULT_ANIMATION_DURATION
+     * @return A transparent gradient animation that changes from invisible to full display, The default duration is 400ms.
      */
     public static AlphaAnimation getShowAlphaAnimation() {
         return getAlphaAnimation(0.0f, 1.0f, DEFAULT_ANIMATION_DURATION, null);
     }
 
-
     /**
-     * 获取一个缩小动画
+     * Get a shrink animation
      *
-     * @param durationMillis    时间
-     * @param animationListener 监听
-     * @return 一个缩小动画
+     * @param durationMillis    duration
+     * @param animationListener Animation monitor
+     * @return A shrink animation
      */
     public static ScaleAnimation getLessenScaleAnimation(long durationMillis, Animation.AnimationListener animationListener) {
         ScaleAnimation scaleAnimation = new ScaleAnimation(1.0f, 0.0f, 1.0f,
@@ -242,35 +230,32 @@ public final class AnimationUtils {
         return scaleAnimation;
     }
 
-
     /**
-     * 获取一个缩小动画
+     * Get a shrink animation
      *
-     * @param durationMillis 时间
-     * @return 一个缩小动画
+     * @param durationMillis duration
+     * @return A shrink animation
      */
     public static ScaleAnimation getLessenScaleAnimation(long durationMillis) {
         return getLessenScaleAnimation(durationMillis, null);
     }
 
-
     /**
-     * 获取一个缩小动画
+     * Get a shrink animation
      *
-     * @param animationListener 监听
-     * @return 返回一个缩小的动画
+     * @param animationListener Animation monitor
+     * @return A shrink animation
      */
     public static ScaleAnimation getLessenScaleAnimation(Animation.AnimationListener animationListener) {
         return getLessenScaleAnimation(DEFAULT_ANIMATION_DURATION, animationListener);
     }
 
-
     /**
-     * 获取一个放大动画
+     * Get an enlarged animation
      *
-     * @param durationMillis    时间
-     * @param animationListener 监听
-     * @return 返回一个放大的效果
+     * @param durationMillis    duration
+     * @param animationListener Animation monitor
+     * @return An enlarged animation
      */
     public static ScaleAnimation getAmplificationAnimation(long durationMillis, Animation.AnimationListener animationListener) {
         ScaleAnimation scaleAnimation = new ScaleAnimation(0.0f, 1.0f, 0.0f,
@@ -281,30 +266,28 @@ public final class AnimationUtils {
         return scaleAnimation;
     }
 
-
     /**
-     * 获取一个放大动画
+     * Get an enlarged animation
      *
-     * @param durationMillis 时间
-     * @return 返回一个放大的效果
+     * @param durationMillis duration
+     * @return An enlarged animation
      */
     public static ScaleAnimation getAmplificationAnimation(long durationMillis) {
         return getAmplificationAnimation(durationMillis, null);
     }
 
-
     /**
-     * 获取一个放大动画
+     * Get an enlarged animation
      *
-     * @param animationListener 监听
-     * @return 返回一个放大的效果
+     * @param animationListener Animation monitor
+     * @return An enlarged animation
      */
     public static ScaleAnimation getAmplificationAnimation(Animation.AnimationListener animationListener) {
         return getAmplificationAnimation(DEFAULT_ANIMATION_DURATION, animationListener);
     }
 
     /**
-     * 获取一个动画集合
+     * Get an animation collection
      *
      * @return
      */

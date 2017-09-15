@@ -34,25 +34,25 @@ import java.util.regex.Pattern;
 import javax.security.auth.x500.X500Principal;
 
 /**
- * App信息工具
+ * App information tool class
  * Created by guchenkai on 2015/11/25.
  */
 public final class AppUtils {
 
     /**
-     * 获取设备Id
+     * Get device Id
      *
      * @param context context
-     * @return 设备Id
+     * @return device Id
      */
     public static String getRealDeviceId(Context context) {
         return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
     /**
-     * 获取手机IMEI号
+     * Access to mobile phone IMEI number, you need access to mobile phone information permissions.
      *
-     * @param context
+     * @param context context
      */
     public static String getIMEI(Context context) {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(context.TELEPHONY_SERVICE);
@@ -62,9 +62,9 @@ public final class AppUtils {
     }
 
     /**
-     * 获取手机IMSI号
+     * Access to mobile phone IMSI number, you need access to mobile phone information permissions.
      *
-     * @param context
+     * @param context context
      */
     public static String getIMSI(Context context) {
         TelephonyManager mTelephonyMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -74,21 +74,21 @@ public final class AppUtils {
     }
 
     /**
-     * 获取设备名称
+     * Get device name
      */
     public static String getDeviceName() {
         return android.os.Build.MODEL;
     }
 
     /**
-     * 获取应用程序的名字
+     * Gets the name of the application
      *
-     * @param context
-     * @param packname 应用包名
+     * @param context  context
+     * @param packname Application package name
      * @return
      */
     public String getAppName(Context context, String packname) {
-        //包管理操作管理类
+        //Package management operations management class
         PackageManager pm = context.getPackageManager();
         try {
             ApplicationInfo info = pm.getApplicationInfo(packname, 0);
@@ -101,13 +101,13 @@ public final class AppUtils {
     }
 
     /**
-     * 获取当前应用程序的名字
+     * Gets the name of the current application
      *
-     * @param context
+     * @param context context
      * @return
      */
     public String getAppName(Context context) {
-        //包管理操作管理类
+        //Package management operations management class
         PackageManager pm = context.getPackageManager();
         try {
             ApplicationInfo info = pm.getApplicationInfo(context.getPackageName(), 0);
@@ -120,16 +120,16 @@ public final class AppUtils {
     }
 
     /**
-     * 获取当前应用程序图标
+     * Get the application icon
      *
-     * @param context
-     * @return
+     * @param context context
+     * @return The application icon
      */
     public Drawable getAppIcon(Context context) {
         try {
-            //包管理操作管理类
+            //Package management operations management class
             PackageManager pm = context.getPackageManager();
-            //获取到应用信息
+            //Get the application information
             ApplicationInfo info = pm.getApplicationInfo(context.getPackageName(), 0);
             return info.loadIcon(pm);
         } catch (PackageManager.NameNotFoundException e) {
@@ -139,17 +139,17 @@ public final class AppUtils {
     }
 
     /**
-     * 获取应用程序图标
+     * Get the application icon
      *
-     * @param context
-     * @param packname 应用包名
-     * @return
+     * @param context  context
+     * @param packname Application package name
+     * @return The application icon
      */
     public Drawable getAppIcon(Context context, String packname) {
         try {
-            //包管理操作管理类
+            //Package management operations management class
             PackageManager pm = context.getPackageManager();
-            //获取到应用信息
+            //Get the application information
             ApplicationInfo info = pm.getApplicationInfo(packname, 0);
             return info.loadIcon(pm);
         } catch (PackageManager.NameNotFoundException e) {
@@ -159,10 +159,10 @@ public final class AppUtils {
     }
 
     /**
-     * 获取当前应用程序版本编号信息
+     * Gets the current application version number information
      *
      * @param context context
-     * @return 当前应用的版本编号
+     * @return The version number for the current application
      */
     public static int getVersionCode(Context context) {
         try {
@@ -175,18 +175,18 @@ public final class AppUtils {
     }
 
     /**
-     * 获取应用程序的权限
+     * Get permissions to the application
      *
-     * @param context
-     * @param packname 应用包名
-     * @return
+     * @param context  context
+     * @param packname Application package name
+     * @return permission-group
      */
     public String[] getAllPermissions(Context context, String packname) {
         try {
-            //包管理操作管理类
+            //Package management operations management class
             PackageManager pm = context.getPackageManager();
             PackageInfo packinfo = pm.getPackageInfo(packname, PackageManager.GET_PERMISSIONS);
-            //获取到所有的权限
+            //Get all permissions
             return packinfo.requestedPermissions;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -196,17 +196,17 @@ public final class AppUtils {
     }
 
     /**
-     * 获取当前应用程序的权限
+     * Gets the permissions for the current application
      *
-     * @param context
-     * @return 权限数组
+     * @param context context
+     * @return Permission array
      */
     public String[] getAllPermissions(Context context) {
         try {
-            //包管理操作管理类
+            //Package management operations management class
             PackageManager pm = context.getPackageManager();
             PackageInfo packinfo = pm.getPackageInfo(context.getPackageName(), PackageManager.GET_PERMISSIONS);
-            //获取到所有的权限
+            //Get all permissions
             return packinfo.requestedPermissions;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -216,18 +216,18 @@ public final class AppUtils {
     }
 
     /**
-     * 获取应用程序的签名
+     * Gets the signature of the current application
      *
-     * @param context
-     * @param packname 应用包名
+     * @param context  context
+     * @param packname Application package name
      * @return
      */
     public static String getAppSignature(Context context, String packname) {
         try {
-            //包管理操作管理类
+            //Package management operations management class
             PackageManager pm = context.getPackageManager();
             PackageInfo packinfo = pm.getPackageInfo(packname, PackageManager.GET_SIGNATURES);
-            //获取当前应用签名
+            //Gets the current application signature
             return packinfo.signatures[0].toCharsString();
 
         } catch (PackageManager.NameNotFoundException e) {
@@ -238,31 +238,30 @@ public final class AppUtils {
     }
 
     /**
-     * 获取当前应用程序的签名
+     * Gets the signature of the current application
      *
-     * @param context
-     * @return
+     * @param context context
+     * @return Signature of the current application
      */
     public static String getAppSignature(Context context) {
         try {
-            //包管理操作管理类
+            //Package management operations management class
             PackageManager pm = context.getPackageManager();
             PackageInfo packinfo = pm.getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
-            //获取当前应用签名
+            //Gets the current application signature
             return packinfo.signatures[0].toCharsString();
 
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-
         }
         return context.getPackageName();
     }
 
     /**
-     * 获取ApplicationInfo对象
+     * Get the ApplicationInfo object
      *
      * @param context context
-     * @return
+     * @return applicationInfo
      */
     public static ApplicationInfo getApplicationInfo(Context context) {
         try {
@@ -277,9 +276,9 @@ public final class AppUtils {
     /**
      * check and see if an Activity exists on your device
      *
-     * @param context
-     * @param intent
-     * @return
+     * @param context context
+     * @param intent  intent
+     * @return boolean result
      */
     public static boolean isCallable(Context context, Intent intent) {
         List<ResolveInfo> list = context.getPackageManager()
@@ -288,10 +287,10 @@ public final class AppUtils {
     }
 
     /**
-     * 获取当前应用版本号
+     * Gets the current application version number
      *
      * @param context context
-     * @return 当前应用的版本名称
+     * @return The version name of the current application
      */
     public static String getVersionName(Context context) {
         try {
@@ -307,7 +306,7 @@ public final class AppUtils {
 
     /**
      * @param context context
-     * @return 当前应用没有D或V前缀的版本名称
+     * @return The current application does not have a version name of D or V prefix
      */
     public static String getNoPrefixVersionName(Context context) {
         String versionName = getVersionName(context);
@@ -317,11 +316,11 @@ public final class AppUtils {
     }
 
     /**
-     * 读取application标签下的meta-data信息
+     * Read the meta-data information under the application tag
      *
      * @param context context
      * @param name    key
-     * @return value信息
+     * @return value info
      */
     public static int getMetaDataInt(Context context, String name) {
         try {
@@ -335,11 +334,11 @@ public final class AppUtils {
     }
 
     /**
-     * 读取application标签下的meta-data信息
+     * Read the meta-data information under the application tag
      *
      * @param context context
      * @param name    key
-     * @return value信息
+     * @return value info
      */
     public static String getMetaDataString(Context context, String name) {
         try {
@@ -353,11 +352,11 @@ public final class AppUtils {
     }
 
     /**
-     * 读取activity标签下的meta-data信息
+     * Read the meta-data information under the activity tag
      *
      * @param activity activity
      * @param name     key
-     * @return value信息
+     * @return value info
      */
     public static String getMetaDataString(Activity activity, String name) {
         try {
@@ -371,11 +370,11 @@ public final class AppUtils {
     }
 
     /**
-     * 读取activity标签下的meta-data信息
+     * Read the meta-data information under the activity tag
      *
      * @param activity activity
      * @param name     key
-     * @return value信息
+     * @return value info
      */
     public static int getMetaDataInt(Activity activity, String name) {
         try {
@@ -389,19 +388,19 @@ public final class AppUtils {
     }
 
     /**
-     * 获取应用运行的最大内存
+     * Gets the maximum memory that the application is running
      *
-     * @return 最大内存
+     * @return Max memory
      */
     public static long getMaxMemory() {
         return Runtime.getRuntime().maxMemory() / 1024;
     }
 
     /**
-     * 安装apk
+     * Install apk
      *
      * @param context context
-     * @param file    APK文件
+     * @param file    APK file
      */
     public static void installApl(Context context, File file) {
         Intent intent = new Intent();
@@ -412,10 +411,10 @@ public final class AppUtils {
     }
 
     /**
-     * 安装apk
+     * Install apk
      *
      * @param context context
-     * @param file    APK文件uri
+     * @param file    APK file uri
      */
     public static void installApk(Context context, Uri file) {
         Intent intent = new Intent();
@@ -426,10 +425,10 @@ public final class AppUtils {
     }
 
     /**
-     * 卸载apk
+     * Uninstall apk
      *
      * @param context     context
-     * @param packageName 包名
+     * @param packageName packageName
      */
     public static void uninstallApk(Context context, String packageName) {
         Intent intent = new Intent(Intent.ACTION_DELETE);
@@ -439,11 +438,11 @@ public final class AppUtils {
     }
 
     /**
-     * 检测服务是否运行
+     * Is the test service running?
      *
-     * @param context   上下文
-     * @param className 类名
-     * @return 是否运行的状态
+     * @param context   context
+     * @param className className
+     * @return The state of being running
      */
     public static boolean isServiceRunning(Context context, String className) {
         boolean isRunning = false;
@@ -458,11 +457,11 @@ public final class AppUtils {
     }
 
     /**
-     * 停止运行服务
+     * Stop running service
      *
-     * @param context   上下文
-     * @param className 类名
-     * @return 是否执行成功
+     * @param context   context
+     * @param className className
+     * @return boolean result
      */
     public static boolean stopRunningService(Context context, String className) {
         Intent intent_service = null;
@@ -478,9 +477,9 @@ public final class AppUtils {
     }
 
     /**
-     * 得到CPU核心数
+     * Get CPU core number
      *
-     * @return CPU核心数
+     * @return CPU core number
      */
     public static int getNumCores() {
         try {
@@ -503,8 +502,8 @@ public final class AppUtils {
      * whether this process is named with processName
      *
      * @param context     context
-     * @param processName 进程名
-     * @return 是否含有当前的进程
+     * @param processName processName
+     * @return boolean result
      */
     public static boolean isNamedProcess(Context context, String processName) {
         if (context == null || TextUtils.isEmpty(processName)) return false;
@@ -524,10 +523,10 @@ public final class AppUtils {
     }
 
     /**
-     * 应用程序是否在后台运行(需要权限android.permission.GET_TASKS)
+     * Does the application run in the background (requires permissions android.permission.GET_TASKS)?
      *
      * @param context context
-     * @return 应用程序是否在后台运行
+     * @return boolean result
      */
     public static boolean isApplicationInBackground(Context context) {
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
@@ -541,9 +540,10 @@ public final class AppUtils {
     }
 
     /**
-     * 获取当前展示的Activity名称
+     * Gets the currently displayed Activity name
      *
-     * @return
+     * @param context context
+     * @return currently displayed Activity name
      */
     private static String getCurrentActivityName(Context context) {
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
@@ -552,11 +552,11 @@ public final class AppUtils {
     }
 
     /**
-     * 获取应用签名
+     * Get application signature
      *
-     * @param context 上下文
-     * @param pkgName 包名
-     * @return 返回应用的签名
+     * @param context context
+     * @param pkgName package name
+     * @return Returns the signature of the application
      */
     public static String getSign(Context context, String pkgName) {
         try {
@@ -569,10 +569,10 @@ public final class AppUtils {
     }
 
     /**
-     * 将签名字符串转换成需要的32位签名
+     * Converts a signature string into the required 32 bit signature
      *
-     * @param paramArrayOfByte 签名byte数组
-     * @return 32位签名字符串
+     * @param paramArrayOfByte Signature byte array
+     * @return 32 bit signature string
      */
     private static String hexdigest(byte[] paramArrayOfByte) {
         final char[] hexDigits = {48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 97,
@@ -595,16 +595,16 @@ public final class AppUtils {
     }
 
     /**
-     * 清理后台进程与服务
+     * Clean up background processes and services
      *
      * @param context context
-     * @return 被清理的数量
+     * @return The amount cleared
      */
     public static int gc(Context context) {
         long i = getDeviceUsableMemory(context);
-        int count = 0; // 清理掉的进程数
+        int count = 0; // Number of cleared processes
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        // 获取正在运行的service列表
+        // Get a list of the running service
         List<ActivityManager.RunningServiceInfo> serviceList = am.getRunningServices(100);
         if (serviceList != null)
             for (ActivityManager.RunningServiceInfo service : serviceList) {
@@ -616,20 +616,20 @@ public final class AppUtils {
                     e.getStackTrace();
                 }
             }
-        // 获取正在运行的进程列表
+        // Gets a list of running processes
         List<ActivityManager.RunningAppProcessInfo> processList = am.getRunningAppProcesses();
         if (processList != null)
             for (ActivityManager.RunningAppProcessInfo process : processList) {
-                // 一般数值大于RunningAppProcessInfo.IMPORTANCE_SERVICE的进程都长时间没用或者空进程了
-                // 一般数值大于RunningAppProcessInfo.IMPORTANCE_VISIBLE的进程都是非可见进程，也就是在后台运行着
+                // Processes with values greater than RunningAppProcessInfo.IMPORTANCE_SERVICE have long been useless or empty processes
+                // Processes with values greater than RunningAppProcessInfo.IMPORTANCE_VISIBLE are non visible processes, that is, running in the background
                 if (process.importance > ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE) {
-                    // pkgList 得到该进程下运行的包名
+                    // pkgList: Gets the package name that is running under this process
                     String[] pkgList = process.pkgList;
                     for (String pkgName : pkgList) {
                         try {
                             am.killBackgroundProcesses(pkgName);
                             count++;
-                        } catch (Exception e) { // 防止意外发生
+                        } catch (Exception e) { // Prevent accidents
                             e.getStackTrace();
                         }
                     }
@@ -639,24 +639,24 @@ public final class AppUtils {
     }
 
     /**
-     * 获取设备的可用内存大小
+     * Gets the available memory size of the device
      *
      * @param context context
-     * @return 当前内存大小
+     * @return Current memory size
      */
     public static int getDeviceUsableMemory(Context context) {
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
         am.getMemoryInfo(mi);
-        // 返回当前系统的可用内存
+        // Returns the available memory for the current system
         return (int) (mi.availMem / (1024 * 1024));
     }
 
     /**
-     * 获取系统中所有的应用
+     * Get all the applications in the system
      *
-     * @param context 上下文
-     * @return 应用信息List
+     * @param context context
+     * @return Application information List
      */
     public static List<PackageInfo> getAllApps(Context context) {
         List<PackageInfo> apps = new ArrayList<>();
@@ -672,40 +672,37 @@ public final class AppUtils {
     }
 
     /**
-     * 获取手机系统SDK版本
+     * Get the SDK version of the mobile phone system
      *
-     * @return 如API 17 则返回 17
+     * @return Current SDK version
      */
     public static int getSDKVersion() {
         return android.os.Build.VERSION.SDK_INT;
     }
 
-
     /**
-     * 是否Dalvik模式
+     * Whether Dalvik mode?
      *
-     * @return 结果
+     * @return boolean result
      */
     public static boolean isDalvik() {
         return "Dalvik".equals(getCurrentRuntimeValue());
     }
 
-
     /**
-     * 是否ART模式
+     * Whether ART mode?
      *
-     * @return 结果
+     * @return boolean result
      */
     public static boolean isART() {
         String currentRuntime = getCurrentRuntimeValue();
         return "ART".equals(currentRuntime) || "ART debug build".equals(currentRuntime);
     }
 
-
     /**
-     * 获取手机当前的Runtime
+     * Get the current Runtime of your phone
      *
-     * @return 正常情况下可能取值Dalvik, ART, ART debug build;
+     * @return Under normal circumstances, you may value Dalvik, ART, ART, debug, build.
      */
     public static String getCurrentRuntimeValue() {
         try {
@@ -743,15 +740,15 @@ public final class AppUtils {
             "CN=Android Debug,O=Android,C=US");
 
     /**
-     * 检测当前应用是否是Debug版本
+     * Check if the current application is the Debug version
      *
-     * @param ctx 上下文
-     * @return 是否是Debug版本
+     * @param context context
+     * @return boolean result
      */
-    public static boolean isDebuggable(Context ctx) {
+    public static boolean isDebuggable(Context context) {
         boolean debuggable = false;
         try {
-            PackageInfo pinfo = ctx.getPackageManager().getPackageInfo(ctx.getPackageName(), PackageManager.GET_SIGNATURES);
+            PackageInfo pinfo = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
             Signature signatures[] = pinfo.signatures;
             for (int i = 0; i < signatures.length; i++) {
                 CertificateFactory cf = CertificateFactory.getInstance("X.509");
@@ -768,6 +765,12 @@ public final class AppUtils {
         return debuggable;
     }
 
+    /**
+     * Gets the cache path, first Sdcard, and then internal storage
+     *
+     * @param context
+     * @return cache path
+     */
     public static String getAppCachePath(Context context) {
         String cachePath;
         boolean equals = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);

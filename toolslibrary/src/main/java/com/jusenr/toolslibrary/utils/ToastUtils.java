@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,7 +19,7 @@ import com.jusenr.toolslibrary.R;
 import static android.widget.Toast.makeText;
 
 /**
- * Description: Android Toast 封装
+ * Description: Android Toast package
  * Copyright  : Copyright (c) 2017
  * Email      : jusenr@163.com
  * Author     : Jusenr
@@ -78,7 +79,7 @@ public final class ToastUtils {
 
     public static void showAlertToast(Context context, String title, @DrawableRes int drawableId, int duration) {
         Toast toast = makeText(context.getApplicationContext(), title, duration);
-        toast.setGravity(Gravity.CENTER, 0, 0);//设置位置
+        toast.setGravity(Gravity.CENTER, 0, 0);//the setting position of
         View view = LayoutInflater.from(context).inflate(R.layout.toast_alert, null);
         LinearLayout llContent = (LinearLayout) view.findViewById(R.id.ll_content);
         ImageView alertIcon = (ImageView) view.findViewById(R.id.iv_alert_icon);
@@ -92,12 +93,14 @@ public final class ToastUtils {
         if (!TextUtils.isEmpty(title)) {
             alertTitle.setText(title);
         }
-        int width = (int) (DensityUtils.getScreenW(context) / 1.5f);
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        int screenWidth = wm.getDefaultDisplay().getWidth();
+        int width = (int) (screenWidth / 1.5f);
         CardView.LayoutParams lp = (CardView.LayoutParams) llContent.getLayoutParams();
         lp.width = width;
         llContent.setLayoutParams(lp);
 //        llContent.requestLayout();
-        toast.setView(view);//设置外观
+        toast.setView(view);//Set appearance
         toast.show();
     }
 

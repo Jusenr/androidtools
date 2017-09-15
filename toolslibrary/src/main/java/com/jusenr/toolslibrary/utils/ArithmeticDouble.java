@@ -3,50 +3,49 @@ package com.jusenr.toolslibrary.utils;
 import java.math.BigDecimal;
 
 /**
- * Description: 四则运算(Double类型数)
+ * Description: Four arithmetic operations (Double type)
  * Copyright  : Copyright (c) 2016
  * Email      : jusenr@163.com
- * Company    : 葡萄科技
+ * Company    : putao Technology
  * Author     : Jusenr
  * Date       : 2016/7/26 19:36
  */
-public class ArithmeticDouble {
+public final class ArithmeticDouble {
     /**
-     * Double数四舍五入
+     * The number of five homes in Double
      *
-     * @param v     double型数据
-     * @param scale 精确度
-     * @return Double
+     * @param d     Type double data
+     * @param scale definition
+     * @return Double value
      */
-    public static double round(double v, int scale) {
+    public static double round(double d, int scale) {
         if (scale < 0) {
-            throw new IllegalArgumentException(
-                    "The scale must be a positive integer or zero");
+            throw new IllegalArgumentException("The scale must be a positive integer or zero");
         }
-        BigDecimal b = new BigDecimal(Double.toString(v));
+        BigDecimal b = new BigDecimal(Double.toString(d));
         BigDecimal one = new BigDecimal("1");
         return b.divide(one, scale, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     /**
-     * 两个Double数相加
+     * Add two Double numbers together
      *
-     * @param v1 double型数据
-     * @param v2 double型数据
-     * @return Double
+     * @param d1 Type double data
+     * @param d2 Type double data
+     * @return Double value
      */
-    public static Double add(Double v1, Double v2) {
-        BigDecimal b1 = new BigDecimal(v1.toString());
-        BigDecimal b2 = new BigDecimal(v2.toString());
+    public static Double add(Double d1, Double d2) {
+        BigDecimal b1 = new BigDecimal(d1.toString());
+        BigDecimal b2 = new BigDecimal(d2.toString());
         return b1.add(b2).doubleValue();
     }
 
     /**
-     * 两个Double数相减
+     * Two Double number subtraction
      *
-     * @param v1 double型数据
-     * @param v2 double型数据
-     * @return Double
+     * @param v1 Type double data
+     * @param v2 Type double data
+     * @return Double value
      */
     public static Double sub(Double v1, Double v2) {
         BigDecimal b1 = new BigDecimal(v1.toString());
@@ -56,11 +55,11 @@ public class ArithmeticDouble {
 
 
     /**
-     * 两个Double数相乘
+     * Multiply two Double numbers
      *
-     * @param v1 double型数据
-     * @param v2 double型数据
-     * @return Double
+     * @param v1 Type double data
+     * @param v2 Type double data
+     * @return Double value
      */
     public static Double mul(Double v1, Double v2) {
         BigDecimal b1 = new BigDecimal(v1.toString());
@@ -70,20 +69,19 @@ public class ArithmeticDouble {
 
 
     /**
-     * 两个Double数相除，并保留scale位小数
+     * Two Double number division, and keep the scale decimal
      *
-     * @param v1    double型数据
-     * @param v2    double型数据
-     * @param scale 精确度
-     * @return Double
+     * @param d1    Type double data
+     * @param d2    Type double data
+     * @param scale definition
+     * @return Double value
      */
-    public static Double div(Double v1, Double v2, int scale) {
+    public static Double div(Double d1, Double d2, int scale) {
         if (scale < 0) {
-            throw new IllegalArgumentException(
-                    "The scale must be a positive integer or zero");
+            throw new IllegalArgumentException("The scale must be a positive integer or zero");
         }
-        BigDecimal b1 = new BigDecimal(v1.toString());
-        BigDecimal b2 = new BigDecimal(v2.toString());
+        BigDecimal b1 = new BigDecimal(d1.toString());
+        BigDecimal b2 = new BigDecimal(d2.toString());
         return b1.divide(b2, scale, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 }

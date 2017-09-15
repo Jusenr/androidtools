@@ -11,13 +11,16 @@ android {
         versionCode rootProject.ext.androids.versionCode
         versionName rootProject.ext.androids.versionName
         manifestPlaceholders rootProject.ext.androids.manifestPlaceholders
-        //logcat日志TAG设置
+        //Logcat log TAG settings
         buildConfigField "String", "LOG_TAG", "\"${rootProject.ext.APP_LOG_TAG}\""
         buildConfigField "String", "COMPILATION_TIME", "\"${rootProject.releaseTime("yyyy-MM-dd HH:mm")}\""
-        //必须给出默认值，不然其他渠道包域名初始化为空
+        //Default values must be given, otherwise other channel package domains are initialized to null.
         buildConfigField "boolean", "IS_TEST", "false"
         buildConfigField "int", "HOST_NOW", "1"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        renderscriptTargetApi 20
+        renderscriptSupportModeEnabled true
+        testInstrumentationRunner "com.android.test.runner.MultiDexTestRunner"
         externalNativeBuild {
             cmake {
                 cppFlags ""
@@ -30,16 +33,16 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("$rootDir/keystore.jks")
-            storePassword "tools123"
-            keyAlias "tools"
-            keyPassword "tools123"
+            storeFile file(SIGN_FILEPATH)
+            storePassword SIGN_STOREPASSWORD
+            keyAlias SIGN_KEYALIAS
+            keyPassword SIGN_KEYPASSWORD
         }
     }
 
     buildTypes {
         release {
-            // 显示Log
+            // Show Log
             buildConfigField "boolean", "LOG_DEBUG", "false"
             minifyEnabled false
             shrinkResources false
@@ -48,7 +51,7 @@ android {
             signingConfig signingConfigs.release
         }
         debug {
-            // 显示Log
+            // Show Log
             buildConfigField "boolean", "LOG_DEBUG", "true"
             minifyEnabled false
             shrinkResources false
@@ -64,7 +67,6 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
-    //源码集
     sourceSets {
         main {
             java.srcDirs = ['src/main/java']
@@ -73,10 +75,10 @@ android {
         }
     }
     dexOptions {
-        javaMaxHeapSize "2g"
+        javaMaxHeapSize "4g"
     }
 
-    //产品渠道配置
+    //Product channel allocation
     productFlavors {
 //        inner {
 //            buildConfigField "boolean", "IS_TEST", "true"
@@ -103,7 +105,7 @@ android {
         }
     }
 
-    //Apk包名自定义
+    //Apk package name customizations
     applicationVariants.all {
         variant ->
             def apkFileName = rootProject.getVersionName()
@@ -127,14 +129,14 @@ repositories {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    androidTestCompile('com.android.support:multidex-instrumentation:1.0.1') {
+        exclude group: 'com.android.support', module: 'multidex'
+    }
 //    compile project(':toolslibrary')
     compile rootProject.ext.dependencies.androidtools
 
     testCompile rootProject.ext.dependencies.junit
-    //查看App数据库使用(方法：1.放开注释 2.重新编译 3.使用'DebugDB'字段检索日志 4.访问检索到的连接，OK!)
+    //View the App database usage (method: 1. release comment. 2. recompile. 3. use the'DebugDB'field to retrieve log. 4. and access the retrieved connection. OK)
     debugCompile rootProject.ext.dependencies.debug_db
     //Leakcanary
     debugCompile rootProject.ext.dependencies.leakcanary_android
@@ -148,7 +150,7 @@ dependencies {
 
 }
 
-//编译结束后删除unaligned包
+//After the compilation is finished, the unaligned package is removed
 android.applicationVariants.all { variant ->
     variant.assemble.doLast {
         variant.outputs.each { output ->

@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 /**
- * 日期时间工具类
+ * Date, time, tool class
  * Created by guchenkai on 2015/11/26.
  */
 public final class DateUtils {
@@ -30,20 +30,6 @@ public final class DateUtils {
     private static final SimpleDateFormat mDataFormat = new SimpleDateFormat(YMD_PATTERN);
     private static final SimpleDateFormat mTimeFormat = new SimpleDateFormat(YMD_HMS_PATTERN);
 
-
-    //    private long mToday;
-//
-//    {
-//        SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd");
-//        Date date = null;
-//        try {
-//            date = format.parse(format.format(new Date()));
-//            mToday = date.getTime();
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     private static final int ONE_MINUTE = 60 * 1000;
     private static final int ONE_HOUR = 60 * 60 * 1000;
     private static final int ONE_DAY = 24 * 60 * 60 * 1000;
@@ -52,21 +38,21 @@ public final class DateUtils {
     private static final int ONE_YEAR = 12 * 30 * 24 * 60 * 60 * 1000;
 
     /**
-     * 获取当前时间所在的时区相对于GMT +0：00时区的偏移量
+     * Gets the offset of the time zone at which the current time is relative to the GMT +0:00 time zone
      *
-     * @return 偏移量 int
+     * @return int offset
      */
     public static int getRawOffset() {
         TimeZone tz = TimeZone.getDefault();
         int offset = tz.getRawOffset();
-        System.out.println("getRawOffset: offset=" + offset);//28800000
+        System.out.println("getRawOffset: offset=" + offset);//28800000 of china
         return offset / 1000;
     }
 
     /**
-     * 获取当前时区的时区
+     * Gets the time zone of the current time zone
      *
-     * @return 时区 String GMT+05:45
+     * @return time zone String GMT+05:45
      */
     public static String getCurrentTimeZone() {
         TimeZone tz = TimeZone.getDefault();
@@ -76,9 +62,9 @@ public final class DateUtils {
     }
 
     /**
-     * 获取当前时区的时区差
+     * Gets the time zone difference of the current time zone
      *
-     * @return UTC时区差 float 8.0,2.5
+     * @return Time zone difference [float] e.g. 8.0,2.5,-2.0
      */
     public static float getCurrentTimeZone2Int() {
         String timeZone = getCurrentTimeZone();//GMT+05:45,GMT-07:00

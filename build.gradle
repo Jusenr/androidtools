@@ -21,15 +21,16 @@ allprojects {
     repositories {
         jcenter()
         maven { url "https://jitpack.io" }
-        //aar本地库依赖
+        //AAR local library dependencies
         flatDir {
             dirs 'libs'
         }
     }
-    //设置统一编码
+    //Set unified encoding
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
     }
+    //Setting unified javaDoc encoding
     tasks.withType(Javadoc) {
         options.addStringOption('Xdoclint:none', '-quiet')
         options.addStringOption('encoding', 'UTF-8')
@@ -53,7 +54,7 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-//获取版本号
+//Get version number
 def getVersionName() {
     int num = rootProject.ext.VERSION_NUM
     if (num > 0) {
@@ -63,7 +64,7 @@ def getVersionName() {
     }
 }
 
-//git提交次数
+//Git commit times
 int gitVersionCode() {
     if (System.getenv("CI_BUILD")) {
         return rootProject.ext.androids.versionCode
@@ -72,10 +73,10 @@ int gitVersionCode() {
     return count.isInteger() ? count.toInteger() : 0
 }
 
-//获取当前时间
+//Get current time
 def releaseTime(def format) {
     return new Date().format(format)
 }
 
-//VersionCode赋值为git提交次数
+//VersionCode is reassigned to the number of GIT commit
 rootProject.ext.androids.versionCode = gitVersionCode()

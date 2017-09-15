@@ -19,7 +19,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 /**
- * 文件操作工具
+ * File manipulation tool class
  * Created by guchenkai on 2015/12/10.
  */
 public final class FileUtils {

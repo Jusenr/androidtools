@@ -21,12 +21,12 @@ artifacts {
 //ADD
 publish {
     desc = PROJ_DESCRIPTION
-    userOrg = DEVELOPER_NAME    //bintray用户名
-    groupId = PROJ_GROUP    //jcenter上的路径
-    artifactId = PROJ_ARTIFACTID    //项目名称
-    publishVersion = PROJ_VERSION   //版本号
-    desc = PROJ_DESCRIPTION //描述
-    website = PROJ_WEBSITEURL   //网站:尽量模拟github上的地址
+    userOrg = DEVELOPER_NAME    //bintray username
+    groupId = PROJ_GROUP    //jcenter groupId
+    artifactId = PROJ_ARTIFACTID    //Project Name
+    publishVersion = PROJ_VERSION   //version number
+    desc = PROJ_DESCRIPTION //describe
+    website = PROJ_WEBSITEURL   //Site: try to simulate the address on the GitHub
     issueTracker = PROJ_ISSUETRACKERURL
     licences = ['Apache-2.0']
 }

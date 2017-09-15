@@ -4,6 +4,7 @@ package com.jusenr.toolslibrary.utils;
 import org.simple.eventbus.EventBus;
 
 /**
+ * EventBus tools class
  * Created by riven_chris on 2017/4/13.
  */
 

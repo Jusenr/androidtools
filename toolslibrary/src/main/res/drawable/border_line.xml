@@ -12,10 +12,10 @@
         android:width="1dip"
         android:color="@color/colorPrimary"
         />
-    <!--边框宽度-->
+    <!-- border width -->
     <size
         android:width="15dip"
         android:height="15dip"
         />
-    <!--边框-->
+    <!-- cheek -->
 </shape>

@@ -3,7 +3,7 @@ package com.jusenr.toolslibrary;
 import com.jusenr.toolslibrary.utils.JsonUtils;
 
 /**
- * Description: 工具测试专用类
+ * Description: AndroidTools test specific class.
  * Copyright  : Copyright (c) 2017
  * Email      : jusenr@163.com
  * Author     : Jusenr

@@ -9,7 +9,7 @@ import com.jusenr.toolslibrary.log.logger.PrettyFormatStrategy;
 import com.jusenr.toolslibrary.utils.PreferenceUtils;
 
 /**
- * Description: Tools初始化
+ * Description: AndroidTools initialization.
  * Copyright  : Copyright (c) 2017
  * Email      : jusenr@163.com
  * Author     : Jusenr

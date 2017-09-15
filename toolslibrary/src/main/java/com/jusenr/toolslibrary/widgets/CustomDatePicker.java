@@ -25,7 +25,7 @@ import java.util.Locale;
 public class CustomDatePicker {
 
     /**
-     * 定义结果回调接口
+     * Define results callback interface.
      */
     public interface ResultHandler {
         void handle(String time);
@@ -258,7 +258,7 @@ public class CustomDatePicker {
     }
 
     /**
-     * 将“0-9”转换为“00-09”
+     * Convert "0-9" to "00-09".
      */
     private String formatTimeUnit(int unit) {
         return unit < 10 ? "0" + String.valueOf(unit) : String.valueOf(unit);
@@ -497,7 +497,7 @@ public class CustomDatePicker {
     }
 
     /**
-     * 设置日期控件是否显示时和分
+     * Sets whether or not the date control displays time and minutes.
      */
     public void showSpecificTime(boolean show) {
         if (canAccess) {
@@ -518,7 +518,7 @@ public class CustomDatePicker {
     }
 
     /**
-     * 设置日期控件是否可以循环滚动
+     * Sets whether the date control can scroll by cycle.
      */
     public void setIsLoop(boolean isLoop) {
         if (canAccess) {
@@ -531,7 +531,7 @@ public class CustomDatePicker {
     }
 
     /**
-     * 设置日期控件默认选中的时间
+     * Sets the time selected by the date control by default.
      */
     public void setSelectedTime(String time) {
         if (canAccess) {
@@ -634,18 +634,20 @@ public class CustomDatePicker {
     }
 
     /**
-     * 验证字符串是否是一个合法的日期格式
+     * Verify that the string is a valid date format.
      */
     private boolean isValidDate(String date, String template) {
         boolean convertSuccess = true;
-        // 指定日期格式
+        // Specified date format
         SimpleDateFormat format = new SimpleDateFormat(template, Locale.CHINA);
         try {
-            // 设置lenient为false. 否则SimpleDateFormat会比较宽松地验证日期，比如2015/02/29会被接受，并转换成2015/03/01
+            // Set lenient to false., otherwise SimpleDateFormat will validate the date more loosely,
+            // for example, 2015/02/29 will be accepted and converted to 2015/03/01.
             format.setLenient(false);
             format.parse(date);
         } catch (Exception e) {
-            // 如果throw java.text.ParseException或者NullPointerException，就说明格式不对
+            // If throw, java.text.ParseException, or NullPointerException,
+            // it means the format is wrong.
             convertSuccess = false;
         }
         return convertSuccess;

@@ -27,20 +27,20 @@ public class DatePickerView extends View {
 
     private Context context;
     /**
-     * 新增字段 控制是否首尾相接循环显示 默认为循环显示
+     * New field control is beginning and end. Loop display defaults to cyclic display.
      */
     private boolean loop = true;
     /**
-     * text之间间距和minTextSize之比
+     * The distance between text and minTextSize.
      */
     public static final float MARGIN_ALPHA = 2.8f;
     /**
-     * 自动回滚到中间的速度
+     * Auto rollback to intermediate speed.
      */
     public static final float SPEED = 10;
     private List<String> mDataList;
     /**
-     * 选中的位置，这个位置是mDataList的中心位置，一直不变
+     * The selected position, which is the center of the "mDataList", remains the same.
      */
     private int mCurrentSelected;
     private Paint mPaint, nPaint;
@@ -52,7 +52,7 @@ public class DatePickerView extends View {
     private int mViewWidth;
     private float mLastDownY;
     /**
-     * 滑动的距离
+     * Sliding distance
      */
     private float mMoveLen = 0;
     private boolean isInit = false;
@@ -72,7 +72,7 @@ public class DatePickerView extends View {
                     performSelect();
                 }
             } else {
-                // 这里mMoveLen / Math.abs(mMoveLen)是为了保有mMoveLen的正负号，以实现上滚或下滚
+                // Here, mMoveLen / Math.abs (mMoveLen) is designed to hold the mMoveLen plus or minus sign to achieve roll or roll down.
                 mMoveLen = mMoveLen - mMoveLen / Math.abs(mMoveLen) * SPEED;
             }
             invalidate();
@@ -102,7 +102,7 @@ public class DatePickerView extends View {
     }
 
     /**
-     * 选择选中的item的index
+     * Select the index of the selected item.
      */
     public void setSelected(int selected) {
         mCurrentSelected = selected;
@@ -124,7 +124,7 @@ public class DatePickerView extends View {
     }
 
     /**
-     * 选择选中的内容
+     * Select the selected content.
      */
     public void setSelected(String mSelectItem) {
         for (int i = 0; i < mDataList.size(); i++) {
@@ -156,7 +156,7 @@ public class DatePickerView extends View {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         mViewHeight = getMeasuredHeight();
         mViewWidth = getMeasuredWidth();
-        // 按照View的高度计算字体大小
+        // Calculate font size at the height of View.
         mMaxTextSize = mViewHeight / 7f;
         mMinTextSize = mMaxTextSize / 2.2f;
         isInit = true;
@@ -166,12 +166,12 @@ public class DatePickerView extends View {
     private void init() {
         timer = new Timer();
         mDataList = new ArrayList<>();
-        //第一个paint
+        //the first paint
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Style.FILL);
         mPaint.setTextAlign(Align.CENTER);
         mPaint.setColor(ContextCompat.getColor(context, R.color.text1));
-        //第二个paint
+        //the second paint
         nPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         nPaint.setStyle(Style.FILL);
         nPaint.setTextAlign(Align.CENTER);
@@ -181,38 +181,38 @@ public class DatePickerView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        // 根据index绘制view
+        // Draw view according to index.
         if (isInit) {
             drawData(canvas);
         }
     }
 
     private void drawData(Canvas canvas) {
-        // 先绘制选中的text再往上往下绘制其余的text
+        // Draw the selected text first, and then draw up the rest of the text.
         float scale = parabola(mViewHeight / 4.0f, mMoveLen);
         float size = (mMaxTextSize - mMinTextSize) * scale + mMinTextSize;
         mPaint.setTextSize(size);
         mPaint.setAlpha((int) ((mMaxTextAlpha - mMinTextAlpha) * scale + mMinTextAlpha));
-        // text居中绘制，注意baseline的计算才能达到居中，y值是text中心坐标
+        // Text center drawing, pay attention to the calculation of baseline to reach the center, y value is text central coordinates.
         float x = (float) (mViewWidth / 2.0);
         float y = (float) (mViewHeight / 2.0 + mMoveLen);
         FontMetricsInt fmi = mPaint.getFontMetricsInt();
         float baseline = (float) (y - (fmi.bottom / 2.0 + fmi.top / 2.0));
 
         canvas.drawText(mDataList.get(mCurrentSelected), x, baseline, mPaint);
-        // 绘制上方data
+        // Draw the top data.
         for (int i = 1; (mCurrentSelected - i) >= 0; i++) {
             drawOtherText(canvas, i, -1);
         }
-        // 绘制下方data
+        // Draw below data.
         for (int i = 1; (mCurrentSelected + i) < mDataList.size(); i++) {
             drawOtherText(canvas, i, 1);
         }
     }
 
     /**
-     * @param position 距离mCurrentSelected的差值
-     * @param type     1表示向下绘制，-1表示向上绘制
+     * @param position The difference between the distance mCurrentSelected.
+     * @param type     The difference from mCurrentSelected 1 means downward drawing, and -1 indicates upward rendering.
      */
     private void drawOtherText(Canvas canvas, int position, int type) {
         float d = MARGIN_ALPHA * mMinTextSize * position + type * mMoveLen;
@@ -228,10 +228,10 @@ public class DatePickerView extends View {
     }
 
     /**
-     * 抛物线
+     * para-curve
      *
-     * @param zero 零点坐标
-     * @param x    偏移量
+     * @param zero Zero coordinate
+     * @param x    offset
      */
     private float parabola(float zero, float x) {
         float f = (float) (1 - Math.pow(x / zero, 2));
@@ -256,7 +256,7 @@ public class DatePickerView extends View {
                     if (!loop) {
                         mCurrentSelected--;
                     }
-                    // 往下滑超过离开距离
+                    // Slide down over the distance
                     moveTailToHead();
                     mMoveLen = mMoveLen - MARGIN_ALPHA * mMinTextSize;
                 } else if (mMoveLen < -MARGIN_ALPHA * mMinTextSize / 2) {
@@ -268,7 +268,7 @@ public class DatePickerView extends View {
                     if (!loop) {
                         mCurrentSelected++;
                     }
-                    // 往上滑超过离开距离
+                    // Slide upwards, away from the distance
                     moveHeadToTail();
                     mMoveLen = mMoveLen + MARGIN_ALPHA * mMinTextSize;
                 }
@@ -292,7 +292,8 @@ public class DatePickerView extends View {
     }
 
     private void doUp() {
-        // 抬起手后mCurrentSelected的位置由当前位置move到中间选中位置
+        // After lifting your hand,
+        // the position of the mCurrentSelected is from the current position move to the middle of the selected position.
         if (Math.abs(mMoveLen) < 0.0001) {
             mMoveLen = 0;
             return;
@@ -332,7 +333,7 @@ public class DatePickerView extends View {
     }
 
     /**
-     * 控制内容是否首尾相连
+     * Whether the content of end to end control.
      */
     public void setIsLoop(boolean isLoop) {
         loop = isLoop;

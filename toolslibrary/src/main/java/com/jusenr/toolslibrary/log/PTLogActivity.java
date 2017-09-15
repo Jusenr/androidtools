@@ -28,7 +28,8 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Log view page
+ * Log view page.
+ * Created by Wangxiaopeng on 17/08/13.
  */
 public class PTLogActivity extends AppCompatActivity {
     private static final String TAG = PTLogActivity.class.getSimpleName();
@@ -152,16 +153,16 @@ public class PTLogActivity extends AppCompatActivity {
     private void initDatePicker() {
         mDatePicker_begin = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
             @Override
-            public void handle(String time) { // 回调接口，获得选中的时间
+            public void handle(String time) { // The callback interface gets the selected time.
                 mBeginDate = string2Date(time);
                 Log.i(TAG, "initDatePicker start:" + mBeginDate.toString());
                 btn_begin.setText(date2String(mBeginDate));
                 queryLog();
 
             }
-        }, "2010-01-01 00:00", date2String(mBeginDate)); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
-        mDatePicker_begin.showSpecificTime(true); // 显示时和分
-        mDatePicker_begin.setIsLoop(true); // 允许循环滚动
+        }, "2010-01-01 00:00", date2String(mBeginDate)); // Initial date format: yyyy-MM-dd HH:mm, otherwise it will not function properly.
+        mDatePicker_begin.showSpecificTime(true); // Display hours and minutes.
+        mDatePicker_begin.setIsLoop(true); // Allow cyclic scrolling.
 
 
         mDatePicker_end = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {

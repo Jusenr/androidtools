@@ -7,28 +7,28 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 
 /**
- * 动画工具类
+ * Animation tool class
  * Created by guchenkai on 2016/1/21.
  */
 public final class AnimationUtils {
     /**
-     * 默认动画持续时间
+     * Default animation duration
      */
     public static final long DEFAULT_ANIMATION_DURATION = 400;
 
 
     /**
-     * 获取一个旋转动画
+     * Get a spin animation
      *
-     * @param fromDegrees       开始角度
-     * @param toDegrees         结束角度
-     * @param pivotXType        旋转中心点X轴坐标相对类型
-     * @param pivotXValue       旋转中心点X轴坐标
-     * @param pivotYType        旋转中心点Y轴坐标相对类型
-     * @param pivotYValue       旋转中心点Y轴坐标
-     * @param durationMillis    持续时间
-     * @param animationListener 动画监听器
-     * @return 一个旋转动画
+     * @param fromDegrees       start angle
+     * @param toDegrees         end angle
+     * @param pivotXType        Rotation center point X axis coordinate relative type
+     * @param pivotXValue       Rotation center point X axis coordinate
+     * @param pivotYType        Rotation center point Y axis coordinate relative type
+     * @param pivotYValue       Rotation center point Y axis coordinate
+     * @param durationMillis    duration
+     * @param animationListener Animation monitor
+     * @return A rotating animation
      */
     public static RotateAnimation getRotateAnimation(float fromDegrees, float toDegrees, int pivotXType, float pivotXValue, int pivotYType, float pivotYValue, long durationMillis, Animation.AnimationListener animationListener) {
         RotateAnimation rotateAnimation = new RotateAnimation(fromDegrees,
@@ -39,13 +39,12 @@ public final class AnimationUtils {
         return rotateAnimation;
     }
 
-
     /**
-     * 获取一个根据视图自身中心点旋转的动画
+     * Gets an animation that rotates according to the center of the view itself
      *
-     * @param durationMillis    动画持续时间
-     * @param animationListener 动画监听器
-     * @return 一个根据中心点旋转的动画
+     * @param durationMillis    animation duration
+     * @param animationListener Animation monitor
+     * @return An animation that rotates according to the center
      */
     public static RotateAnimation getRotateAnimationByCenter(long durationMillis, Animation.AnimationListener animationListener) {
         return getRotateAnimation(0f, 359f, Animation.RELATIVE_TO_SELF, 0.5f,
@@ -53,42 +52,38 @@ public final class AnimationUtils {
                 animationListener);
     }
 
-
     /**
-     * 获取一个根据中心点旋转的动画
+     * Gets an animation that rotates according to the center point
      *
-     * @param duration 动画持续时间
-     * @return 一个根据中心点旋转的动画
+     * @param duration animation duration
+     * @return An animation that rotates according to the center
      */
     public static RotateAnimation getRotateAnimationByCenter(long duration) {
         return getRotateAnimationByCenter(duration, null);
     }
 
-
     /**
-     * 获取一个根据视图自身中心点旋转的动画
+     * Gets an animation that rotates according to the center of the view itself
      *
-     * @param animationListener 动画监听器
-     * @return 一个根据中心点旋转的动画
+     * @param animationListener Animation monitor
+     * @return An animation that rotates according to the center
      */
     public static RotateAnimation getRotateAnimationByCenter(Animation.AnimationListener animationListener) {
         return getRotateAnimationByCenter(DEFAULT_ANIMATION_DURATION,
                 animationListener);
     }
 
-
     /**
-     * 获取一个根据中心点旋转的动画
+     * Gets an animation that rotates according to the center of the view itself
      *
-     * @return 一个根据中心点旋转的动画，默认持续时间为DEFAULT_ANIMATION_DURATION
+     * @return An animation that rotates according to the center，The default duration is 400ms.
      */
     public static RotateAnimation getRotateAnimationByCenter() {
         return getRotateAnimationByCenter(DEFAULT_ANIMATION_DURATION, null);
     }
 
-
     /**
-     * 获取一个透明度渐变动画
+     * Gets a transparency gradient animation
      *
      * @param fromAlpha         开始时的透明度
      * @param toAlpha           结束时的透明度都

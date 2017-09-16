@@ -12,13 +12,13 @@ import java.util.zip.GZIPOutputStream;
  * Created by leo on 2016/12/13.
  */
 
-public class ZipUtils {
+public final class ZipUtils {
     /**
      * gzip compress string
      *
-     * @param str
-     * @return
-     * @throws IOException
+     * @param str string
+     * @return gzipString
+     * @throws IOException exception
      */
     public static String gzipCompress2Base64(String str) throws IOException {
         if (str == null || str.length() == 0) {
@@ -39,9 +39,9 @@ public class ZipUtils {
     /**
      * gzip uncompress string
      *
-     * @param str
-     * @return
-     * @throws IOException
+     * @param str gzipString
+     * @return string
+     * @throws IOException exception
      */
     public static String uncompress(String str) throws IOException {
         if (str == null || str.length() == 0) {
@@ -56,7 +56,7 @@ public class ZipUtils {
         while ((n = gunzip.read(buffer)) >= 0) {
             out.write(buffer, 0, n);
         }
-        // toString()使用平台默认编码，也可以显式的指定如toString(&quot;GBK&quot;)
+        // ToString () uses platform default encoding, and can explicitly specify such as toString ("GBK").
         return out.toString();
     }
 }

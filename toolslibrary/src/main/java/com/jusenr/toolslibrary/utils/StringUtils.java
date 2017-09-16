@@ -144,10 +144,10 @@ public final class StringUtils {
     }
 
     /**
-     * 查字符串是否为数字型字符串
+     * Check if the string is a numeric string
      *
-     * @param target 目标
-     * @return 是否匹配
+     * @param target target
+     * @return Match [boolean]
      */
     public static boolean isNumeric(String target) {
         if (StringUtils.isEmpty(target)) return false;
@@ -160,7 +160,7 @@ public final class StringUtils {
         return true;
     }
 
-    static String regEx = "[\\u4e00-\\u9fa5]"; // unicode编码，判断是否为汉字
+    static String regEx = "[\\u4e00-\\u9fa5]"; // Unicode encoding to determine whether the Chinese characters.
 
     public static int getChineseCount(String str) {
         int count = 0;
@@ -209,11 +209,16 @@ public final class StringUtils {
     }
 
 
-    // 半角转化为全角的方法
+    /**
+     * Semiangle into full width
+     *
+     * @param input Alphanumeric string
+     * @return Double byte string
+     */
     public static String ToSBC(String input) {
         if (TextUtils.isEmpty(input))
             return "";
-        // 半角转全角：
+        // Half turn angle:
         char[] c = input.toCharArray();
         for (int i = 0; i < c.length; i++) {
             if (c[i] == 32) {
@@ -226,43 +231,12 @@ public final class StringUtils {
         return new String(c);
     }
 
-
     public static CharSequence filterEmoji(CharSequence source) {
-
         if (!containsEmoji(source)) {
-            return source;//如果不包含，直接返回
+            return source;
         } else {
             return "";
         }
-        //到这里铁定包含
-//        StringBuilder buf = null;
-//
-//        int len = source.length();
-//
-//        for (int i = 0; i < len; i++) {
-//            char codePoint = source.charAt(i);
-//
-//            if (isEmojiCharacter(codePoint)) {
-//                if (buf == null) {
-//                    buf = new StringBuilder(source.length());
-//
-//                }
-//                buf.append(codePoint);
-//            } else {
-//
-//            }
-//        }
-//
-//        if (buf == null) {
-//            return source;//如果没有找到 emoji表情，则返回源字符串
-//        } else {
-//            if (buf.length() == len) {//这里的意义在于尽可能少的toString，因为会重新生成字符串
-//                return source;
-//            } else {
-//                return buf.toString();
-//
-//            }
-//        }
     }
 
     public static boolean containsEmoji(CharSequence source) {
@@ -322,7 +296,7 @@ public final class StringUtils {
     public static boolean isLetterOrDigit(String str) {
         boolean isLetterOrDigit = false;
         for (int i = 0; i < str.length(); i++) {
-            //用char包装类中的判断数字的方法判断每一个字符
+            //Judge each character with the method of determining numbers in the char wrapper class.
             if (Character.isLetterOrDigit(str.charAt(i))) {
                 isLetterOrDigit = true;
             }
@@ -336,12 +310,11 @@ public final class StringUtils {
         return str.matches(regExp);
     }
 
-
     /**
-     * 使用 Map按key进行排序
+     * Use Map to sort by key
      *
-     * @param map
-     * @return
+     * @param map map
+     * @return map
      */
     public static Map<String, String> sortMapByKey(Map<String, String> map) {
         if (map == null || map.isEmpty())
@@ -352,7 +325,7 @@ public final class StringUtils {
     }
 
     /**
-     * 排序器
+     * Sorter
      */
     public static class MapKeyComparator implements Comparator<String> {
 
@@ -363,11 +336,11 @@ public final class StringUtils {
     }
 
     /**
-     * 给一组字符串，分别添加颜色后返回
+     * Returns to a set of strings, respectively, after adding colors.
      *
-     * @param text  字符串数组
-     * @param color 颜色数组
-     * @return
+     * @param text  string array
+     * @param color color array
+     * @return CharSequence[]
      */
     public static CharSequence[] getCharSequences(CharSequence[] text, int[] color) {
         CharSequence[] charSequences = new CharSequence[text.length];

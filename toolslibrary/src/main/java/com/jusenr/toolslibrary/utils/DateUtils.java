@@ -80,7 +80,7 @@ public final class DateUtils {
     /**
      * UTC time to Local time
      *
-     * @param utcTime
+     * @param utcTime utcTime
      * @return localTime
      */
     public static long generateUTCTime2LocalTime(long utcTime) {
@@ -94,7 +94,7 @@ public final class DateUtils {
     /**
      * Local time to UTC time
      *
-     * @param localTime
+     * @param localTime localTime
      * @return utcTime
      */
     public static long generateLocalTime2UTCTime(long localTime) {
@@ -106,44 +106,47 @@ public final class DateUtils {
     }
 
     /**
-     * 通过先将 当前时间 格式化成 年月日形式 ，然后又将所得到的字符串 解析成 Date类型 即 当天0点
+     * The current time is formatted into the form of day and month,
+     * and then the resulting string is resolved into the Date type,
+     * that is, the same day at 0.
      *
-     * @return 当天 0 点 时的毫秒值
-     * @throws ParseException
+     * @param date date
+     * @return The millisecond value at 0 a. m.
+     * @throws ParseException exception
      */
     public static long getDateToTime(Date date) throws ParseException {
         return mDataFormat.parse(mDataFormat.format(date)).getTime();
     }
 
     /**
-     * 通过毫秒值  获取 当天 0 点的毫秒值
+     * The millisecond value of the day is obtained by millisecond value of 0.
      *
-     * @param millis
-     * @return 当天 0 点时的毫秒值
-     * @throws ParseException
+     * @param millis millis
+     * @return The millisecond value at 0 a. m.
+     * @throws ParseException exception
      */
     public static long getMillisToTime(long millis) throws ParseException {
         return getDateToTime(new Date(millis));
     }
 
     /**
-     * 通过 秒值 获取当天 0 点的毫秒值
+     * Gets the millisecond value of 0 on the day by the second value.
      *
-     * @param seconds
-     * @return 当天 0 点时的毫秒值
-     * @throws ParseException
+     * @param seconds second
+     * @return The millisecond value at 0 a. m.
+     * @throws ParseException exception
      */
     public static long getSecondsToTime(int seconds) throws ParseException {
         return getMillisToTime(seconds * 1000L);
     }
 
     /**
-     * 根据毫秒值 与 传入的日期  显示与之相近的日期格式的显示
+     * A display of a similar date format based on the millisecond value and the incoming date.
      *
-     * @param millis
-     * @param date
-     * @return 具体 (日期自己传入)对应日期格式显示的字符串
-     * @throws ParseException
+     * @param millis millis
+     * @param date   date
+     * @return The string displayed in the corresponding date format for the specific (date by itself).
+     * @throws ParseException exception
      */
     public static String getMillisToDate(long millis, Date date) throws ParseException {
 

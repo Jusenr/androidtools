@@ -39,7 +39,8 @@ ext {
             debug_db                : "com.amitshekhar.android:debug-db:${versions["debugDbVersion"]}",
             leakcanary_android      : "com.squareup.leakcanary:leakcanary-android:${versions["leakcanaryVersion"]}",
             leakcanary_android_no_op: "com.squareup.leakcanary:leakcanary-android-no-op:${versions["leakcanaryVersion"]}",
-            androidtools            : "com.github.Jusenr:androidtools:${versions["androidtoolsVersion"]}",
+//            androidtools            : "com.github.Jusenr:androidtools:${versions["androidtoolsVersion"]}",
+            androidtools            : "com.jusenr.android.library:androidtools:${versions["androidtoolsVersion"]}",
 
             constraint_layout       : "com.android.support.constraint:constraint-layout:${versions["constraintVersion"]}",
             appcompat_v7            : "com.android.support:appcompat-v7:${versions["androidSupportVersion"]}",

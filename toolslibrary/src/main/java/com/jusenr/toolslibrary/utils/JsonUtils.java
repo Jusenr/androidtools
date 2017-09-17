@@ -9,17 +9,17 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 
 /**
- * json工具类
+ * JSON tool class
  * Created by guchenkai on 2015/10/27.
  */
 public final class JsonUtils {
     private static final String TAG = JsonUtils.class.getSimpleName();
 
     /**
-     * 判断json类型
+     * Determine the type of JSON
      *
      * @param json json
-     * @return json类型
+     * @return type of JSON
      */
     public static JsonType getJSONType(String json) {
         if (TextUtils.isEmpty(json))
@@ -37,19 +37,19 @@ public final class JsonUtils {
     }
 
     /**
-     * json类型枚举
+     * JSON type enumeration
      */
     public enum JsonType {
         JSON_TYPE_OBJECT,//JSONObject
         JSON_TYPE_ARRAY,//JSONArray
-        JSON_TYPE_ERROR//不是JSON格式的字符串
+        JSON_TYPE_ERROR//The string is not in JSON format
     }
 
     /**
-     * 格式化json
+     * JSON format
      *
      * @param json json
-     * @return 格式化后的json
+     * @return Formatted JSON
      */
     public static String jsonFormatter(String json) throws NullPointerException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -60,12 +60,12 @@ public final class JsonUtils {
     }
 
     /**
-     * json格式化
+     * JSON format
      *
-     * @param jsonString json数据源
-     * @param paramClass 序列化对象
-     * @param <T>
-     * @return
+     * @param jsonString jsonString
+     * @param paramClass paramClass
+     * @param <T>        paramClass
+     * @return Formatted JSON
      */
     public static <T> T parseData(String jsonString, Class<T> paramClass) {
         return new Gson().fromJson(jsonString, paramClass);

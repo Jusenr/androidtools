@@ -27,10 +27,10 @@ public final class FileUtils {
     public static final int BYTE = 1024;
 
     /**
-     * 格式化单位
+     * Formatting unit
      *
-     * @param size
-     * @return
+     * @param size files size
+     * @return Format files size
      */
     public static String getFormatSize(double size) {
         double kiloByte = size / BYTE;
@@ -60,10 +60,10 @@ public final class FileUtils {
     }
 
     /**
-     * 获取缓存文件大小
+     * Gets the cache file size
      *
-     * @param context
-     * @return
+     * @param context context
+     * @return Cache file size
      */
     public static String getTotalCacheSize(Context context) {
         long cacheSize = getFolderSize(context.getCacheDir());
@@ -74,9 +74,9 @@ public final class FileUtils {
     }
 
     /**
-     * 清除应用缓存文件
+     * Clear the application cache file
      *
-     * @param context
+     * @param context context
      */
     public static void clearAllCache(Context context) {
         delete(context.getCacheDir());
@@ -88,18 +88,18 @@ public final class FileUtils {
     /**
      * 获取文件大小
      *
-     * @param file
-     * @return
-     * @throws Exception
+     * @param file file
+     * @return file sizr
+     * @throws Exception exception
      */
-    //Context.getExternalFilesDir() --> SDCard/Android/data/你的应用的包名/files/ 目录，一般放一些长时间保存的数据
-    //Context.getExternalCacheDir() --> SDCard/Android/data/你的应用包名/cache/目录，一般存放临时缓存数据
+    //Context.getExternalFilesDir (/files/) package name your application directory -- > SDCard/Android/data/, generally put some long time saved data.
+    //(Context.getExternalCacheDir) -- > SDCard/Android/data/ your application package name /cache/ directory, the general store temporary data cache.
     public static long getFolderSize(File file) {
         long size = 0;
         try {
             File[] fileList = file.listFiles();
             for (int i = 0; i < fileList.length; i++) {
-                // 如果下面还有文件
+                // If there are more files
                 if (fileList[i].isDirectory()) {
                     size = size + getFolderSize(fileList[i]);
                 } else {
@@ -113,11 +113,11 @@ public final class FileUtils {
     }
 
     /**
-     * 读取文件内容
+     * Read file content
      *
-     * @param file    文件
-     * @param charset 文件编码
-     * @return 文件内容
+     * @param file    file
+     * @param charset charset
+     * @return file content
      */
     public static String readFile(File file, String charset) {
         String fileContent = "";
@@ -135,29 +135,29 @@ public final class FileUtils {
             }
             read.close();
         } catch (Exception e) {
-            Log.e("读取文件内容操作出错", e.getMessage());
+            Log.e("Error reading file", e.getMessage());
         }
         return fileContent;
     }
 
     /**
-     * 读取文件内容
+     * Read file content
      *
-     * @param file 文件
-     * @return 文件内容
+     * @param file file
+     * @return file content
      */
     public static String readFile(File file) {
         return readFile(file, "UTF-8");
     }
 
     /**
-     * 获取文件的SHA1值
+     * Get the SHA1 value of the file
      *
-     * @param file 目标文件
-     * @return 文件的SHA1值
+     * @param file file
+     * @return The SHA1 value of the file
      */
     public static String getSHA1ByFile(File file) {
-        if (file == null || !file.exists()) return "文件不存在";
+        if (file == null || !file.exists()) return "FileNotFoundException";
         long time = System.currentTimeMillis();
         InputStream in = null;
         String value = null;
@@ -187,8 +187,10 @@ public final class FileUtils {
     }
 
     /**
-     * @param hashBytes
-     * @return
+     * byte[] to  String
+     *
+     * @param hashBytes byte[]
+     * @return string
      */
     private static String convertHashToString(byte[] hashBytes) {
         String returnVal = "";
@@ -199,10 +201,10 @@ public final class FileUtils {
     }
 
     /**
-     * 获取上传文件的文件名
+     * Gets the file name of the uploaded file
      *
-     * @param filePath
-     * @return
+     * @param filePath filePath
+     * @return file name
      */
     public static String getFileName(String filePath) {
         String filename = new File(filePath).getName();
@@ -213,18 +215,20 @@ public final class FileUtils {
     }
 
     /**
-     * 创建文件夹
+     * mkdirs
      *
-     * @param mkdirs 文件夹
+     * @param mkdirs mkdirs
+     * @return result [boolean]
      */
     public static boolean createMkdirs(File mkdirs) {
         return mkdirs.mkdirs();
     }
 
     /**
-     * 创建文件
+     * mkdirs
      *
-     * @param file 文件
+     * @param file file
+     * @return result [boolean]
      */
     public static boolean createFile(File file) {
         if (!file.exists()) {
@@ -239,19 +243,20 @@ public final class FileUtils {
     }
 
     /**
-     * 获得下载文件名
+     * Get file name
      *
-     * @param url 下载url
-     * @return 文件名
+     * @param url url
+     * @return file name
      */
     public static String getDownloadFileName(String url) {
         return url.substring(url.lastIndexOf("/") + 1);
     }
 
     /**
-     * 获得应用的图片保存目录
+     * Get the picture saved directory
      *
-     * @return
+     * @param context context
+     * @return picture saved directory
      */
     public static String getPicDirectory(Context context) {
         File picFile = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -263,39 +268,39 @@ public final class FileUtils {
     }
 
     /**
-     * 解压assets的zip压缩文件到指定目录
+     * Unzip the assets zip compressed file to the specified directory
      *
-     * @param context       上下文对象
-     * @param assetName     压缩文件名
-     * @param outputDirPath 输出路径
-     * @param isReWrite     是否覆盖
-     * @throws IOException
+     * @param context       context
+     * @param assetName     zip file names
+     * @param outputDirPath outputDirPath
+     * @param isReWrite     param cover
+     * @throws IOException exception
      */
     public static void unZipInAsset(Context context, String assetName, String outputDirPath, boolean isReWrite) throws IOException {
-        // 创建解压目标目录
+        // Creating a decompression target directory.
         File file = new File(outputDirPath);
-        // 如果目标目录不存在，则创建
+        // If the destination directory does not exist, create.
         if (!file.exists()) file.mkdirs();
-        // 打开压缩文件
+        // Open zip file.
         InputStream inputStream = ResourcesUtils.getAssets(context).open(assetName);
         ZipInputStream zipInputStream = new ZipInputStream(inputStream);
-        // 读取一个进入点
+        // Read an entry point.
         ZipEntry zipEntry = zipInputStream.getNextEntry();
-        // 使用1Mbuffer
+        // Using 1Mbuffer
         byte[] buffer = new byte[1024 * 1024];
-        // 解压时字节计数
+        // Byte count at decompression
         int count = 0;
-        // 如果进入点为空说明已经遍历完所有压缩包中文件和目录
+        // If the entry point is empty that has all the traversal of compressed files and directories.
         while (zipEntry != null) {
-            // 如果是一个目录
+            // If it is a directory
             if (zipEntry.isDirectory()) {
                 file = new File(outputDirPath + File.separator + zipEntry.getName());
-                // 文件需要覆盖或者是文件不存在
+                // The file needs to be covered or the file does not exist
                 if (isReWrite || !file.exists()) file.mkdir();
             } else {
-                // 如果是文件
+                // If it is a file
                 file = new File(outputDirPath + File.separator + zipEntry.getName());
-                // 文件需要覆盖或者文件不存在，则解压文件
+                // The file needs to be overridden or the file does not exist, then unpack the file.
                 if (isReWrite || !file.exists()) {
                     file.createNewFile();
                     FileOutputStream fileOutputStream = new FileOutputStream(file);
@@ -304,45 +309,45 @@ public final class FileUtils {
                     fileOutputStream.close();
                 }
             }
-            // 定位到下一个文件入口
+            // Locate next file entry.
             zipEntry = zipInputStream.getNextEntry();
         }
         zipInputStream.close();
     }
 
     /**
-     * 解压sdCard的zip压缩文件到指定目录
+     * Unzip the assets zip compressed file to the specified directory
      *
-     * @param zipPath       压缩文件路径
-     * @param outputDirPath 输出路径
-     * @param isReWrite     是否覆盖
-     * @throws IOException
+     * @param zipPath       zip file Path
+     * @param outputDirPath outputDirPath
+     * @param isReWrite     param cover
+     * @throws IOException exception
      */
     public static void unZipInSdCard(String zipPath, String outputDirPath, boolean isReWrite) throws IOException {
-        // 创建解压目标目录
+        // Creating a decompression target directory.
         File file = new File(outputDirPath);
-        // 如果目标目录不存在，则创建
+        // If the destination directory does not exist, create.
         if (!file.exists()) file.mkdirs();
-        // 打开压缩文件
+        // Open zip file.
         InputStream inputStream = new FileInputStream(new File(zipPath));
         ZipInputStream zipInputStream = new ZipInputStream(inputStream);
-        // 读取一个进入点
+        // Read an entry point.
         ZipEntry zipEntry = zipInputStream.getNextEntry();
-        // 使用1Mbuffer
+        // Using 1Mbuffer
         byte[] buffer = new byte[1024 * 1024];
-        // 解压时字节计数
+        // Byte count at decompression
         int count = 0;
-        // 如果进入点为空说明已经遍历完所有压缩包中文件和目录
+        // If the entry point is empty that has all the traversal of compressed files and directories.
         while (zipEntry != null) {
-            // 如果是一个目录
+            // If it is a directory
             if (zipEntry.isDirectory()) {
                 file = new File(outputDirPath + File.separator + zipEntry.getName());
-                // 文件需要覆盖或者是文件不存在
+                // The file needs to be covered or the file does not exist
                 if (isReWrite || !file.exists()) file.mkdir();
             } else {
-                // 如果是文件
+                // If it is a file
                 file = new File(outputDirPath + File.separator + zipEntry.getName());
-                // 文件需要覆盖或者文件不存在，则解压文件
+                // The file needs to be overridden or the file does not exist, then unpack the file
                 if (isReWrite || !file.exists()) {
                     file.createNewFile();
                     FileOutputStream fileOutputStream = new FileOutputStream(file);
@@ -351,17 +356,17 @@ public final class FileUtils {
                     fileOutputStream.close();
                 }
             }
-            // 定位到下一个文件入口
+            // Locate next file entry.
             zipEntry = zipInputStream.getNextEntry();
         }
         zipInputStream.close();
     }
 
     /**
-     * 删除文件
+     * Delete file
      *
-     * @param filePath 文件路径
-     * @return 是否刪除成功
+     * @param filePath filePath
+     * @return Delete redult [boolean]
      */
     public static boolean delete(String filePath) {
         File file = new File(filePath);
@@ -369,10 +374,10 @@ public final class FileUtils {
     }
 
     /**
-     * 删除文件
+     * Delete file
      *
-     * @param file 文件
-     * @return 是否刪除成功
+     * @param file file
+     * @return Delete redult [boolean]
      */
     public static boolean delete(File file) {
         if (file == null || !file.exists()) return false;
@@ -394,19 +399,19 @@ public final class FileUtils {
     }
 
     /**
-     * 获得文件内容
+     * Get file content
      *
-     * @param filePath 文件路径
-     * @return 文件内容
+     * @param filePath filePath
+     * @return file content
      */
     public static String getFileContent(String filePath) {
         File file = new File(filePath);
         if (file.exists()) {
             try {
-                BufferedReader br = new BufferedReader(new FileReader(file));//构造一个BufferedReader类来读取文件
+                BufferedReader br = new BufferedReader(new FileReader(file));//Construct a BufferedReader class to read the file.
                 String result = null;
                 String s = null;
-                while ((s = br.readLine()) != null) {//使用readLine方法，一次读一行
+                while ((s = br.readLine()) != null) {//Using the readLine method, read one line at a time.
                     result = result + "\n" + s;
                 }
                 br.close();
@@ -422,12 +427,12 @@ public final class FileUtils {
     }
 
     /**
-     * 保存文本到文件
+     * Save text to file
      *
-     * @param fileName 文件名字
-     * @param content  内容
-     * @param append   是否累加
-     * @return 是否成功
+     * @param fileName fileName
+     * @param content  content
+     * @param append   append
+     * @return if you are successful [boolean]
      */
     public static boolean saveTextValue(String fileName, String content, boolean append) {
         try {
@@ -443,12 +448,12 @@ public final class FileUtils {
     }
 
     /**
-     * 删除目录下所有文件
+     * Delete all files in the directory
      *
-     * @param Path 路径
+     * @param Path path
      */
     public static void deleteAllFile(String Path) {
-        // 删除目录下所有文件
+        // Delete all files in the directory
         File path = new File(Path);
         File files[] = path.listFiles();
         if (files != null)
@@ -461,10 +466,10 @@ public final class FileUtils {
     }
 
     /**
-     * 保存文件
+     * save file
      *
-     * @param in       文件输入流
-     * @param filePath 文件保存路径
+     * @param in       file input stream
+     * @param filePath output directory
      */
     public static File saveFile(InputStream in, String filePath) {
         File file = new File(filePath);
@@ -492,10 +497,10 @@ public final class FileUtils {
     }
 
     /**
-     * 文件是否存在
+     * file exists
      *
-     * @param path 文件路径
-     * @return 文件是否存在
+     * @param path path
+     * @return file exists
      */
     public static boolean isExists(String path) {
         File file = new File(path);
@@ -503,10 +508,10 @@ public final class FileUtils {
     }
 
     /**
-     * 文件Base64加密
+     * File Base64 encryption
      *
-     * @param path
-     * @return
+     * @param path path
+     * @return Base64 encryption string
      */
     public static String fileToBase64String(String path) {
         FileInputStream inputStream = null;

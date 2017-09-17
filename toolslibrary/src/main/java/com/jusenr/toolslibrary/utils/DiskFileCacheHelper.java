@@ -33,23 +33,23 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * Android磁盘文件缓存工具
+ * Android disk file caching utility.
  * Created by guchenkai on 2015/3/6.
  */
 public class DiskFileCacheHelper {
     public static final int TIME_HOUR = 60 * 60;
     public static final int TIME_DAY = TIME_HOUR * 24;
     private static final int MAX_SIZE = 1000 * 1000 * 50; // 50 mb
-    private static final int MAX_COUNT = Integer.MAX_VALUE; // 不限制存放数据的数量
+    private static final int MAX_COUNT = Integer.MAX_VALUE; // The amount of data that is not restricted.
     private static Map<String, DiskFileCacheHelper> mInstanceMap = new HashMap<String, DiskFileCacheHelper>();
     private AndroidCache mCache;
 
-    public static DiskFileCacheHelper get(Context ctx) {
-        return get(ctx, "AndroidCache");
+    public static DiskFileCacheHelper get(Context context) {
+        return get(context, "AndroidCache");
     }
 
-    public static DiskFileCacheHelper get(Context ctx, String cacheName) {
-        File f = new File(ctx.getCacheDir(), cacheName);
+    public static DiskFileCacheHelper get(Context context, String cacheName) {
+        File f = new File(context.getCacheDir(), cacheName);
         return get(f, MAX_SIZE, MAX_COUNT);
     }
 
@@ -85,10 +85,10 @@ public class DiskFileCacheHelper {
     }
 
     /**
-     * 保存 String数据 到 缓存中
+     * Save the String data into the cache
      *
-     * @param key   保存的key
-     * @param value 保存的String数据
+     * @param key   Saved key
+     * @param value String data storage
      */
     public void put(String key, String value) {
         File file = mCache.newFile(key);
@@ -112,21 +112,21 @@ public class DiskFileCacheHelper {
     }
 
     /**
-     * 保存 String数据 到 缓存中
+     * Save the String data into the cache
      *
-     * @param key      保存的key
-     * @param value    保存的String数据
-     * @param saveTime 保存的时间，单位：秒
+     * @param key      Saved key
+     * @param value    String data storage
+     * @param saveTime To save time, in seconds
      */
     public void put(String key, String value, int saveTime) {
         put(key, Utils.newStringWithDateInfo(saveTime, value));
     }
 
     /**
-     * 读取 String数据
+     * Read String data
      *
-     * @param key
-     * @return String 数据
+     * @param key Read key
+     * @return String data storage
      */
     public String getAsString(String key) {
         File file = mCache.get(key);
@@ -164,31 +164,31 @@ public class DiskFileCacheHelper {
     }
 
     /**
-     * 保存 JSONObject数据 到 缓存中
+     * Save the JSONObject data into the cache
      *
-     * @param key   保存的key
-     * @param value 保存的JSON数据
+     * @param key   Saved key
+     * @param value Saved JSON data
      */
     public void put(String key, JSONObject value) {
         put(key, value.toString());
     }
 
     /**
-     * 保存 JSONObject数据 到 缓存中
+     * Save the JSONObject data into the cache
      *
-     * @param key      保存的key
-     * @param value    保存的JSONObject数据
-     * @param saveTime 保存的时间，单位：秒
+     * @param key      Saved key
+     * @param value    Saved JSONObject data
+     * @param saveTime To save time, in seconds
      */
     public void put(String key, JSONObject value, int saveTime) {
         put(key, value.toString(), saveTime);
     }
 
     /**
-     * 读取JSONObject数据
+     * Read JSONObject data
      *
-     * @param key
-     * @return JSONObject数据
+     * @param key Read key
+     * @return JSONObject data
      */
     public JSONObject getAsJSONObject(String key) {
         String JSONString = getAsString(key);
@@ -202,31 +202,31 @@ public class DiskFileCacheHelper {
     }
 
     /**
-     * 保存 JSONArray数据 到 缓存中
+     * Save the JSONArray data into the cache
      *
-     * @param key   保存的key
-     * @param value 保存的JSONArray数据
+     * @param key   Saved key
+     * @param value Saved JSONArray data
      */
     public void put(String key, JSONArray value) {
         put(key, value.toString());
     }
 
     /**
-     * 保存 JSONArray数据 到 缓存中
+     * Save the JSONArray data into the cache
      *
-     * @param key      保存的key
-     * @param value    保存的JSONArray数据
-     * @param saveTime 保存的时间，单位：秒
+     * @param key      Saved key
+     * @param value    Saved JSONArray data
+     * @param saveTime To save time, in seconds
      */
     public void put(String key, JSONArray value, int saveTime) {
         put(key, value.toString(), saveTime);
     }
 
     /**
-     * 读取JSONArray数据
+     * Read JSONArray data
      *
-     * @param key
-     * @return JSONArray数据
+     * @param key Read key
+     * @return JSONArray data
      */
     public JSONArray getAsJSONArray(String key) {
         String JSONString = getAsString(key);
@@ -240,10 +240,10 @@ public class DiskFileCacheHelper {
     }
 
     /**
-     * 保存 byte数据 到 缓存中
+     * Save the byte data into the cache
      *
-     * @param key   保存的key
-     * @param value 保存的数据
+     * @param key   Saved key
+     * @param value Saved byte data
      */
     public void put(String key, byte[] value) {
         File file = mCache.newFile(key);
@@ -267,21 +267,21 @@ public class DiskFileCacheHelper {
     }
 
     /**
-     * 保存 byte数据 到 缓存中
+     * Save the byte data into the cache
      *
-     * @param key      保存的key
-     * @param value    保存的数据
-     * @param saveTime 保存的时间，单位：秒
+     * @param key      Saved key
+     * @param value    Saved byte data
+     * @param saveTime To save time, in seconds
      */
     public void put(String key, byte[] value, int saveTime) {
         put(key, Utils.newByteArrayWithDateInfo(saveTime, value));
     }
 
     /**
-     * 获取 byte 数据
+     * Read byte data
      *
-     * @param key
-     * @return byte 数据
+     * @param key Read key
+     * @return Byte data
      */
     public byte[] getAsBinary(String key) {
         RandomAccessFile RAFile = null;
@@ -316,21 +316,21 @@ public class DiskFileCacheHelper {
     }
 
     /**
-     * 保存 Serializable数据 到 缓存中
+     * Save serializable to cache
      *
-     * @param key   保存的key
-     * @param value 保存的value
+     * @param key   Saved key
+     * @param value Saved value
      */
     public void put(String key, Serializable value) {
         put(key, value, -1);
     }
 
     /**
-     * 保存 Serializable数据到 缓存中
+     * Save serializable to cache
      *
-     * @param key      保存的key
-     * @param value    保存的value
-     * @param saveTime 保存的时间，单位：秒
+     * @param key      Saved key
+     * @param value    Saved value
+     * @param saveTime To save time, in seconds
      */
     public void put(String key, Serializable value, int saveTime) {
         ByteArrayOutputStream baos = null;
@@ -356,10 +356,10 @@ public class DiskFileCacheHelper {
     }
 
     /**
-     * 读取 Serializable数据
+     * Read serializable data
      *
-     * @param key
-     * @return Serializable 数据
+     * @param key Read key
+     * @return Serializable data
      */
     public Object getAsSerializable(String key) {
         byte[] data = getAsBinary(key);
@@ -394,31 +394,31 @@ public class DiskFileCacheHelper {
     }
 
     /**
-     * 保存 bitmap 到 缓存中
+     * Save bitmap to cache
      *
-     * @param key   保存的key
-     * @param value 保存的bitmap数据
+     * @param key   Saved key
+     * @param value Saved bitmap data
      */
     public void put(String key, Bitmap value) {
         put(key, Utils.Bitmap2Bytes(value));
     }
 
     /**
-     * 保存 bitmap 到 缓存中
+     * Save bitmap to cache
      *
-     * @param key      保存的key
-     * @param value    保存的 bitmap 数据
-     * @param saveTime 保存的时间，单位：秒
+     * @param key      Saved key
+     * @param value    Saved bitmap data
+     * @param saveTime To save time, in seconds
      */
     public void put(String key, Bitmap value, int saveTime) {
         put(key, Utils.Bitmap2Bytes(value), saveTime);
     }
 
     /**
-     * 读取 bitmap 数据
+     * Read bitmap data
      *
-     * @param key
-     * @return bitmap 数据
+     * @param key Read key
+     * @return bitmap date
      */
     public Bitmap getAsBitmap(String key) {
         if (getAsBinary(key) == null) {
@@ -428,31 +428,31 @@ public class DiskFileCacheHelper {
     }
 
     /**
-     * 保存 drawable 到 缓存中
+     * Save drawable to cache
      *
-     * @param key   保存的key
-     * @param value 保存的drawable数据
+     * @param key   Saved key
+     * @param value Saved drawable data
      */
     public void put(String key, Drawable value) {
         put(key, Utils.drawable2Bitmap(value));
     }
 
     /**
-     * 保存 drawable 到 缓存中
+     * Save drawable to cache
      *
-     * @param key      保存的key
-     * @param value    保存的 drawable 数据
-     * @param saveTime 保存的时间，单位：秒
+     * @param key      Saved key
+     * @param value    Saved drawable data
+     * @param saveTime To save time, in seconds
      */
     public void put(String key, Drawable value, int saveTime) {
         put(key, Utils.drawable2Bitmap(value), saveTime);
     }
 
     /**
-     * 读取 Drawable 数据
+     * Read Drawable data
      *
-     * @param key
-     * @return Drawable 数据
+     * @param key Read key
+     * @return Drawable data
      */
     public Drawable getAsDrawable(String key) {
         if (getAsBinary(key) == null) {
@@ -462,10 +462,10 @@ public class DiskFileCacheHelper {
     }
 
     /**
-     * 获取缓存文件
+     * Get cached files
      *
-     * @param key
-     * @return value 缓存的文件
+     * @param key get key
+     * @return value Cached files
      */
     public File file(String key) {
         File f = mCache.newFile(key);
@@ -475,26 +475,24 @@ public class DiskFileCacheHelper {
     }
 
     /**
-     * 移除某个key
+     * Remove a key
      *
-     * @param key
-     * @return 是否移除成功
+     * @param key remove key
+     * @return Remove successfully [boolean]
      */
     public boolean remove(String key) {
         return mCache.remove(key);
     }
 
     /**
-     * 清除所有数据
+     * Clear all data
      */
     public void clear() {
         mCache.clear();
     }
 
     /**
-     * 缓存管理器
-     *
-     * @author Administrator
+     * cacheManager
      */
     private class AndroidCache {
         private final AtomicLong cacheSize;
@@ -516,7 +514,7 @@ public class DiskFileCacheHelper {
         }
 
         /**
-         * 计算 cacheSize和cacheCount
+         * Calculate cacheSize and cacheCount
          */
         private void calculateCacheSizeAndCacheCount() {
             new Thread(new Runnable() {
@@ -592,15 +590,14 @@ public class DiskFileCacheHelper {
         }
 
         /**
-         * 移除旧的文件
+         * Remove old files
          *
-         * @return
+         * @return Removed size of old file
          */
         private long removeNext() {
             if (lastUsageDates.isEmpty()) {
                 return 0;
             }
-
             Long oldestUsage = null;
             File mostLongUsedFile = null;
             Set<Entry<File, Long>> entries = lastUsageDates.entrySet();
@@ -618,7 +615,6 @@ public class DiskFileCacheHelper {
                     }
                 }
             }
-
             long fileSize = calculateSize(mostLongUsedFile);
             if (mostLongUsedFile.delete()) {
                 lastUsageDates.remove(mostLongUsedFile);
@@ -632,27 +628,25 @@ public class DiskFileCacheHelper {
     }
 
     /**
-     * 时间计算工具类
-     *
-     * @author Administrator
+     * Time calculation tools class
      */
     private static class Utils {
 
         /**
-         * 判断缓存的String数据是否到期
+         * Determines whether the cached String data is expired
          *
-         * @param str
-         * @return true：到期了 false：还没有到期
+         * @param str string
+         * @return True: due false: not yet due
          */
         private static boolean isDue(String str) {
             return isDue(str.getBytes());
         }
 
         /**
-         * 判断缓存的byte数据是否到期
+         * Determines whether the cached byte data is expired
          *
-         * @param data
-         * @return true：到期了 false：还没有到期
+         * @param data data
+         * @return True: due false: not yet due
          */
         private static boolean isDue(byte[] data) {
             String[] strs = getDateInfoFromDate(data);
@@ -743,7 +737,7 @@ public class DiskFileCacheHelper {
             return currentTime + "-" + second + mSeparator;
         }
 
-        /*
+        /**
          * Bitmap → byte[]
          */
         private static byte[] Bitmap2Bytes(Bitmap bm) {
@@ -755,7 +749,7 @@ public class DiskFileCacheHelper {
             return baos.toByteArray();
         }
 
-        /*
+        /**
          * byte[] → Bitmap
          */
         private static Bitmap Bytes2Bimap(byte[] b) {
@@ -765,30 +759,30 @@ public class DiskFileCacheHelper {
             return BitmapFactory.decodeByteArray(b, 0, b.length);
         }
 
-        /*
+        /**
          * Drawable → Bitmap
          */
         private static Bitmap drawable2Bitmap(Drawable drawable) {
             if (drawable == null) {
                 return null;
             }
-            // 取 drawable 的长宽
+            // Take the length and width of drawable
             int w = drawable.getIntrinsicWidth();
             int h = drawable.getIntrinsicHeight();
-            // 取 drawable 的颜色格式
+            // Take the color format for drawable
             Bitmap.Config config = drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
                     : Bitmap.Config.RGB_565;
-            // 建立对应 bitmap
+            // Establishing corresponding bitmap
             Bitmap bitmap = Bitmap.createBitmap(w, h, config);
-            // 建立对应 bitmap 的画布
+            // Create a canvas corresponding to bitmap
             Canvas canvas = new Canvas(bitmap);
             drawable.setBounds(0, 0, w, h);
-            // 把 drawable 内容画到画布中
+            // The content of the drawable to the canvas
             drawable.draw(canvas);
             return bitmap;
         }
 
-        /*
+        /**
          * Bitmap → Drawable
          */
         @SuppressWarnings("deprecation")

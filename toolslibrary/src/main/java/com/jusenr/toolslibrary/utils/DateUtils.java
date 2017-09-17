@@ -163,23 +163,23 @@ public final class DateUtils {
     }
 
     /**
-     * 根据  秒值 与 传入的日期  显示与之相近的日期格式的显示
+     * A display of the date format corresponding to the seconds value and the incoming date.
      *
-     * @param seconds
-     * @param date
-     * @return 具体 (日期自己传入) 对应日期格式显示的字符串
-     * @throws ParseException
+     * @param seconds seconds
+     * @param date    date
+     * @return The string displayed in the corresponding date format for the specific (date by itself).
+     * @throws ParseException exception
      */
     public static String getSecondsToDate(int seconds, Date date) throws ParseException {
         return getMillisToDate(seconds * 1000L, date);
     }
 
     /**
-     * 根据毫秒值  显示与之   当前日期   相近的日期格式的显示
+     * Displays a date format similar to the current date based on the millisecond value.
      *
-     * @param millis
-     * @return 具体（当前日期） 对应日期格式显示的字符串
-     * @throws ParseException
+     * @param millis millis
+     * @return A string that is displayed in the corresponding date format for a specific (current date).
+     * @throws ParseException exception
      */
     public static String getMillisToDate(long millis) throws ParseException {
         Long time = System.currentTimeMillis();
@@ -187,11 +187,11 @@ public final class DateUtils {
     }
 
     /**
-     * 根据秒值  显示与之   当前日期   相近的日期格式的显示
+     * Displays a date format similar to the current date based on the seconds value.
      *
-     * @param seconds
-     * @return 具体（当前日期） 对应日期格式显示的字符串
-     * @throws ParseException
+     * @param seconds seconds
+     * @return A string that is displayed in the corresponding date format for a specific (current date).
+     * @throws ParseException exception
      */
     public static String getSecondsToDate(int seconds) throws ParseException {
         return getMillisToDate(seconds * 1000L);
@@ -210,12 +210,12 @@ public final class DateUtils {
     }
 
     /**
-     * 计算两个日期相差的天数，是否取绝对值
+     * Calculates the number of days in which two dates differ, whether or not to take absolute values.
      *
-     * @param date1 第一个日期
-     * @param date2 第二个日期
-     * @param isAbs 是否取绝对值
-     * @return 相差天数
+     * @param date1 first date
+     * @param date2 Second date
+     * @param isAbs Do you take absolute values?
+     * @return dim dd
      */
     public static int getDaysUnAbs(String date1, String date2, boolean isAbs) {
         int day = 0;
@@ -233,21 +233,21 @@ public final class DateUtils {
     }
 
     /**
-     * 计算两个日期相差的天数，取绝对值
+     * Calculates the number of days in which the two dates differ, and takes the absolute value.
      *
-     * @param date1 第一个日期
-     * @param date2 第二个日期
-     * @return 相差天数
+     * @param date1 first date
+     * @param date2 Second date
+     * @return dim dd
      */
     public static int getDaysUnAbs(String date1, String date2) {
         return getDaysUnAbs(date1, date2, true);
     }
 
     /**
-     * 将长时间格式字符串转换为时间 yyyy-MM-dd HH:mm:ss
+     * Converts long format strings to time e.g.yyyy-MM-dd HH:mm:ss.
      *
-     * @param date 日期
-     * @return 长时间格式日期
+     * @param date date
+     * @return Long format date
      */
     public static Date strToDateLong(String date) {
         ParsePosition pos = new ParsePosition(0);
@@ -255,28 +255,28 @@ public final class DateUtils {
     }
 
     /**
-     * 获取当前的日期时间
+     * Gets the current date time
      *
-     * @return 当前的日期时间
+     * @return Current date time
      */
     public static String getCurrentTime() {
         return mTimeFormat.format(new Date());
     }
 
     /**
-     * 获取当前的日期
+     * Gets the current date
      *
-     * @return 当前的日期
+     * @return Current date
      */
     public static String getCurrentDate() {
         return mDataFormat.format(new Date());
     }
 
     /**
-     * 获取输入日期是星期几
+     * Gets the input date is a few weeks
      *
-     * @param date 日期
-     * @return 星期几
+     * @param date date
+     * @return days of the week
      */
     public static String getWeekDate(Date date) {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
@@ -285,11 +285,11 @@ public final class DateUtils {
     }
 
     /**
-     * 获取输入日期是星期几
+     * Gets the input date is a few weeks
      *
      * @param context context
-     * @param date    日期
-     * @return 星期几
+     * @param date    date
+     * @return days of the week
      */
     public static String getWeekDate(Context context, Date date) {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
@@ -298,10 +298,10 @@ public final class DateUtils {
     }
 
     /**
-     * 获取输入日期是星期几
+     * Gets the input date is a few weeks
      *
-     * @param date 日期
-     * @return 星期几
+     * @param date date
+     * @return days of the week
      */
     public static String getWeekDate(String date) {
         try {
@@ -311,15 +311,15 @@ public final class DateUtils {
             e.printStackTrace();
             Log.e(TAG, e.getMessage());
         }
-        return "星期数未知";
+        return "The weeks are unknown.";
     }
 
     /**
-     * 毫秒转日期
+     * Milliseconds to date
      *
-     * @param millisecond 毫秒数
-     * @param pattern     正则式
-     * @return 日期
+     * @param millisecond millisecond
+     * @param pattern     pattern
+     * @return date [pattern]
      */
     public static String millisecondToDate(long millisecond, String pattern) {
         SimpleDateFormat format = new SimpleDateFormat(pattern);
@@ -328,21 +328,21 @@ public final class DateUtils {
     }
 
     /**
-     * 毫秒值转日期 (yyyy/MM/dd)
+     * Millisecond value to date (yyyy/MM/dd)
      *
-     * @param millisecond 毫秒数
-     * @return 日期
+     * @param millisecond millisecond
+     * @return date [yyyy/MM/dd]
      */
     public static String millisecondToDate(long millisecond) {
         return millisecondToDate(millisecond * 1000L, YMD_PATTERN2);
     }
 
     /**
-     * 秒转日期
+     * Second turn date
      *
-     * @param second  秒数
-     * @param pattern 正则式
-     * @return 日期
+     * @param second  second
+     * @param pattern pattern
+     * @return date [pattern]
      */
     public static String secondToDate(int second, String pattern) {
         SimpleDateFormat format = new SimpleDateFormat(pattern);
@@ -351,22 +351,22 @@ public final class DateUtils {
     }
 
     /**
-     * 将时间戳转换成字符串
+     * Converts a timestamp to a string
      *
-     * @param timeStamp  时间戳
-     * @param dataFormat yyyy-MM-dd HH:mm:ss字符串
-     * @return String yyyy-MM-dd HH:mm:ss格式日期字符串
+     * @param timeStamp  time stamp
+     * @param dataFormat yyyy-MM-dd HH:mm:ss string
+     * @return yyyy-MM-dd HH:mm:ss Format date string
      */
     public static String long_2_str(long timeStamp, String dataFormat) {
         return new SimpleDateFormat(dataFormat).format(new Date(timeStamp * 1000L));
     }
 
     /**
-     * 将yyyy-MM-dd HH:mm:ss字符串转换成日期
+     * Converts a yyyy-MM-dd HH:mm:ss string into a date
      *
-     * @param dateStr    时间字符串
-     * @param dataFormat 当前时间字符串的格式。
-     * @return Date 日期 ,转换异常时返回null。
+     * @param dateStr    dateStr
+     * @param dataFormat dataFormat。
+     * @return Date and returns null. when an exception is converted
      */
     public static Date parseDate(String dateStr, String dataFormat) {
         try {
@@ -381,13 +381,13 @@ public final class DateUtils {
     }
 
     /**
-     * 时间计算
+     * time calculation
      *
-     * @param millisecond 毫秒数
-     * @return 计算后显示的文字
+     * @param millisecond millisecond
+     * @return Text to be displayed after calculation
      */
     public static String timeCalculate(long millisecond) {
-        long diff = System.currentTimeMillis() - millisecond;//时间差
+        long diff = System.currentTimeMillis() - millisecond;//time difference
         if (diff < 1000 * 60/* && diff > 0*/)
             return "刚刚";
         else if (diff >= 1000 * 60 && diff < 1000 * 60 * 60)
@@ -406,13 +406,13 @@ public final class DateUtils {
     }
 
     /**
-     * 时间计算
+     * time calculation
      *
-     * @param millisecond 毫秒数
-     * @return 计算后显示
+     * @param millisecond millisecond
+     * @return Text to be displayed after calculation
      */
     public static String timeCalculation(Context context, long millisecond) {
-        long diff = System.currentTimeMillis() - millisecond;//时间差
+        long diff = System.currentTimeMillis() - millisecond;//time difference
         if (diff < ONE_MINUTE/* && diff > 0*/) {
             return context.getString(R.string.message_text_just_now);
         } else if (diff >= ONE_MINUTE && diff < ONE_HOUR) {
@@ -444,10 +444,10 @@ public final class DateUtils {
     }
 
     /**
-     * 把long时间转换成时间格式字符串
+     * Converts long time into a time format string
      *
-     * @param time 时间
-     * @return
+     * @param time time
+     * @return time format string
      */
     public static String generateTime(long time) {
         int totalSeconds = (int) (time / 1000);
@@ -459,10 +459,10 @@ public final class DateUtils {
     }
 
     /**
-     * 获取年
+     * Get years
      *
-     * @param mills
-     * @return
+     * @param mills mills
+     * @return years
      */
     public static int getYearInMills(long mills) {
         Calendar calendar = Calendar.getInstance();
@@ -471,26 +471,26 @@ public final class DateUtils {
     }
 
     /**
-     * 获取周数
+     * Get weeks
      *
-     * @param mills
-     * @return
+     * @param mills mills
+     * @return weeks
      */
     public static int getWeekInMills(long mills) {
-        Calendar cal = Calendar.getInstance();//这一句必须要设置，否则美国认为第一天是周日，而我国认为是周一，对计算当期日期是第几周会有错误
-        cal.setFirstDayOfWeek(Calendar.MONDAY); // 设置每周的第一天为星期一
-        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);// 每周从周一开始
-        cal.setMinimalDaysInFirstWeek(7); // 设置每周最少为7天
+        Calendar cal = Calendar.getInstance();//This sentence must be set, otherwise, the United States believes that the first day is Sunday, and our country believes that Monday, the calculation of the current date is the first few weeks there will be errors.
+        cal.setFirstDayOfWeek(Calendar.MONDAY); // The first day of the week set for Monday.
+        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);// Starting every Monday.
+        cal.setMinimalDaysInFirstWeek(7); // Set for at least 7 days a week.
         cal.setTime(new Date());
         int weeks = cal.get(Calendar.WEEK_OF_YEAR);
         return weeks;
     }
 
     /**
-     * 获取月份
+     * Get months
      *
-     * @param mills
-     * @return
+     * @param mills mills
+     * @return months
      */
     public static int getMonthInMills(long mills) {
         Calendar calendar = Calendar.getInstance();
@@ -499,10 +499,10 @@ public final class DateUtils {
     }
 
     /**
-     * 获取天数
+     * Get days
      *
-     * @param mills
-     * @return
+     * @param mills mills
+     * @return days
      */
     public static int getDayInMills(long mills) {
         Calendar calendar = Calendar.getInstance();
@@ -511,10 +511,10 @@ public final class DateUtils {
     }
 
     /**
-     * 获取小时
+     * Get hours
      *
-     * @param mills
-     * @return
+     * @param mills mills
+     * @return hours
      */
     public static int getHourInMills(long mills) {
         Calendar calendar = Calendar.getInstance();
@@ -522,12 +522,11 @@ public final class DateUtils {
         return calendar.get(Calendar.HOUR_OF_DAY);
     }
 
-
     /**
-     * 获取分钟
+     * Get minutes
      *
-     * @param mills
-     * @return
+     * @param mills mills
+     * @return minutes
      */
     public static int getMinuteInMills(long mills) {
         Calendar calendar = Calendar.getInstance();

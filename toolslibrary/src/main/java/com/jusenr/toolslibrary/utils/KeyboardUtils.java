@@ -5,16 +5,16 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 /**
- * 软键盘工具类
+ * Soft keyboard tools class
  * Created by guchenkai on 2015/11/26.
  */
 public final class KeyboardUtils {
 
     /**
-     * 打开软键盘
+     * Open soft keyboard
      *
      * @param context   context
-     * @param focusView 输入框
+     * @param focusView input field
      */
     public static void openKeyboard(Context context, View focusView) {
         InputMethodManager inputMethodManager = (InputMethodManager) context
@@ -28,10 +28,10 @@ public final class KeyboardUtils {
     }
 
     /**
-     * 关闭软键盘
+     * Close soft keyboard
      *
      * @param context   context
-     * @param focusView 输入框
+     * @param focusView input field
      */
     public static void closeKeyboard(Context context, View focusView) {
         InputMethodManager inputMethodManager = (InputMethodManager) context

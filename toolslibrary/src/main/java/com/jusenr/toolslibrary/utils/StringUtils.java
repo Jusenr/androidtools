@@ -1,9 +1,12 @@
 package com.jusenr.toolslibrary.utils;
 
+import android.text.InputFilter;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.widget.EditText;
 
 import java.security.MessageDigest;
 import java.util.Comparator;
@@ -14,16 +17,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * string处理
+ * String processing tools class
  * Created by guchenkai on 2015/11/24.
  */
 public final class StringUtils {
 
     /**
-     * 字符串判空
+     * String is null
      *
-     * @param target 目标
-     * @return 是否为空
+     * @param target target
+     * @return IS NULL
      */
     public static boolean isEmpty(String target) {
         if (TextUtils.isEmpty(target) || TextUtils.equals("null", target))
@@ -32,11 +35,37 @@ public final class StringUtils {
     }
 
     /**
-     * 判断字符串target1是否包含字符串target2
+     * Input frame character length limit
      *
-     * @param text1 目标1
-     * @param text2 目标2
-     * @return 是否包含
+     * @param mEdit     EditText
+     * @param maxLength maxLength
+     */
+    public void setEditable(EditText mEdit, int maxLength) {
+        if (mEdit.getText().length() < maxLength) {
+            mEdit.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLength) {
+            }});
+            mEdit.setCursorVisible(true);
+            mEdit.setFocusableInTouchMode(true);
+            mEdit.requestFocus();
+        } else {
+            mEdit.setFilters(new InputFilter[]{new InputFilter() {
+                @Override
+                public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                    return source.length() < 1 ? dest.subSequence(dstart, dend) : "";
+                }
+            }});
+            mEdit.setCursorVisible(false);
+            mEdit.setFocusableInTouchMode(false);
+            mEdit.clearFocus();
+        }
+    }
+
+    /**
+     * Determines whether string text1 contains string text2
+     *
+     * @param text1 text1
+     * @param text2 text2
+     * @return Contains [boolean]
      */
 
     public static boolean containsString(String text1, String text2) {
@@ -46,18 +75,18 @@ public final class StringUtils {
     }
 
     /**
-     * 判断两个字符串是否相同
+     * Determine if the two strings are the same
      *
-     * @param target1 目标1
-     * @param target2 目标2
-     * @return 是否相同
+     * @param target1 target1
+     * @param target2 target2
+     * @return Is it the same? [boolean]
      */
     public static boolean equals(String target1, String target2) {
         return TextUtils.equals(target1, target2);
     }
 
     /**
-     * 获得UUID
+     * Get UUID
      *
      * @return UUID
      */
@@ -66,11 +95,11 @@ public final class StringUtils {
     }
 
     /**
-     * 匹配正则表达式
+     * Matches Regular Expression
      *
-     * @param text  被匹配文本
-     * @param regex 正则表达式
-     * @return 是否匹配
+     * @param text  Matched text
+     * @param regex regular expression
+     * @return Match [boolean]
      */
     public static boolean checkRegex(final String text, final String regex) {
         Pattern pattern = Pattern.compile(regex);
@@ -79,10 +108,10 @@ public final class StringUtils {
     }
 
     /**
-     * 验证邮箱
+     * Verify mailbox
      *
-     * @param email 电子邮箱地址
-     * @return 是否匹配
+     * @param email email
+     * @return Match [boolean]
      */
     public static boolean checkEmailFormat(String email) {
         return checkRegex(email,
@@ -90,56 +119,55 @@ public final class StringUtils {
     }
 
     /**
-     * 验证手机号码
+     * Verify phone number
      *
-     * @param mobile 手机号码
-     * @return 是否匹配
+     * @param mobile phone number
+     * @return Match [boolean]
      */
     public static boolean checkMobileFormat(String mobile) {
         return checkRegex(mobile, "^[1][3,4,5,7,8][0-9]{9}$");
     }
 
     /**
-     * 验证密码(6到16位)
+     * Verify passwords (6 to 16 bits)
      *
-     * @param password 密码文本
-     * @return 是否匹配
+     * @param password passwords
+     * @return Match [boolean]
      */
     public static boolean checkPasswordFormat(String password) {
         return checkRegex(password, "[A-Z0-9a-z]{6,16}");
     }
 
     /**
-     * 验证密码(6到18位)
+     * Verify passwords (6 to 18 bits)
      *
-     * @param password 密码文本
-     * @return 是否匹配
+     * @param password passwords
+     * @return Match [boolean]
      */
     public static boolean checkBindPasswordFormat(String password) {
         return checkRegex(password, "[A-Z0-9a-z]{6,18}");
     }
 
     /**
-     * 验证中英文数字组合
+     * Verify the combination of Chinese and English numerals
      *
-     * @param string 文本
-     * @return 是否匹配
+     * @param text text
+     * @return Match [boolean]
      */
-    public static boolean checkCnEnNumFormat(String string) {
+    public static boolean checkCnEnNumFormat(String text) {
         String reg = "^[\\u4E00-\\u9FA5A-Za-z0-9]+$";
-        return checkRegex(string, reg);
+        return checkRegex(text, reg);
     }
 
     /**
-     * 查字符串是否有空格
+     * Check if strings have spaces
      *
-     * @param string 文本
-     * @return 是否有空格
+     * @param text text
+     * @return Match [boolean]
      */
-    public static boolean checkHasSpaceFormat(String string) {
-        if (StringUtils.isEmpty(string)) return true;
-        if (string.contains(" "))
-            return true;
+    public static boolean checkHasSpaceFormat(String text) {
+        if (StringUtils.isEmpty(text)) return true;
+        if (text.contains(" ")) return true;
         return false;
     }
 

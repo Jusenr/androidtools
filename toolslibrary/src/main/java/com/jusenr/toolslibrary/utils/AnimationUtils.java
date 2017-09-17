@@ -289,7 +289,7 @@ public final class AnimationUtils {
     /**
      * Get an animation collection
      *
-     * @return
+     * @return Animation collection
      */
     public static AnimationSet getAnimationSet() {
         return new AnimationSet(true);

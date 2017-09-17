@@ -19,9 +19,9 @@ public final class ListUtils {
     /**
      * Is empty
      *
-     * @param list
-     * @param <D>
-     * @return
+     * @param list list
+     * @param <D>  bean
+     * @return IS NULL [boolean]
      */
     public static <D> boolean isEmpty(List<D> list) {
         return list == null || list.isEmpty() || list.size() <= 0;

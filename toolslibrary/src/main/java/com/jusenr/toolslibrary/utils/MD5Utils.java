@@ -15,7 +15,6 @@ public class MD5Utils {
     /**
      *  Init MessageDigest
      *
-     * @author chengxin
      */
     static {
         try {
@@ -29,7 +28,6 @@ public class MD5Utils {
     /**
      * 对字符串进行MD5加密
      *
-     * @author chengxin
      */
     public static String getMD5String(String s) {
         return getMD5String(s.getBytes());
@@ -38,7 +36,6 @@ public class MD5Utils {
     /**
      * 对byte类型的数组进行MD5加密
      *
-     * @author chengxin
      */
     public static String getMD5String(byte[] bytes) {
         messagedigest.reset();
@@ -114,5 +111,4 @@ public class MD5Utils {
             return null;
         }
     }
-
 }

@@ -11,13 +11,13 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * list工具类
+ * list
  * Created by guchenkai on 2015/12/15.
  */
 public final class ListUtils {
 
     /**
-     * list非空判断
+     * Is empty
      *
      * @param list
      * @param <D>
@@ -28,12 +28,12 @@ public final class ListUtils {
     }
 
     /**
-     * 截取list
+     * SubString
      *
-     * @param source list源
-     * @param start  开始标号
-     * @param end    结束标号
-     * @return 截取后的list
+     * @param source Sourcrlist
+     * @param start  Start
+     * @param end    End
+     * @return Completed list
      */
     public static <T extends Serializable> List<T> cutOutList(List<T> source, int start, int end) {
         List<T> result = new ArrayList<>();
@@ -44,12 +44,12 @@ public final class ListUtils {
     }
 
     /**
-     * 判断两个集合是否相等
+     * Is Equals
      *
-     * @param a   第一个集合
-     * @param b   第二个集合
-     * @param <T>
-     * @return 是否相等
+     * @param a   First List
+     * @param b   Second List
+     * @param <T> bean
+     * @return Is Equals
      */
     public static <T extends Serializable> boolean equals(Collection<T> a, Collection<T> b) {
         if (a == null) return false;
@@ -74,11 +74,12 @@ public final class ListUtils {
     }
 
     /**
-     * ArrayMap按照Key排序
+     * Order ArrayMap By Key
      *
-     * @param map
-     * @param <K>
-     * @param <V>
+     * @param map map
+     * @param <K> key
+     * @param <V> value
+     * @return map
      */
     public static <K, V> ArrayMap<K, V> sortByKey(ArrayMap<K, V> map) {
         ArrayMap<K, V> arrayMap = new ArrayMap<>();
@@ -91,12 +92,12 @@ public final class ListUtils {
     }
 
     /**
-     * 归类List
+     * Sort out List
      *
-     * @param source
-     * @param groupIndex
-     * @param <T>
-     * @return
+     * @param source     source
+     * @param groupIndex groupIndex
+     * @param <T>        bean
+     * @return Result list
      */
     public static <T extends Serializable> List<ArrayList<T>> group(List<T> source, int groupIndex) {
         List<ArrayList<T>> result = new ArrayList<>();

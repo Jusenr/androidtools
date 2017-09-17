@@ -13,7 +13,7 @@ public class MD5Utils {
     protected static MessageDigest messagedigest = null;
 
     /**
-     * MessageDigest初始化
+     *  Init MessageDigest
      *
      * @author chengxin
      */
@@ -87,7 +87,7 @@ public class MD5Utils {
         return hexValue.toString();
     }
 
-    //Sha1签名
+    //Sha1 sine
     public static String getSha1(String str) {
         if (str == null || str.length() == 0) {
             return null;

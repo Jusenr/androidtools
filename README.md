@@ -30,7 +30,7 @@ Android Some of the tools used in development.
 
         dependencies {
          ...
-        compile 'com.github.Jusenr:androidtools:1.3.2'
+        compile 'com.github.Jusenr:androidtools:1.3.3'
         }
 
 ---
@@ -39,7 +39,7 @@ Android Some of the tools used in development.
 
           dependencies {
            ...
-          compile 'com.jusenr.android.library:androidtools:1.3.2'
+          compile 'com.jusenr.android.library:androidtools:1.3.3'
           }
 
 -----

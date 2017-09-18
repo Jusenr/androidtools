@@ -2,6 +2,7 @@ package com.jusenr.toolslibrary;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.multidex.MultiDex;
 
 import com.jusenr.toolslibrary.log.logger.FormatStrategy;
 import com.jusenr.toolslibrary.log.logger.Logger;
@@ -19,7 +20,20 @@ import com.jusenr.toolslibrary.utils.PreferenceUtils;
  */
 public final class AndroidTools {
 
+    private AndroidTools() {
+        throw new AssertionError();
+    }
+
+    public static void init(@NonNull Context context, @NonNull String logtag) {
+        FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
+                .tag(logtag)
+                .build();
+        init(context, formatStrategy, Logger.VERBOSE);
+    }
+
     public static void init(@NonNull Context context, @NonNull FormatStrategy formatStrategy, int logLevel) {
+        //MultiDex initialization
+        MultiDex.install(context);
         //Preference file initialization.
         PreferenceUtils.init(context);
         //AndroidTools initialise.
@@ -32,12 +46,5 @@ public final class AndroidTools {
 //                .tag("logtag")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
 //                .build();
         Logger.init(context, formatStrategy, logLevel);
-    }
-
-    public static void init(@NonNull Context context, @NonNull String logtag) {
-        FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
-                .tag(logtag)
-                .build();
-        init(context, formatStrategy, Logger.VERBOSE);
     }
 }

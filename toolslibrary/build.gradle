@@ -5,7 +5,7 @@ group = 'com.github.Jusenr'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    buildToolsVersion "26.0.1"
 
     defaultConfig {
         minSdkVersion 15
@@ -13,6 +13,9 @@ android {
         versionCode 1
         versionName "1.0.0"
 
+        multiDexEnabled true
+        renderscriptTargetApi 26
+        renderscriptSupportModeEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -39,6 +42,8 @@ dependencies {
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.google.zxing:core:3.3.0'
     compile 'org.simple:androideventbus:1.0.5.1'
+
+    compile 'com.android.support:multidex:1.0.1'
 
 }
 

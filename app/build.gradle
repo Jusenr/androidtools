@@ -132,8 +132,8 @@ dependencies {
     androidTestCompile('com.android.support:multidex-instrumentation:1.0.1') {
         exclude group: 'com.android.support', module: 'multidex'
     }
-//    compile project(':toolslibrary')
-    compile rootProject.ext.dependencies.androidtools
+    compile project(':toolslibrary')
+//    compile rootProject.ext.dependencies.androidtools
 
     testCompile rootProject.ext.dependencies.junit
     //View the App database usage (method: 1. release comment. 2. recompile. 3. use the'DebugDB'field to retrieve log. 4. and access the retrieved connection. OK)

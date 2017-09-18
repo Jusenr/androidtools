@@ -2,7 +2,6 @@ package com.jusenr.tools;
 
 import android.app.Application;
 import android.content.pm.ApplicationInfo;
-import android.support.multidex.MultiDex;
 
 import com.jusenr.tools.api.BaseApi;
 import com.jusenr.toolslibrary.AndroidTools;
@@ -25,9 +24,6 @@ public class TotalApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        //MultiDex initialization
-        MultiDex.install(getApplicationContext());
 
         //API initialise.
         BaseApi.init();

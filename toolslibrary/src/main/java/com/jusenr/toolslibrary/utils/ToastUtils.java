@@ -19,7 +19,7 @@ import com.jusenr.toolslibrary.R;
 import static android.widget.Toast.makeText;
 
 /**
- * Description: Android Toast package
+ * Description: Android Toast tools class
  * Copyright  : Copyright (c) 2017
  * Email      : jusenr@163.com
  * Author     : Jusenr
@@ -45,6 +45,13 @@ public final class ToastUtils {
         show(context, text, Toast.LENGTH_SHORT);
     }
 
+    /**
+     * Show toast view
+     *
+     * @param context  context
+     * @param text     text
+     * @param duration duration
+     */
     public static void show(Context context, CharSequence text, int duration) {
         Toast.makeText(context, text, duration).show();
     }
@@ -77,6 +84,14 @@ public final class ToastUtils {
         showAlertToast(context, title, drawableId, 1);
     }
 
+    /**
+     * Show alert toast view
+     *
+     * @param context    context
+     * @param title      title
+     * @param drawableId drawable Id
+     * @param duration   duration
+     */
     public static void showAlertToast(Context context, String title, @DrawableRes int drawableId, int duration) {
         Toast toast = makeText(context.getApplicationContext(), title, duration);
         toast.setGravity(Gravity.CENTER, 0, 0);//the setting position of

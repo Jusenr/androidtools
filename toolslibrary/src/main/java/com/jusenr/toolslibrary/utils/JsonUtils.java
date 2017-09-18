@@ -15,6 +15,10 @@ import com.google.gson.JsonParser;
 public final class JsonUtils {
     private static final String TAG = JsonUtils.class.getSimpleName();
 
+    private JsonUtils() {
+        throw new AssertionError();
+    }
+
     /**
      * Determine the type of JSON
      *

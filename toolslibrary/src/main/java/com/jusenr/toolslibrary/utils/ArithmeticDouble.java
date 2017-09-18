@@ -11,6 +11,11 @@ import java.math.BigDecimal;
  * Date       : 2016/7/26 19:36
  */
 public final class ArithmeticDouble {
+
+    private ArithmeticDouble() {
+        throw new AssertionError();
+    }
+
     /**
      * The number of five homes in Double
      *

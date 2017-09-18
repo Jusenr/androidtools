@@ -15,7 +15,7 @@ import java.net.SocketException;
 import java.util.Enumeration;
 
 /**
- * 网络工具
+ * Internet tools class
  * Created by guchenkai on 2016/1/21.
  */
 public final class NetworkUtils {
@@ -26,11 +26,15 @@ public final class NetworkUtils {
     public static final String NETWORK_TYPE_UNKNOWN = "unknown";
     public static final String NETWORK_TYPE_DISCONNECT = "disconnect";
 
+    private NetworkUtils() {
+        throw new AssertionError();
+    }
+
     /**
-     * 判断网络是否可用
+     * Determine if the network is available
      *
      * @param context context
-     * @return 网络是否可用
+     * @return based on the availability of that network [boolean]
      */
     public static boolean isNetworkReachable(Context context) {
         ConnectivityManager mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -39,6 +43,12 @@ public final class NetworkUtils {
         return mNetworkInfo.isAvailable();
     }
 
+    /**
+     * Get IP
+     *
+     * @param context context
+     * @return IP
+     */
     public static String getIp(Context context) {
         int networkType = getNetworkType(context);
         if (networkType == ConnectivityManager.TYPE_WIFI) {
@@ -69,10 +79,10 @@ public final class NetworkUtils {
     }
 
     /**
-     * 获取网络状态
+     * Get network status
      *
      * @param context context
-     * @return 网络状态
+     * @return Network status
      */
     public static int getNetworkType(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -84,7 +94,7 @@ public final class NetworkUtils {
      * Get network type name
      *
      * @param context context
-     * @return NetworkTypeName
+     * @return Network type name
      */
     public static String getNetworkTypeName(Context context) {
         ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -106,10 +116,10 @@ public final class NetworkUtils {
     }
 
     /**
-     * 是否快速移动网络
+     * Do you have a fast mobile network?
      *
      * @param context context
-     * @return 是否快速移动网络
+     * @return Do you have a fast mobile network? [boolean]
      */
     private static boolean isFastMobileNetwork(Context context) {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);

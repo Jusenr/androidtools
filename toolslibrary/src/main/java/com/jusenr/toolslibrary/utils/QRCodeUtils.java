@@ -20,26 +20,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Description: 二维码操作
+ * Description: Two-dimensional code operation
  * Copyright  : Copyright (c) 2016
  * Email      : jusenr@163.com
- * Company    : 葡萄科技
  * Author     : Jusenr
  * Date       : 2016/12/16 15:11.
  */
 
-public class QRCodeUtils {
+public final class QRCodeUtils {
+
+    private QRCodeUtils() {
+        throw new AssertionError();
+    }
 
     /**
-     * 生成二维码
+     * Create QR code
      *
-     * @param content                  内容
-     * @param widthPix                 图片宽度
-     * @param heightPix                图片高度
-     * @param openErrorCorrectionLevel 开启容错率
-     * @param logoBitmap               二维码中心的Logo图标（可以为null）
-     * @param filePath                 用于存储二维码图片的文件路径
-     * @return 生成二维码及保存文件是否成功
+     * @param content                  content
+     * @param widthPix                 widthPix
+     * @param heightPix                heightPix
+     * @param openErrorCorrectionLevel Does fault tolerance open?
+     * @param logoBitmap               The two-dimensional code Logo icon (Center for null)
+     * @param filePath                 The file path used to store two-dimensional code images
+     * @return Generate two-dimensional code and save the file is successful [boolean]
      */
     public static boolean createQRCode(String content, int widthPix, int heightPix, boolean openErrorCorrectionLevel, Bitmap logoBitmap, String filePath) {
         try {
@@ -47,7 +50,7 @@ public class QRCodeUtils {
                 return false;
             }
             Map hints = openErrorCorrectionLevel(openErrorCorrectionLevel);
-            // 图像数据转换，使用了矩阵转换
+            // Image data conversion, the use of matrix conversion
             BitMatrix bitMatrix = new QRCodeWriter().encode(new String(content.getBytes("UTF-8"), "iso-8859-1"), BarcodeFormat.QR_CODE, widthPix, heightPix, hints);
 
             Bitmap bitmap = generateQRBitmap(bitMatrix);
@@ -56,8 +59,8 @@ public class QRCodeUtils {
                 bitmap = addLogo(bitmap, logoBitmap);
             }
             boolean compress = bitmap.compress(Bitmap.CompressFormat.JPEG, 100, new FileOutputStream(filePath));
-//            ImageUtils
-            //必须使用compress方法将bitmap保存到文件中再进行读取。直接返回的bitmap是没有任何压缩的，内存消耗巨大！
+            //You must use the compress method to save the bitmap to the file and then read it.
+            //The bitmap returned directly is without any compression, and the memory consumption is huge!
             return bitmap != null && bitmap.compress(Bitmap.CompressFormat.JPEG, 100, new FileOutputStream(filePath));
         } catch (WriterException | IOException e) {
             e.printStackTrace();
@@ -67,18 +70,19 @@ public class QRCodeUtils {
     }
 
     /**
-     * 生成一个二维码图像
+     * Generate a two-dimensional code image
      *
-     * @param content                  传入的字符串，通常是一个URL
-     * @param widthAndHeight           图像的宽高
-     * @param openErrorCorrectionLevel 开启容错率
+     * @param content                  An incoming string, usually a URL
+     * @param widthAndHeight           widthAndHeight
+     * @param openErrorCorrectionLevel Does fault tolerance open?
+     * @return A two-dimensional code image [Bitmap]
      */
     public static Bitmap createQRCode(String content, int widthAndHeight, boolean openErrorCorrectionLevel) {
         try {
             if (TextUtils.isEmpty(content) || TextUtils.equals("null", content) || "".equals(content)) {
                 return null;
             }
-            // 处理汉字，如果不用更改源码，将字符串转换成ISO-8859-1编码
+            //Processing Chinese characters, if you do not need to change the source code, convert the string into ISO-8859-1 code.
             Map hints = openErrorCorrectionLevel(openErrorCorrectionLevel);
             BitMatrix matrix = new MultiFormatWriter().encode(new String(content.getBytes("UTF-8"), "ISO-8859-1"), BarcodeFormat.QR_CODE, widthAndHeight, widthAndHeight, hints);
             matrix = updateBit(matrix, 8);
@@ -90,14 +94,21 @@ public class QRCodeUtils {
         return null;
     }
 
+    /**
+     * Get BitMatrix
+     *
+     * @param matrix BitMatrix
+     * @param margin margin
+     * @return BitMatrix
+     */
     public static BitMatrix updateBit(BitMatrix matrix, int margin) {
         int tempM = margin * 2;
-        int[] rec = matrix.getEnclosingRectangle();   //获取二维码图案的属性
+        int[] rec = matrix.getEnclosingRectangle();   //Gets the properties of the two-dimensional code pattern
         int resWidth = rec[2] + tempM;
         int resHeight = rec[3] + tempM;
-        BitMatrix resMatrix = new BitMatrix(resWidth, resHeight); // 按照自定义边框生成新的BitMatrix
+        BitMatrix resMatrix = new BitMatrix(resWidth, resHeight); //Generates a new BitMatrix according to the custom borders
         resMatrix.clear();
-        for (int i = margin; i < resWidth - margin; i++) {   //循环，将二维码图案绘制到新的bitMatrix中
+        for (int i = margin; i < resWidth - margin; i++) {   //Loop to draw the 2D code pattern into the new bitMatrix
             for (int j = margin; j < resHeight - margin; j++) {
                 if (matrix.get(i - margin + rec[0], j - margin + rec[1])) {
                     resMatrix.set(i, j);
@@ -108,10 +119,10 @@ public class QRCodeUtils {
     }
 
     /**
-     * 生成一个二维码图像
+     * Generate a two-dimensional code image
      *
-     * @param content
-     * @return
+     * @param content content
+     * @return A two-dimensional code image
      */
     public static Bitmap createQRCode(String content) {
         try {
@@ -128,12 +139,12 @@ public class QRCodeUtils {
     }
 
     /**
-     * 生成一个二维码图像
+     * Generate a two-dimensional code image
      *
-     * @param qrCodeUrl
-     * @param width
-     * @param height
-     * @return
+     * @param qrCodeUrl content
+     * @param width     width
+     * @param height    height
+     * @return A two-dimensional code image
      */
     public static Bitmap createQRCode(String qrCodeUrl, int width, int height) {
         Bitmap bitmap = createQRCode(qrCodeUrl, width, height, false);
@@ -141,12 +152,12 @@ public class QRCodeUtils {
     }
 
     /**
-     * 生成一个二维码图像
+     * Generate a two-dimensional code image
      *
-     * @param content
-     * @param width
-     * @param height
-     * @return
+     * @param content content
+     * @param width   width
+     * @param height  height
+     * @return A two-dimensional code image
      */
     public static Bitmap createQRCode(String content, int width, int height, boolean openFaultTolerantRate) {
         try {
@@ -164,10 +175,10 @@ public class QRCodeUtils {
     }
 
     /**
-     * 绘制二维码
+     * Draw two-dimensional code
      *
-     * @param matrix
-     * @return
+     * @param matrix BitMatrix
+     * @return [Bitmap]
      */
     public static Bitmap generateQRBitmap(BitMatrix matrix) {
         int w = matrix.getWidth();
@@ -188,23 +199,27 @@ public class QRCodeUtils {
     }
 
     /**
-     * 配置参数
+     * Configuration parameter
      *
-     * @param tag
-     * @return
+     * @param tag Does fault tolerance open?
+     * @return map
      */
     public static Map openErrorCorrectionLevel(boolean tag) {
         Map<EncodeHintType, Object> hints = new HashMap<>();
         if (tag) {
-//            hints.put(EncodeHintType.CHARACTER_SET, "utf-8"); //中文乱码，注释掉
-            hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);  //容错级别
-//            hints.put(EncodeHintType.MARGIN, 2);  //设置空白边距的宽度 default is 4
+//            hints.put(EncodeHintType.CHARACTER_SET, "utf-8"); //Set code
+            hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);  //Fault tolerance level
+//            hints.put(EncodeHintType.MARGIN, 2);  //Sets the width of the blank margin default is 4
         }
         return hints;
     }
 
     /**
-     * 在二维码中间添加Logo图案
+     * Add a Logo pattern to the middle of the two-dimensional code
+     *
+     * @param src  QR code
+     * @param logo logo
+     * @return QR code [Bitmap]
      */
     public static Bitmap addLogo(Bitmap src, Bitmap logo) {
         if (src == null) {
@@ -213,7 +228,7 @@ public class QRCodeUtils {
         if (logo == null) {
             return src;
         }
-        //获取图片的宽高
+        //Get the width and height of the picture
         int srcWidth = src.getWidth();
         int srcHeight = src.getHeight();
         int logoWidth = logo.getWidth();
@@ -224,7 +239,7 @@ public class QRCodeUtils {
         if (logoWidth == 0 || logoHeight == 0) {
             return src;
         }
-        //logo大小为二维码整体大小的1/5
+        //Logo size is the size of the two-dimensional code, the size of the 1/5
         float scaleFactor = srcWidth * 1.0f / 5 / logoWidth;
 //        logo = ThumbnailUtils.extractThumbnail(logo, srcWidth * 1 / 5, srcHeight * 1 / 5, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
         Bitmap bitmap = Bitmap.createBitmap(srcWidth, srcHeight, Bitmap.Config.ARGB_8888);

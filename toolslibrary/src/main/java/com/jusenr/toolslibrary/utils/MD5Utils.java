@@ -4,10 +4,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
+ * MD5 tools class
  * Created by ZSW on 2017/4/5.
  */
 
-public class MD5Utils {
+public final class MD5Utils {
     protected static char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6',
             '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
     protected static MessageDigest messagedigest = null;
@@ -25,17 +26,25 @@ public class MD5Utils {
         }
     }
 
+    private MD5Utils() {
+        throw new AssertionError();
+    }
+
     /**
-     * 对字符串进行MD5加密
+     * MD5 encryption of strings
      *
+     * @param s string
+     * @return string
      */
     public static String getMD5String(String s) {
         return getMD5String(s.getBytes());
     }
 
     /**
-     * 对byte类型的数组进行MD5加密
+     * MD5 encryption for arrays of type byte
      *
+     * @param bytes byte[]
+     * @return string [String]
      */
     public static String getMD5String(byte[] bytes) {
         messagedigest.reset();
@@ -59,6 +68,12 @@ public class MD5Utils {
         return stringbuffer.toString();
     }
 
+    /**
+     * MD5 encryption of strings
+     *
+     * @param str string
+     * @return strings [String]
+     */
     public static String MD5(String str) {
         MessageDigest md5 = null;
         try {
@@ -84,7 +99,12 @@ public class MD5Utils {
         return hexValue.toString();
     }
 
-    //Sha1 sine
+    /**
+     * Gets the string SHA1 value
+     *
+     * @param str string
+     * @return SHA1 value [String]
+     */
     public static String getSha1(String str) {
         if (str == null || str.length() == 0) {
             return null;

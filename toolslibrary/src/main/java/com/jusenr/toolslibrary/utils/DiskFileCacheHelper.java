@@ -36,13 +36,17 @@ import java.util.concurrent.atomic.AtomicLong;
  * Android disk file caching utility.
  * Created by guchenkai on 2015/3/6.
  */
-public class DiskFileCacheHelper {
+public final class DiskFileCacheHelper {
     public static final int TIME_HOUR = 60 * 60;
     public static final int TIME_DAY = TIME_HOUR * 24;
     private static final int MAX_SIZE = 1000 * 1000 * 50; // 50 mb
     private static final int MAX_COUNT = Integer.MAX_VALUE; // The amount of data that is not restricted.
     private static Map<String, DiskFileCacheHelper> mInstanceMap = new HashMap<String, DiskFileCacheHelper>();
     private AndroidCache mCache;
+
+    private DiskFileCacheHelper() {
+        throw new AssertionError();
+    }
 
     public static DiskFileCacheHelper get(Context context) {
         return get(context, "AndroidCache");

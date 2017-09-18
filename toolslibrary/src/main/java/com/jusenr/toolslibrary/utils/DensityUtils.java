@@ -21,6 +21,10 @@ import java.lang.reflect.Method;
 public final class DensityUtils {
     public static final String TAG = DensityUtils.class.getSimpleName();
 
+    private DensityUtils() {
+        throw new AssertionError();
+    }
+
     /**
      * DP turn PX
      *

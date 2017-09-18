@@ -39,6 +39,10 @@ import javax.security.auth.x500.X500Principal;
  */
 public final class AppUtils {
 
+    private AppUtils() {
+        throw new AssertionError();
+    }
+
     /**
      * Get device Id
      *

@@ -9,10 +9,16 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 /**
+ * Zip tools class
  * Created by leo on 2016/12/13.
  */
 
 public final class ZipUtils {
+
+    private ZipUtils() {
+        throw new AssertionError();
+    }
+
     /**
      * gzip compress string
      *

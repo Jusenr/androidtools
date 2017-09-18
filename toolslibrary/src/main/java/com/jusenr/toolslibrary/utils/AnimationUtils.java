@@ -16,6 +16,9 @@ public final class AnimationUtils {
      */
     public static final long DEFAULT_ANIMATION_DURATION = 400;
 
+    private AnimationUtils() {
+        throw new AssertionError();
+    }
 
     /**
      * Get a spin animation

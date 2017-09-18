@@ -8,7 +8,12 @@ import org.simple.eventbus.EventBus;
  * Created by riven_chris on 2017/4/13.
  */
 
-public class EventBusUtils {
+public final class EventBusUtils {
+
+    private EventBusUtils() {
+        throw new AssertionError();
+    }
+
     private static EventBus eventBus = EventBus.getDefault();
 
     public static void register(Object subscriber) {

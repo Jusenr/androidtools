@@ -13,16 +13,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Resources资源文件工具
+ * Resources File tools class
  * Created by guchenkai on 2015/11/3.
  */
 public final class ResourcesUtils {
 
+    private ResourcesUtils() {
+        throw new AssertionError();
+    }
+
     /**
-     * 读取Assets文本资源内容
+     * Reads the contents of the Assets text resource
      *
-     * @param resName 文件名
-     * @return
+     * @param resName resName
+     * @return resource [String]
      */
     public static String getAssetsTextFile(Context context, String resName) {
         String protocal = null;
@@ -33,8 +37,8 @@ public final class ResourcesUtils {
             String Result = "";
             int i = 0;
             while ((line = br.readLine()) != null) {
-                if(i==0) Result = line;
-                else Result = Result+"\n"+line;
+                if (i == 0) Result = line;
+                else Result = Result + "\n" + line;
                 i++;
             }
             return Result;
@@ -45,43 +49,43 @@ public final class ResourcesUtils {
     }
 
     /**
-     * 获取图片资源的BitmapDrawable
+     * Get the BitmapDrawable of the picture resource
      *
-     * @param resId
-     * @return
+     * @param resId resId
+     * @return picture resource [BitmapDrawable]
      */
     public static BitmapDrawable getBitmapDrawable(Context context, int resId) {
         return (BitmapDrawable) context.getResources().getDrawable(resId);
     }
 
     /**
-     * 根据字符串资源id获得字符串资源
+     * Gets a string resource based on string resource ID
      *
-     * @param context
-     * @param resId
-     * @return
+     * @param context context
+     * @param resId   resId
+     * @return string resource
      */
     public static String getString(Context context, int resId) {
         return context.getResources().getString(resId);
     }
 
     /**
-     * 根据字符串数组资源id获得字符串数组资源(Array)
+     * Get a string array of resources according to the string array resource ID (Array)
      *
-     * @param context
-     * @param resId
-     * @return
+     * @param context context
+     * @param resId   resId
+     * @return string array of resources
      */
     public static String[] getStringArray(Context context, int resId) {
         return context.getResources().getStringArray(resId);
     }
 
     /**
-     * 根据字符串数组资源id获得字符串数组资源(List)
+     * Gets the string array resource based on the string array resource ID(List)
      *
-     * @param context
-     * @param resId
-     * @return
+     * @param context context
+     * @param resId   resId
+     * @return string array resource
      */
     public static List<String> getStringList(Context context, int resId) {
         List<String> strings = new ArrayList<String>();
@@ -93,22 +97,22 @@ public final class ResourcesUtils {
     }
 
     /**
-     * 根据图片资源id获取资源图片
+     * Obtain the resource picture from the picture resource ID
      *
-     * @param context
-     * @param resId
-     * @return
+     * @param context context
+     * @param resId   resId
+     * @return resource [Drawable]
      */
     public static Drawable getDrawable(Context context, int resId) {
         return context.getResources().getDrawable(resId);
     }
 
     /**
-     * 根据图片资源id获取资源图片
+     * Obtain the resource picture from the picture resource ID
      *
-     * @param context
-     * @param resId
-     * @return
+     * @param context context
+     * @param resId   resId
+     * @return resource [Bitmap]
      */
     public static Bitmap getBitmap(Context context, int resId) {
         Drawable drawable = getDrawable(context, resId);
@@ -117,10 +121,10 @@ public final class ResourcesUtils {
     }
 
     /**
-     * 获取Asset资源管理器
+     * Get the Asset Explorer
      *
-     * @param context
-     * @return
+     * @param context context
+     * @return AssetManager
      */
     public static AssetManager getAssets(Context context) {
         return context.getResources().getAssets();

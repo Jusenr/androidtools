@@ -37,6 +37,10 @@ public final class DateUtils {
     private static final int ONE_MONTH = 30 * 24 * 60 * 60 * 1000;
     private static final int ONE_YEAR = 12 * 30 * 24 * 60 * 60 * 1000;
 
+    private DateUtils() {
+        throw new AssertionError();
+    }
+
     /**
      * Gets the offset of the time zone at which the current time is relative to the GMT +0:00 time zone
      *

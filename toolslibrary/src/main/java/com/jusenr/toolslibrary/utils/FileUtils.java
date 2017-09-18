@@ -26,6 +26,10 @@ public final class FileUtils {
     public static final String TAG = FileUtils.class.getSimpleName();
     public static final int BYTE = 1024;
 
+    private FileUtils() {
+        throw new AssertionError();
+    }
+
     /**
      * Formatting unit
      *

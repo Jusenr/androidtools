@@ -27,7 +27,7 @@ import java.io.ByteArrayOutputStream;
  *
  * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2012-6-27
  */
-public class ImageUtils {
+public final class ImageUtils {
 
     private ImageUtils() {
         throw new AssertionError();
@@ -36,8 +36,8 @@ public class ImageUtils {
     /**
      * convert Bitmap to byte array
      *
-     * @param b
-     * @return
+     * @param b Bitmap
+     * @return byte[]
      */
     public static byte[] bitmapToByte(Bitmap b) {
         if (b == null) {
@@ -52,8 +52,8 @@ public class ImageUtils {
     /**
      * convert byte array to Bitmap
      *
-     * @param b
-     * @return
+     * @param b byte[]
+     * @return Bitmap
      */
     public static Bitmap byteToBitmap(byte[] b) {
         return (b == null || b.length == 0) ? null : BitmapFactory.decodeByteArray(b, 0, b.length);
@@ -62,8 +62,8 @@ public class ImageUtils {
     /**
      * convert Drawable to Bitmap
      *
-     * @param d
-     * @return
+     * @param d Drawable
+     * @return Bitmap
      */
     public static Bitmap drawableToBitmap(Drawable d) {
         return d == null ? null : ((BitmapDrawable) d).getBitmap();
@@ -72,8 +72,8 @@ public class ImageUtils {
     /**
      * convert Bitmap to Drawable
      *
-     * @param b
-     * @return
+     * @param b Bitmap
+     * @return Drawable
      */
     public static Drawable bitmapToDrawable(Bitmap b) {
         return b == null ? null : new BitmapDrawable(b);
@@ -82,8 +82,8 @@ public class ImageUtils {
     /**
      * convert Drawable to byte array
      *
-     * @param d
-     * @return
+     * @param d Drawable
+     * @return byte[]
      */
     public static byte[] drawableToByte(Drawable d) {
         return bitmapToByte(drawableToBitmap(d));
@@ -92,8 +92,8 @@ public class ImageUtils {
     /**
      * convert byte array to Drawable
      *
-     * @param b
-     * @return
+     * @param b byte[]
+     * @return Drawable
      */
     public static Drawable byteToDrawable(byte[] b) {
         return bitmapToDrawable(byteToBitmap(b));
@@ -102,31 +102,30 @@ public class ImageUtils {
     /**
      * scale image
      *
-     * @param org
-     * @param newWidth
-     * @param newHeight
-     * @return
+     * @param bitmap    bitmap
+     * @param newWidth  newWidth
+     * @param newHeight newHeight
+     * @return Bitmap
      */
-    public static Bitmap scaleImageTo(Bitmap org, int newWidth, int newHeight) {
-        return scaleImage(org, (float) newWidth / org.getWidth(), (float) newHeight / org.getHeight());
+    public static Bitmap scaleImageTo(Bitmap bitmap, int newWidth, int newHeight) {
+        return scaleImage(bitmap, (float) newWidth / bitmap.getWidth(), (float) newHeight / bitmap.getHeight());
     }
 
     /**
      * scale image
      *
-     * @param org
+     * @param bitmap      bitmap
      * @param scaleWidth  sacle of width
      * @param scaleHeight scale of height
-     * @return
+     * @return Bitmap
      */
-    public static Bitmap scaleImage(Bitmap org, float scaleWidth, float scaleHeight) {
-        if (org == null) {
+    public static Bitmap scaleImage(Bitmap bitmap, float scaleWidth, float scaleHeight) {
+        if (bitmap == null) {
             return null;
         }
 
         Matrix matrix = new Matrix();
         matrix.postScale(scaleWidth, scaleHeight);
-        return Bitmap.createBitmap(org, 0, 0, org.getWidth(), org.getHeight(), matrix, true);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
-
 }

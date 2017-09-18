@@ -10,6 +10,10 @@ import android.view.inputmethod.InputMethodManager;
  */
 public final class KeyboardUtils {
 
+    private KeyboardUtils() {
+        throw new AssertionError();
+    }
+
     /**
      * Open soft keyboard
      *

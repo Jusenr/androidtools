@@ -11,10 +11,14 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * list
+ * List tools class
  * Created by guchenkai on 2015/12/15.
  */
 public final class ListUtils {
+
+    private ListUtils() {
+        throw new AssertionError();
+    }
 
     /**
      * Is empty

@@ -10,21 +10,22 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * SdCard操作工具
+ * SdCard operation tools class
+ * Created by guchenkai on 2015/11/3.
  */
 public final class SDCardUtils {
 
     private SDCardUtils() {
         if (!isSDCardEnable())
-            System.err.println("SDCard不可用");
+            System.err.println("SDCard is unavailable");
         /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
     /**
-     * 判断SDCard是否可用
+     * Determine if SDCard is available
      *
-     * @return
+     * @return IS available [boolean]
      */
     public static boolean isSDCardEnable() {
         return Environment.getExternalStorageState().equals(
@@ -32,29 +33,30 @@ public final class SDCardUtils {
     }
 
     /**
-     * 获取SD卡路径
+     * Get SD card path
      *
-     * @return
+     * @return SD card path
      */
     public static String getSDCardPath() {
         return Environment.getExternalStorageDirectory().getAbsolutePath();
     }
 
     /**
-     * 获取SD卡路径
+     * Get SD card path
      *
-     * @return 内置SD卡路径
+     * @param mContext Context
+     * @return SD card path
      */
     public static String getSDCardPath(Context mContext) {
         return getSDCardPath(mContext, false);
     }
 
     /**
-     * 获取SD卡路径
+     * Get SD card path
      *
-     * @param mContext
-     * @param is_removale is_removable为false时得到的是内置sd卡路径，为true则为外置sd卡路径
-     * @return SD卡路径
+     * @param mContext    Context
+     * @param is_removale When is_removable is false, you get the built-in SD card path, and true for the external SD card path.
+     * @return SD card path
      */
     private static String getSDCardPath(Context mContext, boolean is_removale) {
 
@@ -89,16 +91,16 @@ public final class SDCardUtils {
 
 
     /**
-     * 获取SD卡的剩余容量 单位byte
+     * Gets the remaining capacity unit of SD card byte
      *
-     * @return
+     * @return Remaining capacity unit of SD card byte
      */
     public static long getSDCardAllSize() {
         if (isSDCardEnable()) {
             StatFs stat = new StatFs(getSDCardPath());
-            // 获取空闲的数据块的数量
+            // Gets the number of free blocks of data
             long availableBlocks = (long) stat.getAvailableBlocks() - 4;
-            // 获取单个数据块的大小（byte）
+            // Gets the size of a single block of data (byte)
             long freeBlocks = stat.getAvailableBlocks();
             return freeBlocks * availableBlocks;
         }
@@ -106,16 +108,16 @@ public final class SDCardUtils {
     }
 
     /**
-     * 获取指定路径所在空间的剩余可用容量字节数，单位byte
+     * Gets the remaining number of bytes of available capacity in the space in the specified path, in units byte
      *
-     * @param filePath
-     * @return 容量字节 SDCard可用空间，内部存储可用空间
+     * @param filePath file path
+     * @return Capacity bytes, SDCard, free space, internal storage, free space
      */
     public static long getFreeBytes(String filePath) {
-        // 如果是sd卡的下的路径，则获取sd卡可用容量
+        // If it is the next path of the SD card, the available capacity of the SD card is obtained.
         if (filePath.startsWith(getSDCardPath())) {
             filePath = getSDCardPath();
-        } else {// 如果是内部存储的路径，则获取内存存储的可用容量
+        } else {// If the path is stored inside, the available capacity of obtaining memory.
             filePath = Environment.getDataDirectory().getAbsolutePath();
         }
         StatFs stat = new StatFs(filePath);
@@ -124,9 +126,9 @@ public final class SDCardUtils {
     }
 
     /**
-     * 获取系统存储路径
+     * Get system storage path
      *
-     * @return
+     * @return System storage path
      */
     public static String getRootDirectoryPath() {
         return Environment.getRootDirectory().getAbsolutePath();

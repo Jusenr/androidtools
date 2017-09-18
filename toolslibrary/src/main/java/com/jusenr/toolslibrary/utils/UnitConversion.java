@@ -21,6 +21,10 @@ public class UnitConversion {
     public static final double IN_CM_RATE = 2.54;//rate of conversion
     public static final double IBS_KG_RATE = 0.454;//rate of conversion
 
+    private UnitConversion() {
+        throw new AssertionError();
+    }
+
     public static double getIN2CM(double xIN, boolean isRound) {
         Double CM_result = mul(xIN, Double.valueOf(IN_CM_RATE));
         return isRound ? getRound(CM_result) : CM_result;

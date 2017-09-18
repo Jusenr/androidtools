@@ -89,7 +89,7 @@ public final class AppUtils {
      *
      * @param context  context
      * @param packname Application package name
-     * @return
+     * @return App name
      */
     public String getAppName(Context context, String packname) {
         //Package management operations management class
@@ -108,7 +108,7 @@ public final class AppUtils {
      * Gets the name of the current application
      *
      * @param context context
-     * @return
+     * @return App name
      */
     public String getAppName(Context context) {
         //Package management operations management class
@@ -224,7 +224,7 @@ public final class AppUtils {
      *
      * @param context  context
      * @param packname Application package name
-     * @return
+     * @return Signature of the current application
      */
     public static String getAppSignature(Context context, String packname) {
         try {

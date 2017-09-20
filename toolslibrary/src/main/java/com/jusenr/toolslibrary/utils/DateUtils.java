@@ -435,19 +435,6 @@ public final class DateUtils {
     }
 
     /**
-     * @param args
-     * @throws Exception
-     */
-    public static void main(String[] args) throws Exception {
-        long l = System.currentTimeMillis() / 1000L;
-        System.out.println(l);
-        System.out.println(timeCalculate(l));
-        getCurrentTimeZone();
-        getRawOffset();
-        System.out.println(getWeekInMills(l));
-    }
-
-    /**
      * Converts long time into a time format string
      *
      * @param time time

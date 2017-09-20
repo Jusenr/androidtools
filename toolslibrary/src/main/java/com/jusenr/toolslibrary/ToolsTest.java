@@ -1,5 +1,6 @@
 package com.jusenr.toolslibrary;
 
+import com.jusenr.toolslibrary.utils.DateUtils;
 import com.jusenr.toolslibrary.utils.JsonUtils;
 
 /**
@@ -21,5 +22,12 @@ public class ToolsTest {
                 "}";
         boolean json = JsonUtils.isJson(s);
         System.out.println(json);
+
+        long l = System.currentTimeMillis() / 1000L;
+        System.out.println(l);
+        System.out.println(DateUtils.timeCalculate(l));
+        DateUtils.getCurrentTimeZone();
+        DateUtils.getRawOffset();
+        System.out.println(DateUtils.getWeekInMills(l));
     }
 }

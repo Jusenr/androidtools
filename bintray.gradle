@@ -20,13 +20,17 @@ artifacts {
 }
 //ADD
 publish {
-    desc = PROJ_DESCRIPTION
-    userOrg = DEVELOPER_NAME    //bintray username
+    bintrayUser = BINTRAY_USER  //bintray username
+    bintrayKey = BINTRAY_KEY    //bintray key
+    dryRun = BINTRAY_DRYRUN
+    userOrg = BINTRAY_USER    //bintray username
     groupId = PROJ_GROUP    //jcenter groupId
     artifactId = PROJ_ARTIFACTID    //Project Name
+    desc = PROJ_DESCRIPTION
     publishVersion = PROJ_VERSION   //version number
     desc = PROJ_DESCRIPTION //describe
     website = PROJ_WEBSITEURL   //Site: try to simulate the address on the GitHub
+    repository = PROJ_VCSURL
     issueTracker = PROJ_ISSUETRACKERURL
     licences = ['Apache-2.0']
 }

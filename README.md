@@ -3,7 +3,7 @@ Android Some of the tools used in development.
 
 ---
 
-[![](https://jitpack.io/v/Jusenr/androidtools.svg)](https://jitpack.io/#Jusenr/androidtools) [![Download](https://api.bintray.com/packages/jusenr/maven/androidtools/images/download.svg)](https://bintray.com/jusenr/maven/androidtools/_latestVersion) [![](https://raw.githubusercontent.com/Jusenr/Jusenr/master/assets/btn_apache_lisence.png)](LICENSE.txt)
+[![](https://jitpack.io/v/Jusenr/androidtools.svg)](https://jitpack.io/#Jusenr/androidtools) [![Download](https://api.bintray.com/packages/jusenr/maven/androidtools/images/download.svg)](https://bintray.com/jusenr/maven/androidtools/_latestVersion) [![](https://raw.githubusercontent.com/Jusenr/androidtools/master/assets/btn_apache_lisence.png)](LICENSE.txt)
 
 <a href='https://bintray.com/jusenr/maven/androidtools?source=watch' alt='Get automatic notifications about new "androidtools" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a>
 

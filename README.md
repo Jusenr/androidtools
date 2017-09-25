@@ -2,12 +2,12 @@
 Android Some of the tools used in development.
 
 ---
-[![Bintray](https://img.shields.io/badge/bintray-v1.3.3-brightgreen.svg)](https://bintray.com/jusenr/maven/androidtools)
-[![Download](https://api.bintray.com/packages/jusenr/maven/androidtools/images/download.svg)](https://bintray.com/jusenr/maven/androidtools/_latestVersion)
-[![Jitpack](https://jitpack.io/v/Jusenr/androidtools.svg)](https://jitpack.io/#Jusenr/androidtools)
-[![License](http://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square)](http://www.apache.org/licenses/LICENSE-2.0)
 
-<a href='https://bintray.com/jusenr/maven/androidtools?source=watch' alt='Get automatic notifications about new "androidtools" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a>
+[ ![Bintray](https://img.shields.io/badge/bintray-v1.3.3-brightgreen.svg) ](https://bintray.com/jusenr/maven/androidtools)
+[ ![Download](https://api.bintray.com/packages/jusenr/maven/androidtools/images/download.svg) ](https://bintray.com/jusenr/maven/androidtools/_latestVersion)
+[ ![](https://jitpack.io/v/Jusenr/androidtools.svg) ](https://jitpack.io/#Jusenr/androidtools)
+[ ![License](http://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square) ](http://www.apache.org/licenses/LICENSE-2.0)
+
 
 #### To get a Git project into your build: ####
 

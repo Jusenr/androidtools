@@ -13,6 +13,7 @@ import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
@@ -323,6 +324,22 @@ public final class AppUtils {
      * Read the meta-data information under the application tag
      *
      * @param context context
+     * @return Bundle information for metaData under application tag [Bundle]
+     */
+    public static Bundle getMetaDaApplication(Context context) {
+        try {
+            ApplicationInfo applicationInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+            return applicationInfo.metaData;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Read the meta-data information under the application tag
+     *
+     * @param context context
      * @param name    key
      * @return value info
      */
@@ -359,18 +376,16 @@ public final class AppUtils {
      * Read the meta-data information under the activity tag
      *
      * @param activity activity
-     * @param name     key
-     * @return value info
+     * @return Bundle information for metaData under activity tag [Bundle]
      */
-    public static String getMetaDataString(Activity activity, String name) {
+    public static Bundle getMetaDaActivity(Activity activity) {
         try {
-            ActivityInfo activityInfo = activity.getPackageManager()
-                    .getActivityInfo(activity.getComponentName(), PackageManager.GET_META_DATA);
-            return activityInfo.metaData.getString(name);
+            ActivityInfo activityInfo = activity.getPackageManager().getActivityInfo(activity.getComponentName(), PackageManager.GET_META_DATA);
+            return activityInfo.metaData;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        return "";
+        return null;
     }
 
     /**
@@ -389,6 +404,24 @@ public final class AppUtils {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    /**
+     * Read the meta-data information under the activity tag
+     *
+     * @param activity activity
+     * @param name     key
+     * @return value info
+     */
+    public static String getMetaDataString(Activity activity, String name) {
+        try {
+            ActivityInfo activityInfo = activity.getPackageManager()
+                    .getActivityInfo(activity.getComponentName(), PackageManager.GET_META_DATA);
+            return activityInfo.metaData.getString(name);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     /**

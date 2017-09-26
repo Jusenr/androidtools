@@ -26,8 +26,7 @@ publish {
     userOrg = BINTRAY_USER    //bintray username
     groupId = PROJ_GROUP    //jcenter groupId
     artifactId = PROJ_ARTIFACTID    //Project Name
-    desc = PROJ_DESCRIPTION
-    publishVersion = PROJ_VERSION   //version number
+    publishVersion = PROJ_VERSIONNAME   //version name
     desc = PROJ_DESCRIPTION //describe
     website = PROJ_WEBSITEURL   //Site: try to simulate the address on the GitHub
     repository = PROJ_VCSURL

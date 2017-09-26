@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -73,11 +74,11 @@ public final class ToastUtils {
     }
 
     public static void showAlertToast(Context context, @StringRes int resId) {
-        showAlertToast(context, context.getResources().getString(resId), 0, 0);
+        showAlertToast(context, context.getResources().getString(resId), 0);
     }
 
     public static void showAlertToast(Context context, String title) {
-        showAlertToast(context, title, 0, 0);
+        showAlertToast(context, title, 0);
     }
 
     public static void showAlertToast(Context context, String title, @DrawableRes int drawableId) {
@@ -95,7 +96,7 @@ public final class ToastUtils {
     public static void showAlertToast(Context context, String title, @DrawableRes int drawableId, int duration) {
         Toast toast = makeText(context.getApplicationContext(), title, duration);
         toast.setGravity(Gravity.CENTER, 0, 0);//the setting position of
-        View view = LayoutInflater.from(context).inflate(R.layout.toast_alert, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_alert_toast, null);
         LinearLayout llContent = (LinearLayout) view.findViewById(R.id.ll_content);
         ImageView alertIcon = (ImageView) view.findViewById(R.id.iv_alert_icon);
         TextView alertTitle = (TextView) view.findViewById(R.id.tv_alert_title);
@@ -114,9 +115,43 @@ public final class ToastUtils {
         CardView.LayoutParams lp = (CardView.LayoutParams) llContent.getLayoutParams();
         lp.width = width;
         llContent.setLayoutParams(lp);
-//        llContent.requestLayout();
+        llContent.requestLayout();
         toast.setView(view);//Set appearance
         toast.show();
     }
 
+    public static void showCenterToast(Context context, String title) {
+        showCenterToast(context, title, 0);
+    }
+
+    public static void showCenterToast(Context context, String title, @DrawableRes int drawableId) {
+        showCenterToast(context, title, drawableId, Toast.LENGTH_SHORT);
+    }
+
+    public static void showCenterToast(Context context, String title, @DrawableRes int drawableId, int duration) {
+        Toast toast = makeText(context.getApplicationContext(), title, duration);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_center_toast, null);
+        LinearLayout rlContent = (LinearLayout) view.findViewById(R.id.rl_content);
+        TextView content = (TextView) view.findViewById(R.id.tv_content);
+        ImageView alertIcon = (ImageView) view.findViewById(R.id.iv_icon);
+        if (drawableId != 0) {
+            alertIcon.setVisibility(View.VISIBLE);
+            alertIcon.setImageResource(drawableId);
+        } else {
+            alertIcon.setVisibility(View.GONE);
+        }
+        if (!TextUtils.isEmpty(title)) {
+            content.setText(title);
+        }
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        int screenWidth = wm.getDefaultDisplay().getWidth();
+        int width = (int) (screenWidth / 2f);
+        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) rlContent.getLayoutParams();
+        lp.width = width;
+        rlContent.setLayoutParams(lp);
+        rlContent.requestLayout();
+        toast.setView(view);
+        toast.show();
+    }
 }

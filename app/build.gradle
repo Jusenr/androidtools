@@ -8,8 +8,8 @@ android {
         applicationId rootProject.ext.androids.applicationId
         minSdkVersion rootProject.ext.androids.minSdkVersion
         targetSdkVersion rootProject.ext.androids.targetSdkVersion
-        versionCode rootProject.ext.androids.versionCode
-        versionName rootProject.ext.androids.versionName
+        versionCode project.properties["PROJ_VERSIONCODE"] as int
+        versionName project.properties["PROJ_VERSIONNAME"]
         manifestPlaceholders rootProject.ext.androids.manifestPlaceholders
         //Logcat log TAG settings
         buildConfigField "String", "LOG_TAG", "\"${rootProject.ext.APP_LOG_TAG}\""
@@ -132,8 +132,10 @@ dependencies {
     androidTestCompile('com.android.support:multidex-instrumentation:1.0.1') {
         exclude group: 'com.android.support', module: 'multidex'
     }
-//    compile project(':toolslibrary')
-    compile rootProject.ext.dependencies.androidtools
+
+    compile project(':toolslibrary')
+
+//    compile rootProject.ext.dependencies.androidtools
 
     testCompile rootProject.ext.dependencies.junit
     //View the App database usage (method: 1. release comment. 2. recompile. 3. use the'DebugDB'field to retrieve log. 4. and access the retrieved connection. OK)

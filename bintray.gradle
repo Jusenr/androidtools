@@ -29,7 +29,5 @@ publish {
     publishVersion = PROJ_VERSIONNAME   //version name
     desc = PROJ_DESCRIPTION //describe
     website = PROJ_WEBSITEURL   //Site: try to simulate the address on the GitHub
-    repository = PROJ_VCSURL
-    issueTracker = PROJ_ISSUETRACKERURL
     licences = ['Apache-2.0']
 }

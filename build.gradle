@@ -12,6 +12,10 @@ buildscript {
         //maven
         classpath 'com.novoda:bintray-release:0.4.0'
 
+        //maven 2
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.0'
+//        classpath 'com.github.dcendents:android-maven-plugin:1.2'
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -58,9 +62,9 @@ task clean(type: Delete) {
 def getVersionName() {
     int num = rootProject.ext.VERSION_NUM
     if (num > 0) {
-        return String.format("%s.%d", rootProject.ext.androids.versionName, rootProject.ext.VERSION_NUM)
+        return String.format("%s.%d", project.properties["PROJ_VERSIONNAME"], rootProject.ext.VERSION_NUM)
     } else {
-        return rootProject.ext.androids.versionName
+        return project.properties["PROJ_VERSIONNAME"]
     }
 }
 

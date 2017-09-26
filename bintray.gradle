@@ -29,3 +29,45 @@ publish {
     website = PROJ_WEBSITEURL   //Site: try to simulate the address on the GitHub
     licences = ['Apache-2.0']
 }
+
+//TIPS:
+//These dependencies must be added
+//dependencies {
+//    //maven
+//    classpath 'com.novoda:bintray-release:0.4.0'
+//}
+
+//allprojects {
+//    repositories {
+//        jcenter()
+//    }
+//    //Set unified encoding
+//    tasks.withType(JavaCompile) {
+//        options.encoding = "UTF-8"
+//    }
+//    //Setting unified javaDoc encoding
+//    tasks.withType(Javadoc) {
+//        options.addStringOption('Xdoclint:none', '-quiet')
+//        options.addStringOption('encoding', 'UTF-8')
+//        options.addStringOption('charSet', 'UTF-8')
+//        options.addStringOption('link', 'http://docs.oracle.com/javase/7/docs/api')
+//        options.addStringOption('windowtitle', 'androidtools')
+//        options.addBooleanOption('author', true)
+//        options.addBooleanOption('version', true)
+//    }
+//}
+
+//Add gradle.properties to the project
+
+//# maven info
+//#
+//PROJ_GROUP=com.jusenr.android.library
+//PROJ_ARTIFACTID=androidtools
+//PROJ_VERSIONNAME=1.3.5
+//#
+//PROJ_DESCRIPTION=Android Some of the tools used in development.
+//PROJ_WEBSITEURL=https://github.com/Jusenr/androidtools
+//PROJ_USERNAME=jusenr
+
+//Terminal execute command
+//gradlew clean build bintrayUpload -PbintrayUser=jusenr -PbintrayKey=1234567890987654321 -PdryRun=false

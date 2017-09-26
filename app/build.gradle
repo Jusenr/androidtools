@@ -109,7 +109,7 @@ android {
     applicationVariants.all {
         variant ->
             def apkFileName = rootProject.getVersionName()
-            def time = rootProject.releaseTime("yyyy-MM-dd")
+            def time = rootProject.releaseTime("yyyyMMdd")
             variant.outputs.each {
                 output ->
                     def outputFile = output.outputFile

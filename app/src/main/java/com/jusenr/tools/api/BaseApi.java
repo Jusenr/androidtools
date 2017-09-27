@@ -63,5 +63,7 @@ public class BaseApi {
         public static final String URL_REGISTER = "api/register";//注册
         public static final String URL_SEND_MAIL = "api/sendMail";//发送邮箱验证码(国际版)
 
+        public static final String URL_CHILD_LIST = "child/list";//孩子列表
+
     }
 }

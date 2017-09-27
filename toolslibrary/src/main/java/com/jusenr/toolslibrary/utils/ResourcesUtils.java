@@ -29,11 +29,12 @@ public final class ResourcesUtils {
      * @return resource [String]
      */
     public static String getAssetsTextFile(Context context, String resName) {
-        String protocal = null;
+        InputStreamReader reader = null;
+        BufferedReader br = null;
         try {
-            InputStreamReader reader = new InputStreamReader(getAssets(context).open(resName));
-            BufferedReader br = new BufferedReader(reader);
-            String line = "";
+            reader = new InputStreamReader(getAssets(context).open(resName));
+            br = new BufferedReader(reader);
+            String line;
             String Result = "";
             int i = 0;
             while ((line = br.readLine()) != null) {
@@ -44,8 +45,23 @@ public final class ResourcesUtils {
             return Result;
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        return protocal;
+        return null;
     }
 
     /**

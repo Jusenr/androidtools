@@ -183,51 +183,62 @@ public class PTLogActivity extends AppCompatActivity {
         mDatePicker_end.setIsLoop(true);
     }
 
-    private void setLogContent(List<PTLogBean> logList) {
+    private void setLogContent(final List<PTLogBean> logList) {
         //clear the content
         tv_content.setText("");
 
-        // pretty log
-        for (PTLogBean log : logList) {
-            StringBuilder stringBuilder = new StringBuilder("");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // pretty log
+                for (PTLogBean log : logList) {
+                    StringBuilder stringBuilder = new StringBuilder("");
 
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String dateString = formatter.format(log.getDate());
-            stringBuilder.append("\n=================================\n");
-            stringBuilder.append(dateString);
-            stringBuilder.append(" --> ");
-            stringBuilder.append(log.getContent());
-            stringBuilder.append("\n=================================\n");
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String dateString = formatter.format(log.getDate());
+                    stringBuilder.append("\n=================================\n");
+                    stringBuilder.append(dateString);
+                    stringBuilder.append(" --> ");
+                    stringBuilder.append(log.getContent());
+                    stringBuilder.append("\n=================================\n");
 
-            // set the font color
-            int color = Color.WHITE;
-            switch (log.getLevel()) {
-                case Logger.VERBOSE:
-                    color = getResources().getColor(R.color.color_v);
-                    break;
-                case Logger.DEBUG:
-                    color = getResources().getColor(R.color.color_d);
-                    break;
-                case Logger.INFO:
-                    color = getResources().getColor(R.color.color_i);
-                    break;
-                case Logger.WARN:
-                    color = getResources().getColor(R.color.color_w);
-                    break;
-                case Logger.ERROR:
-                    color = getResources().getColor(R.color.color_e);
-                    break;
-                case Logger.ASSERT:
-                    color = getResources().getColor(R.color.color_a);
-                    break;
-                default:
-                    break;
+                    // set the font color
+                    int color = Color.WHITE;
+                    switch (log.getLevel()) {
+                        case Logger.VERBOSE:
+                            color = getResources().getColor(R.color.color_v);
+                            break;
+                        case Logger.DEBUG:
+                            color = getResources().getColor(R.color.color_d);
+                            break;
+                        case Logger.INFO:
+                            color = getResources().getColor(R.color.color_i);
+                            break;
+                        case Logger.WARN:
+                            color = getResources().getColor(R.color.color_w);
+                            break;
+                        case Logger.ERROR:
+                            color = getResources().getColor(R.color.color_e);
+                            break;
+                        case Logger.ASSERT:
+                            color = getResources().getColor(R.color.color_a);
+                            break;
+                        default:
+                            break;
+                    }
+                    final Spannable colorString = new SpannableString(stringBuilder.toString());
+                    colorString.setSpan(new ForegroundColorSpan(color), 0, colorString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tv_content.append(colorString);
+                        }
+                    });
+                }
             }
+        }).start();
 
-            Spannable colorString = new SpannableString(stringBuilder.toString());
-            colorString.setSpan(new ForegroundColorSpan(color), 0, colorString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            tv_content.append(colorString);
-        }
         // auto scroll to bottom
         sv_scroll.post(new Runnable() {
             public void run() {
@@ -347,12 +358,12 @@ public class PTLogActivity extends AppCompatActivity {
     }
 
     private String date2String(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat(DATE_PATTERN);
+        SimpleDateFormat formatter = new SimpleDateFormat(DATE_PATTERN, Locale.CHINA);
         return formatter.format(date);
     }
 
     private Date string2Date(String dateString) {
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN);
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN, Locale.CHINA);
         Date date = null;
         try {
             date = sdf.parse(dateString);

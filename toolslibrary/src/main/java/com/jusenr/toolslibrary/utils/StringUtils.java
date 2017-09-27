@@ -118,8 +118,7 @@ public final class StringUtils {
      * @return Match [boolean]
      */
     public static boolean checkEmailFormat(String email) {
-        return checkRegex(email,
-                "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");
+        return checkRegex(email, "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");
     }
 
     /**
@@ -199,7 +198,7 @@ public final class StringUtils {
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(str);
         while (m.find()) {
-            for (int i = 0; i <= m.groupCount(); i++) {
+            for (int i = 0, groupCount = m.groupCount(); i <= groupCount; i++) {
                 count = count + 1;
             }
         }
@@ -218,7 +217,7 @@ public final class StringUtils {
     public static String getCutStringByByteCount(String str, int count) {
         String newStr = "";
         int addCount = 0;
-        for (int i = 0; i < str.length(); i++) {
+        for (int i = 0, length = str.length(); i < length; i++) {
             addCount++;
             String substring = str.substring(i, i + 1);
             if (isContainChinese(substring))
@@ -237,7 +236,8 @@ public final class StringUtils {
         String cutStringByByteCount = getCutStringByByteCount(str, count);
         if (cutStringByByteCount.equals(str))
             return cutStringByByteCount;
-        else return cutStringByByteCount + endString;
+        else
+            return cutStringByByteCount + endString;
     }
 
 
@@ -252,7 +252,7 @@ public final class StringUtils {
             return "";
         // Half turn angle:
         char[] c = input.toCharArray();
-        for (int i = 0; i < c.length; i++) {
+        for (int i = 0, length = c.length; i < length; i++) {
             if (c[i] == 32) {
                 c[i] = (char) 12288;
                 continue;
@@ -272,8 +272,7 @@ public final class StringUtils {
     }
 
     public static boolean containsEmoji(CharSequence source) {
-        int len = source.length();
-        for (int i = 0; i < len; i++) {
+        for (int i = 0, len = source.length(); i < len; i++) {
             char codePoint = source.charAt(i);
             if (isEmojiCharacter(codePoint)) {
                 return true;
@@ -298,9 +297,13 @@ public final class StringUtils {
         Map<String, String> map = sortMapByKey(param);
         StringBuffer sb = new StringBuffer();
         for (Map.Entry<String, String> entry : map.entrySet()) {
-            sb.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+            sb.append(entry.getKey())
+                    .append("=")
+                    .append(entry.getValue())
+                    .append("&");
         }
-        String result = sb.delete(sb.length() - 1, sb.length()).append(secretkey).toString();
+        String result = sb.delete(sb.length() - 1, sb.length())
+                .append(secretkey).toString();
         return getMD5Str(result);
     }
 
@@ -315,7 +318,7 @@ public final class StringUtils {
         }
         byte[] byteArray = messageDigest.digest();
         StringBuffer md5StrBuff = new StringBuffer();
-        for (int i = 0; i < byteArray.length; i++) {
+        for (int i = 0, length = byteArray.length; i < length; i++) {
             if (Integer.toHexString(0xFF & byteArray[i]).length() == 1) {
                 md5StrBuff.append("0").append(Integer.toHexString(0xFF & byteArray[i]));
             } else {
@@ -327,7 +330,7 @@ public final class StringUtils {
 
     public static boolean isLetterOrDigit(String str) {
         boolean isLetterOrDigit = false;
-        for (int i = 0; i < str.length(); i++) {
+        for (int i = 0, length = str.length(); i < length; i++) {
             //Judge each character with the method of determining numbers in the char wrapper class.
             if (Character.isLetterOrDigit(str.charAt(i))) {
                 isLetterOrDigit = true;
@@ -376,7 +379,7 @@ public final class StringUtils {
      */
     public static CharSequence[] getCharSequences(CharSequence[] text, int[] color) {
         CharSequence[] charSequences = new CharSequence[text.length];
-        for (int i = 0; i < text.length; i++) {
+        for (int i = 0, length = text.length; i < length; i++) {
             Spannable colorString = new SpannableString(text[i]);
             colorString.setSpan(new ForegroundColorSpan(color[i]), 0, colorString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 

@@ -19,7 +19,7 @@ public final class SDCardUtils {
         if (!isSDCardEnable())
             System.err.println("SDCard is unavailable");
         /* cannot be instantiated */
-        throw new UnsupportedOperationException("cannot be instantiated");
+        throw new UnsupportedOperationException("Cannot be instantiated");
     }
 
     /**
@@ -28,8 +28,7 @@ public final class SDCardUtils {
      * @return IS available [boolean]
      */
     public static boolean isSDCardEnable() {
-        return Environment.getExternalStorageState().equals(
-                Environment.MEDIA_MOUNTED);
+        return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
     }
 
     /**

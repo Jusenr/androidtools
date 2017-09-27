@@ -75,7 +75,7 @@ public final class MD5Utils {
      * @return strings [String]
      */
     public static String MD5(String str) {
-        MessageDigest md5 = null;
+        MessageDigest md5;
         try {
             md5 = MessageDigest.getInstance("MD5");
         } catch (Exception e) {
@@ -110,13 +110,9 @@ public final class MD5Utils {
             return null;
         }
         str.toLowerCase();
-        char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-                'a', 'b', 'c', 'd', 'e', 'f'};
-
         try {
             MessageDigest mdTemp = MessageDigest.getInstance("SHA1");
             mdTemp.update(str.getBytes("UTF-8"));
-
             byte[] md = mdTemp.digest();
             int j = md.length;
             char buf[] = new char[j * 2];
@@ -128,7 +124,8 @@ public final class MD5Utils {
             }
             return new String(buf);
         } catch (Exception e) {
-            return null;
+            e.printStackTrace();
         }
+        return null;
     }
 }

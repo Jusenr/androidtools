@@ -24,22 +24,40 @@ public final class ZipUtils {
      *
      * @param str string
      * @return gzipString
-     * @throws IOException exception
      */
-    public static String gzipCompress2Base64(String str) throws IOException {
+    public static String gzipCompress2Base64(String str) {
         if (str == null || str.length() == 0) {
-            return str;
+            return null;
         }
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        GZIPOutputStream gzip = new GZIPOutputStream(out);
-        gzip.write(str.getBytes());
-        gzip.finish();
-        gzip.flush();
-        gzip.close();
-        String gzipString = Base64.encodeToString(out.toByteArray(), Base64.NO_WRAP);
-        out.flush();
-        out.close();
-        return gzipString;
+        ByteArrayOutputStream out = null;
+        GZIPOutputStream gzip = null;
+        try {
+            out = new ByteArrayOutputStream();
+            gzip = new GZIPOutputStream(out);
+            gzip.write(str.getBytes());
+            String gzipString = Base64.encodeToString(out.toByteArray(), Base64.NO_WRAP);
+            return gzipString;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (gzip != null) {
+                try {
+                    gzip.flush();
+                    gzip.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (out != null) {
+                try {
+                    out.flush();
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
     }
 
     /**
@@ -47,22 +65,43 @@ public final class ZipUtils {
      *
      * @param str gzipString
      * @return string
-     * @throws IOException exception
      */
-    public static String uncompress(String str) throws IOException {
+    public static String uncompress(String str) {
         if (str == null || str.length() == 0) {
-            return str;
+            return null;
         }
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ByteArrayInputStream in = new ByteArrayInputStream(str
-                .getBytes("ISO-8859-1"));
-        GZIPInputStream gunzip = new GZIPInputStream(in);
-        byte[] buffer = new byte[256];
-        int n;
-        while ((n = gunzip.read(buffer)) >= 0) {
-            out.write(buffer, 0, n);
+        ByteArrayOutputStream out = null;
+        ByteArrayInputStream in = null;
+        try {
+            out = new ByteArrayOutputStream();
+            in = new ByteArrayInputStream(str.getBytes("ISO-8859-1"));
+            GZIPInputStream gunzip = new GZIPInputStream(in);
+            byte[] buffer = new byte[256];
+            int n;
+            while ((n = gunzip.read(buffer)) >= 0) {
+                out.write(buffer, 0, n);
+            }
+            // ToString () uses platform default encoding, and can explicitly specify such as toString ("GBK").
+            return out.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (out != null) {
+                try {
+                    out.flush();
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        // ToString () uses platform default encoding, and can explicitly specify such as toString ("GBK").
-        return out.toString();
+        return null;
     }
 }

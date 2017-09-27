@@ -21,13 +21,10 @@ public final class KeyboardUtils {
      * @param focusView input field
      */
     public static void openKeyboard(Context context, View focusView) {
-        InputMethodManager inputMethodManager = (InputMethodManager) context
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         if (inputMethodManager != null) {
-            inputMethodManager.showSoftInput(focusView,
-                    InputMethodManager.RESULT_SHOWN);
-            inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED,
-                    InputMethodManager.HIDE_NOT_ALWAYS);
+            inputMethodManager.showSoftInput(focusView, InputMethodManager.RESULT_SHOWN);
+            inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 
@@ -38,8 +35,7 @@ public final class KeyboardUtils {
      * @param focusView input field
      */
     public static void closeKeyboard(Context context, View focusView) {
-        InputMethodManager inputMethodManager = (InputMethodManager) context
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         if (inputMethodManager != null)
             inputMethodManager.hideSoftInputFromWindow(focusView.getWindowToken(), 0);
     }

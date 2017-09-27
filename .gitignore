@@ -8,4 +8,5 @@
 /captures
 .externalNativeBuild
 .sh
-/upload.sh
+.jks
+

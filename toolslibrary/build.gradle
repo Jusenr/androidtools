@@ -47,5 +47,4 @@ dependencies {
 
 }
 
-apply from: "$rootDir/bintray.gradle"
-//apply from: "https://raw.githubusercontent.com/Jusenr/resources/master/bintray.gradle"
+apply from: "https://raw.githubusercontent.com/Jusenr/resources/master/bintray.gradle"

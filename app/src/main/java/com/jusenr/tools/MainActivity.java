@@ -78,6 +78,17 @@ public class MainActivity extends AppCompatActivity {
         tvText1.setText(AppUtils.getVersionName(this));
         tvText2.setText(String.valueOf(AppUtils.getVersionCode(this)));
 
+        String deviceInfo = AppUtils.getDeviceInfo(this);
+        ToastUtils.show(this, deviceInfo, 1);
+        Logger.d(deviceInfo);
+
+        String imei = AppUtils.getIMEI(this);
+        tvText3.setText(imei);
+        Logger.d(imei);
+
+        String imsi = AppUtils.getIMSI(this);
+        tvText4.setText(imsi);
+        Logger.d(imsi);
 
         Logger.d("d");
     }

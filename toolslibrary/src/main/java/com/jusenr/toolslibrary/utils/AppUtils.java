@@ -1,5 +1,6 @@
 package com.jusenr.toolslibrary.utils;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.ComponentName;
@@ -13,15 +14,22 @@ import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.security.MessageDigest;
@@ -45,6 +53,129 @@ public final class AppUtils {
     }
 
     /**
+     * Detects whether the permission is authorized
+     *
+     * @param context    context
+     * @param permission permission
+     * @return is authorized
+     */
+    public static boolean checkPermission(Context context, String permission) {
+        boolean result = false;
+        if (Build.VERSION.SDK_INT >= 23) {
+            try {
+                Class<?> clazz = Class.forName("android.content.Context");
+                Method method = clazz.getMethod("checkSelfPermission", String.class);
+                int rest = (Integer) method.invoke(context, permission);
+                if (rest == PackageManager.PERMISSION_GRANTED) {
+                    result = true;
+                } else {
+                    result = false;
+                }
+            } catch (Exception e) {
+                result = false;
+            }
+        } else {
+            PackageManager pm = context.getPackageManager();
+            if (pm.checkPermission(permission, context.getPackageName()) == PackageManager.PERMISSION_GRANTED) {
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Get Device info, you need access to mobile phone information permissions.
+     * [Manifest.permission.READ_PHONE_STATE]
+     *
+     * @param context context
+     * @return Device info
+     */
+    public static String getDeviceInfo(Context context) {
+        try {
+            String device_id = null;
+            String mac = null;
+            FileReader fstream = null;
+            JSONObject json = new JSONObject();
+            android.telephony.TelephonyManager tm = (android.telephony.TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if (checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+                device_id = tm.getDeviceId();
+            }
+            try {
+                fstream = new FileReader("/sys/class/net/wlan0/address");
+            } catch (FileNotFoundException e) {
+                fstream = new FileReader("/sys/class/net/eth0/address");
+            }
+            BufferedReader in = null;
+            if (fstream != null) {
+                try {
+                    in = new BufferedReader(fstream, 1024);
+                    mac = in.readLine();
+                } catch (IOException e) {
+                } finally {
+                    if (fstream != null) {
+                        try {
+                            fstream.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (in != null) {
+                        try {
+                            in.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+            json.put("mac", mac);
+            if (TextUtils.isEmpty(device_id)) {
+                device_id = mac;
+            }
+            if (TextUtils.isEmpty(device_id)) {
+                device_id = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+            }
+            json.put("device_id", device_id);
+            return json.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Access to mobile phone IMEI number, you need access to mobile phone information permissions.
+     * [Manifest.permission.READ_PHONE_STATE]
+     *
+     * @param context context
+     * @return mobile phone IMEI number
+     */
+    public static String getIMEI(Context context) {
+        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(context.TELEPHONY_SERVICE);
+        String imei = null;
+        if (checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+            imei = telephonyManager.getDeviceId();
+        }
+        return imei;
+    }
+
+    /**
+     * Access to mobile phone IMSI number, you need access to mobile phone information permissions.
+     * [Manifest.permission.READ_PHONE_STATE]
+     *
+     * @param context context
+     * @return mobile phone IMSI number
+     */
+    public static String getIMSI(Context context) {
+        TelephonyManager mTelephonyMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        String imsi = null;
+        if (checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+            imsi = mTelephonyMgr.getSubscriberId();
+        }
+        return imsi;
+    }
+
+    /**
      * Get device Id
      *
      * @param context context
@@ -55,31 +186,9 @@ public final class AppUtils {
     }
 
     /**
-     * Access to mobile phone IMEI number, you need access to mobile phone information permissions.
-     *
-     * @param context context
-     */
-    public static String getIMEI(Context context) {
-        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(context.TELEPHONY_SERVICE);
-        String imei = telephonyManager.getDeviceId();
-
-        return imei;
-    }
-
-    /**
-     * Access to mobile phone IMSI number, you need access to mobile phone information permissions.
-     *
-     * @param context context
-     */
-    public static String getIMSI(Context context) {
-        TelephonyManager mTelephonyMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        String imsi = mTelephonyMgr.getSubscriberId();
-
-        return imsi;
-    }
-
-    /**
      * Get device name
+     *
+     * @return device name
      */
     public static String getDeviceName() {
         return android.os.Build.MODEL;
@@ -88,21 +197,21 @@ public final class AppUtils {
     /**
      * Gets the name of the application
      *
-     * @param context  context
-     * @param packname Application package name
+     * @param context     context
+     * @param packagename Application package name
      * @return App name
      */
-    public String getAppName(Context context, String packname) {
+    public String getAppName(Context context, String packagename) {
         //Package management operations management class
         PackageManager pm = context.getPackageManager();
         try {
-            ApplicationInfo info = pm.getApplicationInfo(packname, 0);
+            ApplicationInfo info = pm.getApplicationInfo(packagename, 0);
             return info.loadLabel(pm).toString();
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
 
         }
-        return packname;
+        return packagename;
     }
 
     /**
@@ -146,16 +255,16 @@ public final class AppUtils {
     /**
      * Get the application icon
      *
-     * @param context  context
-     * @param packname Application package name
+     * @param context     context
+     * @param packagename Application package name
      * @return The application icon
      */
-    public Drawable getAppIcon(Context context, String packname) {
+    public Drawable getAppIcon(Context context, String packagename) {
         try {
             //Package management operations management class
             PackageManager pm = context.getPackageManager();
             //Get the application information
-            ApplicationInfo info = pm.getApplicationInfo(packname, 0);
+            ApplicationInfo info = pm.getApplicationInfo(packagename, 0);
             return info.loadIcon(pm);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -182,15 +291,15 @@ public final class AppUtils {
     /**
      * Get permissions to the application
      *
-     * @param context  context
-     * @param packname Application package name
+     * @param context     context
+     * @param packagename Application package name
      * @return permission-group
      */
-    public String[] getAllPermissions(Context context, String packname) {
+    public String[] getAllPermissions(Context context, String packagename) {
         try {
             //Package management operations management class
             PackageManager pm = context.getPackageManager();
-            PackageInfo packinfo = pm.getPackageInfo(packname, PackageManager.GET_PERMISSIONS);
+            PackageInfo packinfo = pm.getPackageInfo(packagename, PackageManager.GET_PERMISSIONS);
             //Get all permissions
             return packinfo.requestedPermissions;
         } catch (PackageManager.NameNotFoundException e) {
@@ -223,15 +332,15 @@ public final class AppUtils {
     /**
      * Gets the signature of the current application
      *
-     * @param context  context
-     * @param packname Application package name
+     * @param context     context
+     * @param packagename Application package name
      * @return Signature of the current application
      */
-    public static String getAppSignature(Context context, String packname) {
+    public static String getAppSignature(Context context, String packagename) {
         try {
             //Package management operations management class
             PackageManager pm = context.getPackageManager();
-            PackageInfo packinfo = pm.getPackageInfo(packname, PackageManager.GET_SIGNATURES);
+            PackageInfo packinfo = pm.getPackageInfo(packagename, PackageManager.GET_SIGNATURES);
             //Gets the current application signature
             return packinfo.signatures[0].toCharsString();
 
@@ -239,7 +348,7 @@ public final class AppUtils {
             e.printStackTrace();
 
         }
-        return packname;
+        return packagename;
     }
 
     /**
@@ -465,11 +574,11 @@ public final class AppUtils {
      * Uninstall apk
      *
      * @param context     context
-     * @param packageName packageName
+     * @param packagename packagename
      */
-    public static void uninstallApk(Context context, String packageName) {
+    public static void uninstallApk(Context context, String packagename) {
         Intent intent = new Intent(Intent.ACTION_DELETE);
-        Uri packageURI = Uri.parse("package:" + packageName);
+        Uri packageURI = Uri.parse("package:" + packagename);
         intent.setData(packageURI);
         context.startActivity(intent);
     }
@@ -539,11 +648,11 @@ public final class AppUtils {
      * whether this process is named with processName
      *
      * @param context     context
-     * @param processName processName
+     * @param processname processname
      * @return boolean result
      */
-    public static boolean isNamedProcess(Context context, String processName) {
-        if (context == null || TextUtils.isEmpty(processName)) return false;
+    public static boolean isNamedProcess(Context context, String processname) {
+        if (context == null || TextUtils.isEmpty(processname)) return false;
 
         int pid = android.os.Process.myPid();
         ActivityManager manager = (ActivityManager) context.getSystemService(
@@ -553,7 +662,7 @@ public final class AppUtils {
         if (processInfoList == null) return true;
 
         for (ActivityManager.RunningAppProcessInfo processInfo : manager.getRunningAppProcesses()) {
-            if (processInfo.pid == pid && processName.equalsIgnoreCase(processInfo.processName))
+            if (processInfo.pid == pid && processname.equalsIgnoreCase(processInfo.processName))
                 return true;
         }
         return false;
@@ -591,13 +700,13 @@ public final class AppUtils {
     /**
      * Get application signature
      *
-     * @param context context
-     * @param pkgName package name
+     * @param context     context
+     * @param packagename package name
      * @return Returns the signature of the application
      */
-    public static String getSign(Context context, String pkgName) {
+    public static String getSign(Context context, String packagename) {
         try {
-            PackageInfo pis = context.getPackageManager().getPackageInfo(pkgName, PackageManager.GET_SIGNATURES);
+            PackageInfo pis = context.getPackageManager().getPackageInfo(packagename, PackageManager.GET_SIGNATURES);
             return hexdigest(pis.signatures[0].toByteArray());
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -805,7 +914,7 @@ public final class AppUtils {
     /**
      * Gets the cache path, first Sdcard, and then internal storage
      *
-     * @param context
+     * @param context context
      * @return cache path
      */
     public static String getAppCachePath(Context context) {

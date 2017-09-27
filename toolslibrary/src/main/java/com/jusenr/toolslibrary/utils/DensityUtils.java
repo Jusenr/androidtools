@@ -100,8 +100,7 @@ public final class DensityUtils {
      * @return screen width of the device
      */
     public static int getDeviceWidth(Context context) {
-        WindowManager manager = (WindowManager) context
-                .getSystemService(Context.WINDOW_SERVICE);
+        WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         return manager.getDefaultDisplay().getWidth();
     }
 
@@ -112,8 +111,7 @@ public final class DensityUtils {
      * @return screen height of the device
      */
     public static int getDeviceHeight(Context context) {
-        WindowManager manager = (WindowManager) context
-                .getSystemService(Context.WINDOW_SERVICE);
+        WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         return manager.getDefaultDisplay().getHeight();
     }
 
@@ -132,16 +130,14 @@ public final class DensityUtils {
      */
     public static Screen getScreenPixels(Context context) {
         DisplayMetrics dm = new DisplayMetrics();
-        WindowManager windowManager = (WindowManager) context
-                .getSystemService(Context.WINDOW_SERVICE);
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         windowManager.getDefaultDisplay().getMetrics(dm);
         Screen screen = new Screen();
         screen.widthPixels = dm.widthPixels;// e.g. 1080
         screen.heightPixels = dm.heightPixels;// e.g. 1920
         screen.densityDpi = dm.densityDpi;// e.g. 480
         screen.density = dm.density;// e.g. 2.0
-        Log.d(TAG, "width=" + screen.widthPixels + ", height=" + screen.heightPixels
-                + ", densityDpi=" + screen.densityDpi + ", density=" + screen.density);
+        Log.d(TAG, "width=" + screen.widthPixels + ", height=" + screen.heightPixels + ", densityDpi=" + screen.densityDpi + ", density=" + screen.density);
         return screen;
     }
 

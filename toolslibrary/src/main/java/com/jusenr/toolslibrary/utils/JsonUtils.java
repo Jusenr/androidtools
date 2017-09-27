@@ -26,8 +26,9 @@ public final class JsonUtils {
      * @return type of JSON
      */
     public static JsonType getJSONType(String json) {
-        if (TextUtils.isEmpty(json))
+        if (TextUtils.isEmpty(json)) {
             return JsonType.JSON_TYPE_ERROR;
+        }
         final char[] strChar = json.substring(0, 1).toCharArray();
         final char firstChar = strChar[0];
         switch (firstChar) {
@@ -59,8 +60,8 @@ public final class JsonUtils {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonParser jp = new JsonParser();
         JsonElement je = jp.parse(json);
-        String formatJson = gson.toJson(je);
-        return formatJson;
+        String formatJson1 = gson.toJson(je);
+        return formatJson1;
     }
 
     /**
@@ -80,8 +81,8 @@ public final class JsonUtils {
             new JsonParser().parse(string);
             return true;
         } catch (JsonParseException e) {
-//            System.out.println("bad json: " + string);
-            return false;
+            e.printStackTrace();
         }
+        return false;
     }
 }

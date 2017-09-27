@@ -29,5 +29,8 @@ public class ToolsTest {
         DateUtils.getCurrentTimeZone();
         DateUtils.getRawOffset();
         System.out.println(DateUtils.getWeekInMills(l));
+
+        int i = 2 << 19;
+        System.out.println(i);
     }
 }

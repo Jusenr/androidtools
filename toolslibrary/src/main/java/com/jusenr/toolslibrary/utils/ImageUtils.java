@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 /**
  * ImageUtils
@@ -43,10 +44,23 @@ public final class ImageUtils {
         if (b == null) {
             return null;
         }
-
-        ByteArrayOutputStream o = new ByteArrayOutputStream();
-        b.compress(Bitmap.CompressFormat.PNG, 100, o);
-        return o.toByteArray();
+        ByteArrayOutputStream o = null;
+        try {
+            o = new ByteArrayOutputStream();
+            b.compress(Bitmap.CompressFormat.PNG, 100, o);
+            return o.toByteArray();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (o != null) {
+                try {
+                    o.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
     }
 
     /**

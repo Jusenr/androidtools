@@ -94,10 +94,10 @@ public final class AppUtils {
         try {
             String device_id = null;
             String mac = null;
-            FileReader fstream = null;
+            FileReader fstream;
             JSONObject json = new JSONObject();
-            android.telephony.TelephonyManager tm = (android.telephony.TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             if (checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+                TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 device_id = tm.getDeviceId();
             }
             try {
@@ -106,25 +106,22 @@ public final class AppUtils {
                 fstream = new FileReader("/sys/class/net/eth0/address");
             }
             BufferedReader in = null;
-            if (fstream != null) {
+            try {
+                in = new BufferedReader(fstream, 1024);
+                mac = in.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
                 try {
-                    in = new BufferedReader(fstream, 1024);
-                    mac = in.readLine();
+                    fstream.close();
                 } catch (IOException e) {
-                } finally {
-                    if (fstream != null) {
-                        try {
-                            fstream.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    if (in != null) {
-                        try {
-                            in.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                    e.printStackTrace();
+                }
+                if (in != null) {
+                    try {
+                        in.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -151,9 +148,9 @@ public final class AppUtils {
      * @return mobile phone IMEI number
      */
     public static String getIMEI(Context context) {
-        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(context.TELEPHONY_SERVICE);
         String imei = null;
         if (checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+            TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             imei = telephonyManager.getDeviceId();
         }
         return imei;
@@ -167,9 +164,9 @@ public final class AppUtils {
      * @return mobile phone IMSI number
      */
     public static String getIMSI(Context context) {
-        TelephonyManager mTelephonyMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         String imsi = null;
         if (checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+            TelephonyManager mTelephonyMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             imsi = mTelephonyMgr.getSubscriberId();
         }
         return imsi;
@@ -304,7 +301,6 @@ public final class AppUtils {
             return packinfo.requestedPermissions;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-
         }
         return null;
     }
@@ -324,7 +320,6 @@ public final class AppUtils {
             return packinfo.requestedPermissions;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-
         }
         return null;
     }
@@ -343,10 +338,8 @@ public final class AppUtils {
             PackageInfo packinfo = pm.getPackageInfo(packagename, PackageManager.GET_SIGNATURES);
             //Gets the current application signature
             return packinfo.signatures[0].toCharsString();
-
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-
         }
         return packagename;
     }
@@ -364,7 +357,6 @@ public final class AppUtils {
             PackageInfo packinfo = pm.getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
             //Gets the current application signature
             return packinfo.signatures[0].toCharsString();
-
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -395,9 +387,9 @@ public final class AppUtils {
      * @return boolean result
      */
     public static boolean isCallable(Context context, Intent intent) {
-        List<ResolveInfo> list = context.getPackageManager()
-                .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-        return list.size() > 0;
+        List<ResolveInfo> list = context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        int size = list.size();
+        return size > 0;
     }
 
     /**
@@ -409,8 +401,7 @@ public final class AppUtils {
     public static String getVersionName(Context context) {
         try {
             PackageManager packageManager = context.getPackageManager();
-            PackageInfo packageInfo = packageManager.getPackageInfo(
-                    context.getPackageName(), 0);
+            PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
             return packageInfo.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -454,8 +445,7 @@ public final class AppUtils {
      */
     public static int getMetaDataInt(Context context, String name) {
         try {
-            ApplicationInfo applicationInfo = context.getPackageManager()
-                    .getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+            ApplicationInfo applicationInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
             return applicationInfo.metaData.getInt(name);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -472,8 +462,7 @@ public final class AppUtils {
      */
     public static String getMetaDataString(Context context, String name) {
         try {
-            ApplicationInfo applicationInfo = context.getPackageManager()
-                    .getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+            ApplicationInfo applicationInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
             return applicationInfo.metaData.getString(name);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -506,8 +495,7 @@ public final class AppUtils {
      */
     public static int getMetaDataInt(Activity activity, String name) {
         try {
-            ActivityInfo activityInfo = activity.getPackageManager()
-                    .getActivityInfo(activity.getComponentName(), PackageManager.GET_META_DATA);
+            ActivityInfo activityInfo = activity.getPackageManager().getActivityInfo(activity.getComponentName(), PackageManager.GET_META_DATA);
             return activityInfo.metaData.getInt(name);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -524,8 +512,7 @@ public final class AppUtils {
      */
     public static String getMetaDataString(Activity activity, String name) {
         try {
-            ActivityInfo activityInfo = activity.getPackageManager()
-                    .getActivityInfo(activity.getComponentName(), PackageManager.GET_META_DATA);
+            ActivityInfo activityInfo = activity.getPackageManager().getActivityInfo(activity.getComponentName(), PackageManager.GET_META_DATA);
             return activityInfo.metaData.getString(name);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -593,8 +580,7 @@ public final class AppUtils {
     public static boolean isServiceRunning(Context context, String className) {
         boolean isRunning = false;
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningServiceInfo> servicesList
-                = activityManager.getRunningServices(Integer.MAX_VALUE);
+        List<ActivityManager.RunningServiceInfo> servicesList = activityManager.getRunningServices(Integer.MAX_VALUE);
         for (ActivityManager.RunningServiceInfo si : servicesList) {
             if (className.equals(si.service.getClassName()))
                 isRunning = true;
@@ -633,15 +619,17 @@ public final class AppUtils {
             File[] files = dir.listFiles(new FileFilter() {
                 @Override
                 public boolean accept(File pathname) {
-                    if (Pattern.matches("cpu[0-9]", pathname.getName()))
+                    if (Pattern.matches("cpu[0-9]", pathname.getName())) {
                         return true;
+                    }
                     return false;
                 }
             });
             return files.length;
         } catch (Exception e) {
-            return 1;
+            e.printStackTrace();
         }
+        return 1;
     }
 
     /**
@@ -653,14 +641,10 @@ public final class AppUtils {
      */
     public static boolean isNamedProcess(Context context, String processname) {
         if (context == null || TextUtils.isEmpty(processname)) return false;
-
         int pid = android.os.Process.myPid();
-        ActivityManager manager = (ActivityManager) context.getSystemService(
-                Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningAppProcessInfo> processInfoList
-                = manager.getRunningAppProcesses();
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> processInfoList = manager.getRunningAppProcesses();
         if (processInfoList == null) return true;
-
         for (ActivityManager.RunningAppProcessInfo processInfo : manager.getRunningAppProcesses()) {
             if (processInfo.pid == pid && processname.equalsIgnoreCase(processInfo.processName))
                 return true;
@@ -721,8 +705,7 @@ public final class AppUtils {
      * @return 32 bit signature string
      */
     private static String hexdigest(byte[] paramArrayOfByte) {
-        final char[] hexDigits = {48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 97,
-                98, 99, 100, 101, 102};
+        final char[] hexDigits = {48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 97, 98, 99, 100, 101, 102};
         try {
             MessageDigest localMessageDigest = MessageDigest.getInstance("MD5");
             localMessageDigest.update(paramArrayOfByte);
@@ -752,35 +735,37 @@ public final class AppUtils {
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         // Get a list of the running service
         List<ActivityManager.RunningServiceInfo> serviceList = am.getRunningServices(100);
-        if (serviceList != null)
-            for (ActivityManager.RunningServiceInfo service : serviceList) {
-                if (service.pid == android.os.Process.myPid()) continue;
-                try {
+        if (serviceList != null) {
+            try {
+                for (ActivityManager.RunningServiceInfo service : serviceList) {
+                    if (service.pid == android.os.Process.myPid()) continue;
                     android.os.Process.killProcess(service.pid);
                     count++;
-                } catch (Exception e) {
-                    e.getStackTrace();
                 }
+            } catch (Exception e) {
+                e.getStackTrace();
             }
+        }
         // Gets a list of running processes
         List<ActivityManager.RunningAppProcessInfo> processList = am.getRunningAppProcesses();
-        if (processList != null)
-            for (ActivityManager.RunningAppProcessInfo process : processList) {
-                // Processes with values greater than RunningAppProcessInfo.IMPORTANCE_SERVICE have long been useless or empty processes
-                // Processes with values greater than RunningAppProcessInfo.IMPORTANCE_VISIBLE are non visible processes, that is, running in the background
-                if (process.importance > ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE) {
-                    // pkgList: Gets the package name that is running under this process
-                    String[] pkgList = process.pkgList;
-                    for (String pkgName : pkgList) {
-                        try {
+        if (processList != null) {
+            try {
+                for (ActivityManager.RunningAppProcessInfo process : processList) {
+                    // Processes with values greater than RunningAppProcessInfo.IMPORTANCE_SERVICE have long been useless or empty processes
+                    // Processes with values greater than RunningAppProcessInfo.IMPORTANCE_VISIBLE are non visible processes, that is, running in the background
+                    if (process.importance > ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE) {
+                        // pkgList: Gets the package name that is running under this process
+                        String[] pkgList = process.pkgList;
+                        for (String pkgName : pkgList) {
                             am.killBackgroundProcesses(pkgName);
                             count++;
-                        } catch (Exception e) { // Prevent accidents
-                            e.getStackTrace();
                         }
                     }
                 }
+            } catch (Exception e) { // Prevent accidents
+                e.getStackTrace();
             }
+        }
         return count;
     }
 
@@ -795,7 +780,9 @@ public final class AppUtils {
         ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
         am.getMemoryInfo(mi);
         // Returns the available memory for the current system
-        return (int) (mi.availMem / (1024 * 1024));
+//        int size = (int) (mi.availMem / (1024 * 1024));
+        int size1 = (int) (mi.availMem >> 20);
+        return size1;
     }
 
     /**
@@ -808,7 +795,7 @@ public final class AppUtils {
         List<PackageInfo> apps = new ArrayList<>();
         PackageManager pManager = context.getPackageManager();
         List<PackageInfo> paklist = pManager.getInstalledPackages(0);
-        for (int i = 0; i < paklist.size(); i++) {
+        for (int i = 0, length = paklist.size(); i < length; i++) {
             PackageInfo pak = paklist.get(i);
             if ((pak.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) <= 0)
                 // customs applications
@@ -857,9 +844,7 @@ public final class AppUtils {
                 Method get = systemProperties.getMethod("get", String.class, String.class);
                 if (get == null) return "WTF?!";
                 try {
-                    final String value = (String) get.invoke(systemProperties,
-                            "persist.sys.dalvik.vm.lib",
-                        /* Assuming default is */"Dalvik");
+                    final String value = (String) get.invoke(systemProperties, "persist.sys.dalvik.vm.lib", "Dalvik");
                     if ("libdvm.so".equals(value))
                         return "Dalvik";
                     else if ("libart.so".equals(value))
@@ -882,8 +867,7 @@ public final class AppUtils {
         }
     }
 
-    private final static X500Principal DEBUG_DN = new X500Principal(
-            "CN=Android Debug,O=Android,C=US");
+    private final static X500Principal DEBUG_DN = new X500Principal("CN=Android Debug,O=Android,C=US");
 
     /**
      * Check if the current application is the Debug version
@@ -893,20 +877,29 @@ public final class AppUtils {
      */
     public static boolean isDebuggable(Context context) {
         boolean debuggable = false;
+        ByteArrayInputStream stream = null;
         try {
             PackageInfo pinfo = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
             Signature signatures[] = pinfo.signatures;
-            for (int i = 0; i < signatures.length; i++) {
+            for (int i = 0, length = signatures.length; i < length; i++) {
                 CertificateFactory cf = CertificateFactory.getInstance("X.509");
-                ByteArrayInputStream stream = new ByteArrayInputStream(
-                        signatures[i].toByteArray());
-                X509Certificate cert = (X509Certificate) cf.generateCertificate(
-                        stream);
+                stream = new ByteArrayInputStream(signatures[i].toByteArray());
+                X509Certificate cert = (X509Certificate) cf.generateCertificate(stream);
                 debuggable = cert.getSubjectX500Principal().equals(DEBUG_DN);
                 if (debuggable) break;
             }
         } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
         } catch (CertificateException e) {
+            e.printStackTrace();
+        } finally {
+            if (stream != null) {
+                try {
+                    stream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return debuggable;
     }
@@ -918,7 +911,7 @@ public final class AppUtils {
      * @return cache path
      */
     public static String getAppCachePath(Context context) {
-        String cachePath;
+        String cachePath = null;
         boolean equals = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
         if (equals && context.getExternalCacheDir() != null) {
             cachePath = context.getExternalCacheDir().getPath();

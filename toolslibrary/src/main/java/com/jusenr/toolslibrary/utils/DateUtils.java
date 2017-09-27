@@ -13,6 +13,7 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -20,22 +21,25 @@ import java.util.TimeZone;
  * Created by guchenkai on 2015/11/26.
  */
 public final class DateUtils {
+    private static final String TAG = DateUtils.class.getSimpleName();
+
     public static final String YMD_PATTERN = "yyyy-MM-dd";
     public static final String YMD_PATTERN2 = "yyyy/MM/dd";
     public static final String YMD_PATTERN3 = "yyyy/MM/dd HH:mm";
     public static final String YMD_HMS_PATTERN = "yyyy-MM-dd HH:mm:ss";
     public static final String YMD_HMS_PATTERN2 = "yyyy-MM-dd HH:mm";
-    public static final String[] weeks = new String[]{"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
-    private static final String TAG = DateUtils.class.getSimpleName();
-    private static final SimpleDateFormat mDataFormat = new SimpleDateFormat(YMD_PATTERN);
-    private static final SimpleDateFormat mTimeFormat = new SimpleDateFormat(YMD_HMS_PATTERN);
 
-    private static final int ONE_MINUTE = 60 * 1000;
-    private static final int ONE_HOUR = 60 * 60 * 1000;
-    private static final int ONE_DAY = 24 * 60 * 60 * 1000;
-    private static final int ONE_WEEK = 7 * 24 * 60 * 60 * 1000;
-    private static final int ONE_MONTH = 30 * 24 * 60 * 60 * 1000;
-    private static final int ONE_YEAR = 12 * 30 * 24 * 60 * 60 * 1000;
+    public static String[] weeks = new String[]{"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
+
+    private static SimpleDateFormat mDataFormat = new SimpleDateFormat(YMD_PATTERN, Locale.CHINA);
+    private static SimpleDateFormat mTimeFormat = new SimpleDateFormat(YMD_HMS_PATTERN, Locale.CHINA);
+
+    private static final long ONE_MINUTE = 60 * 1000L;
+    private static final long ONE_HOUR = 60 * 60 * 1000L;
+    private static final long ONE_DAY = 24 * 60 * 60 * 1000L;
+    private static final long ONE_WEEK = 7 * 24 * 60 * 60 * 1000L;
+    private static final long ONE_MONTH = 30 * 24 * 60 * 60 * 1000L;
+    private static final long ONE_YEAR = 12 * 30 * 24 * 60 * 60 * 1000L;
 
     private DateUtils() {
         throw new AssertionError();
@@ -153,11 +157,10 @@ public final class DateUtils {
      * @throws ParseException exception
      */
     public static String getMillisToDate(long millis, Date date) throws ParseException {
-
         Log.d("tag", mDataFormat.format(new Date(millis)));
         if (millis > getDateToTime(date)) {
             return millisecondToDate(millis, "H:dd");
-        } else if ((millis + 1 * ONE_DAY) >= getDateToTime(date)) {
+        } else if ((millis + ONE_DAY) >= getDateToTime(date)) {
             return "昨天" + millisecondToDate(millis, "H:dd");
         } else if ((millis + 3 * ONE_DAY) >= getDateToTime(date)) {
             return millisecondToDate(millis, "E H:dd");
@@ -202,10 +205,9 @@ public final class DateUtils {
     }
 
     public static long getStringToMills(String dateStr, String pattern) {
-        SimpleDateFormat format = new SimpleDateFormat(pattern);
-        Date date = null;
         try {
-            date = format.parse(dateStr);
+            SimpleDateFormat format = new SimpleDateFormat(pattern, Locale.CHINA);
+            Date date = format.parse(dateStr);
             return date.getTime();
         } catch (ParseException e) {
             e.printStackTrace();
@@ -326,7 +328,7 @@ public final class DateUtils {
      * @return date [pattern]
      */
     public static String millisecondToDate(long millisecond, String pattern) {
-        SimpleDateFormat format = new SimpleDateFormat(pattern);
+        SimpleDateFormat format = new SimpleDateFormat(pattern, Locale.CHINA);
         Date date = new Date(millisecond);
         return format.format(date);
     }
@@ -349,7 +351,7 @@ public final class DateUtils {
      * @return date [pattern]
      */
     public static String secondToDate(int second, String pattern) {
-        SimpleDateFormat format = new SimpleDateFormat(pattern);
+        SimpleDateFormat format = new SimpleDateFormat(pattern, Locale.CHINA);
         Date date = new Date(second * 1000L);
         return format.format(date);
     }
@@ -362,7 +364,7 @@ public final class DateUtils {
      * @return yyyy-MM-dd HH:mm:ss Format date string
      */
     public static String long_2_str(long timeStamp, String dataFormat) {
-        return new SimpleDateFormat(dataFormat).format(new Date(timeStamp * 1000L));
+        return new SimpleDateFormat(dataFormat, Locale.CHINA).format(new Date(timeStamp * 1000L));
     }
 
     /**
@@ -403,7 +405,7 @@ public final class DateUtils {
         else if (diff >= 1000L * 60 * 60 * 24 * 30 && diff < 1000L * 60 * 60 * 24 * 30 * 12) {
             return diff / (1000L * 60 * 60 * 24 * 30) + "月以前";
         } else {
-            SimpleDateFormat format = new SimpleDateFormat(YMD_PATTERN);
+            SimpleDateFormat format = new SimpleDateFormat(YMD_PATTERN, Locale.CHINA);
             Date date = new Date(millisecond);
             return format.format(date);
         }
@@ -428,7 +430,7 @@ public final class DateUtils {
         } else if (diff >= ONE_MONTH && diff < ONE_YEAR) {
             return context.getResources().getQuantityString(R.plurals.message_text_months_ago, (int) (diff / ONE_MONTH), (int) (diff / ONE_MONTH));
         } else {
-            SimpleDateFormat format = new SimpleDateFormat(YMD_PATTERN);
+            SimpleDateFormat format = new SimpleDateFormat(YMD_PATTERN, Locale.CHINA);
             Date date = new Date(millisecond);
             return format.format(date);
         }
@@ -446,7 +448,7 @@ public final class DateUtils {
         int minutes = (totalSeconds / 60) % 60;
         int hours = totalSeconds / 3600;
 
-        return hours > 0 ? String.format("%02d:%02d:%02d", hours, minutes, seconds) : String.format("%02d:%02d", minutes, seconds);
+        return hours > 0 ? String.format(Locale.CANADA, "%02d:%02d:%02d", hours, minutes, seconds) : String.format(Locale.CANADA, "%02d:%02d", minutes, seconds);
     }
 
     /**
@@ -473,8 +475,8 @@ public final class DateUtils {
         cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);// Starting every Monday.
         cal.setMinimalDaysInFirstWeek(7); // Set for at least 7 days a week.
         cal.setTime(new Date());
-        int weeks = cal.get(Calendar.WEEK_OF_YEAR);
-        return weeks;
+        int weeks1 = cal.get(Calendar.WEEK_OF_YEAR);
+        return weeks1;
     }
 
     /**

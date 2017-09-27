@@ -67,8 +67,7 @@ public final class DiskFileCacheHelper {
     }
 
     public static DiskFileCacheHelper get(File cacheDir, long max_zise, int max_count) {
-        DiskFileCacheHelper manager = mInstanceMap.get(cacheDir.getAbsoluteFile()
-                + myPid());
+        DiskFileCacheHelper manager = mInstanceMap.get(cacheDir.getAbsoluteFile() + myPid());
         if (manager == null) {
             manager = new DiskFileCacheHelper(cacheDir, max_zise, max_count);
             mInstanceMap.put(cacheDir.getAbsolutePath() + myPid(), manager);
@@ -82,8 +81,7 @@ public final class DiskFileCacheHelper {
 
     private DiskFileCacheHelper(File cacheDir, long max_size, int max_count) {
         if (!cacheDir.exists() && !cacheDir.mkdirs()) {
-            throw new RuntimeException("can't make dirs in "
-                    + cacheDir.getAbsolutePath());
+            throw new RuntimeException("can't make dirs in " + cacheDir.getAbsolutePath());
         }
         mCache = new AndroidCache(cacheDir, max_size, max_count);
     }
@@ -153,7 +151,6 @@ public final class DiskFileCacheHelper {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
         } finally {
             if (in != null) {
                 try {
@@ -165,6 +162,7 @@ public final class DiskFileCacheHelper {
             if (removeFile)
                 remove(key);
         }
+        return null;
     }
 
     /**
@@ -197,8 +195,8 @@ public final class DiskFileCacheHelper {
     public JSONObject getAsJSONObject(String key) {
         String JSONString = getAsString(key);
         try {
-            JSONObject obj = new JSONObject(JSONString);
-            return obj;
+            JSONObject obj1 = new JSONObject(JSONString);
+            return obj1;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -235,8 +233,8 @@ public final class DiskFileCacheHelper {
     public JSONArray getAsJSONArray(String key) {
         String JSONString = getAsString(key);
         try {
-            JSONArray obj = new JSONArray(JSONString);
-            return obj;
+            JSONArray obj1 = new JSONArray(JSONString);
+            return obj1;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -305,7 +303,6 @@ public final class DiskFileCacheHelper {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
         } finally {
             if (RAFile != null) {
                 try {
@@ -317,6 +314,7 @@ public final class DiskFileCacheHelper {
             if (removeFile)
                 remove(key);
         }
+        return null;
     }
 
     /**
@@ -352,9 +350,19 @@ public final class DiskFileCacheHelper {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            try {
-                oos.close();
-            } catch (IOException e) {
+            if (oos != null) {
+                try {
+                    oos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (baos != null) {
+                try {
+                    baos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -373,28 +381,28 @@ public final class DiskFileCacheHelper {
             try {
                 bais = new ByteArrayInputStream(data);
                 ois = new ObjectInputStream(bais);
-                Object reObject = ois.readObject();
-                return reObject;
+                Object reObject1 = ois.readObject();
+                return reObject1;
             } catch (Exception e) {
                 e.printStackTrace();
-                return null;
             } finally {
-                try {
-                    if (bais != null)
+                if (bais != null) {
+                    try {
                         bais.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-                try {
-                    if (ois != null)
+                if (ois != null) {
+                    try {
                         ois.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
         return null;
-
     }
 
     /**
@@ -503,12 +511,10 @@ public final class DiskFileCacheHelper {
         private final AtomicInteger cacheCount;
         private final long sizeLimit;
         private final int countLimit;
-        private final Map<File, Long> lastUsageDates = Collections
-                .synchronizedMap(new HashMap<File, Long>());
-        protected File cacheDir;
+        private final Map<File, Long> lastUsageDates = Collections.synchronizedMap(new HashMap<File, Long>());
+        private File cacheDir;
 
-        private AndroidCache(File cacheDir, long sizeLimit,
-                             int countLimit) {
+        private AndroidCache(File cacheDir, long sizeLimit, int countLimit) {
             this.cacheDir = cacheDir;
             this.sizeLimit = sizeLimit;
             this.countLimit = countLimit;
@@ -531,8 +537,7 @@ public final class DiskFileCacheHelper {
                         for (File cachedFile : cachedFiles) {
                             size += calculateSize(cachedFile);
                             count += 1;
-                            lastUsageDates.put(cachedFile,
-                                    cachedFile.lastModified());
+                            lastUsageDates.put(cachedFile, cachedFile.lastModified());
                         }
                         cacheSize.set(size);
                         cacheCount.set(count);
@@ -546,11 +551,9 @@ public final class DiskFileCacheHelper {
             while (curCacheCount + 1 > countLimit) {
                 long freedSize = removeNext();
                 cacheSize.addAndGet(-freedSize);
-
                 curCacheCount = cacheCount.addAndGet(-1);
             }
             cacheCount.addAndGet(1);
-
             long valueSize = calculateSize(file);
             long curCacheSize = cacheSize.get();
             while (curCacheSize + valueSize > sizeLimit) {
@@ -558,7 +561,6 @@ public final class DiskFileCacheHelper {
                 curCacheSize = cacheSize.addAndGet(-freedSize);
             }
             cacheSize.addAndGet(valueSize);
-
             Long currentTime = System.currentTimeMillis();
             file.setLastModified(currentTime);
             lastUsageDates.put(file, currentTime);
@@ -569,7 +571,6 @@ public final class DiskFileCacheHelper {
             Long currentTime = System.currentTimeMillis();
             file.setLastModified(currentTime);
             lastUsageDates.put(file, currentTime);
-
             return file;
         }
 
@@ -620,7 +621,7 @@ public final class DiskFileCacheHelper {
                 }
             }
             long fileSize = calculateSize(mostLongUsedFile);
-            if (mostLongUsedFile.delete()) {
+            if (mostLongUsedFile != null && mostLongUsedFile.delete()) {
                 lastUsageDates.remove(mostLongUsedFile);
             }
             return fileSize;
@@ -657,8 +658,7 @@ public final class DiskFileCacheHelper {
             if (strs != null && strs.length == 2) {
                 String saveTimeStr = strs[0];
                 while (saveTimeStr.startsWith("0")) {
-                    saveTimeStr = saveTimeStr
-                            .substring(1, saveTimeStr.length());
+                    saveTimeStr = saveTimeStr.substring(1, saveTimeStr.length());
                 }
                 long saveTime = Long.valueOf(saveTimeStr);
                 long deleteAfter = Long.valueOf(strs[1]);
@@ -683,37 +683,33 @@ public final class DiskFileCacheHelper {
 
         private static String clearDateInfo(String strInfo) {
             if (strInfo != null && hasDateInfo(strInfo.getBytes())) {
-                strInfo = strInfo.substring(strInfo.indexOf(mSeparator) + 1,
-                        strInfo.length());
+                strInfo = strInfo.substring(strInfo.indexOf(mSeparator) + 1, strInfo.length());
             }
             return strInfo;
         }
 
         private static byte[] clearDateInfo(byte[] data) {
             if (hasDateInfo(data)) {
-                return copyOfRange(data, indexOf(data, mSeparator) + 1,
-                        data.length);
+                return copyOfRange(data, indexOf(data, mSeparator) + 1, data.length);
             }
             return data;
         }
 
         private static boolean hasDateInfo(byte[] data) {
-            return data != null && data.length > 15 && data[13] == '-'
-                    && indexOf(data, mSeparator) > 14;
+            return data != null && data.length > 15 && data[13] == '-' && indexOf(data, mSeparator) > 14;
         }
 
         private static String[] getDateInfoFromDate(byte[] data) {
             if (hasDateInfo(data)) {
                 String saveDate = new String(copyOfRange(data, 0, 13));
-                String deleteAfter = new String(copyOfRange(data, 14,
-                        indexOf(data, mSeparator)));
+                String deleteAfter = new String(copyOfRange(data, 14, indexOf(data, mSeparator)));
                 return new String[]{saveDate, deleteAfter};
             }
             return null;
         }
 
         private static int indexOf(byte[] data, char c) {
-            for (int i = 0; i < data.length; i++) {
+            for (int i = 0, length = data.length; i < length; i++) {
                 if (data[i] == c) {
                     return i;
                 }
@@ -726,15 +722,14 @@ public final class DiskFileCacheHelper {
             if (newLength < 0)
                 throw new IllegalArgumentException(from + " > " + to);
             byte[] copy = new byte[newLength];
-            System.arraycopy(original, from, copy, 0,
-                    Math.min(original.length - from, newLength));
+            System.arraycopy(original, from, copy, 0, Math.min(original.length - from, newLength));
             return copy;
         }
 
         private static final char mSeparator = ' ';
 
         private static String createDateInfo(int second) {
-            String currentTime = System.currentTimeMillis() + "";
+            String currentTime = Long.toString(System.currentTimeMillis());
             while (currentTime.length() < 13) {
                 currentTime = "0" + currentTime;
             }
@@ -748,9 +743,23 @@ public final class DiskFileCacheHelper {
             if (bm == null) {
                 return null;
             }
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
-            return baos.toByteArray();
+            ByteArrayOutputStream baos = null;
+            try {
+                baos = new ByteArrayOutputStream();
+                bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                return baos.toByteArray();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (baos != null) {
+                    try {
+                        baos.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return null;
         }
 
         /**
@@ -774,8 +783,7 @@ public final class DiskFileCacheHelper {
             int w = drawable.getIntrinsicWidth();
             int h = drawable.getIntrinsicHeight();
             // Take the color format for drawable
-            Bitmap.Config config = drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
-                    : Bitmap.Config.RGB_565;
+            Bitmap.Config config = drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565;
             // Establishing corresponding bitmap
             Bitmap bitmap = Bitmap.createBitmap(w, h, config);
             // Create a canvas corresponding to bitmap

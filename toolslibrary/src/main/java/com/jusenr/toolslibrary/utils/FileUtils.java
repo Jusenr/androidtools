@@ -3,7 +3,6 @@ package com.jusenr.toolslibrary.utils;
 import android.content.Context;
 import android.os.Environment;
 import android.util.Base64;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -23,8 +22,8 @@ import java.util.zip.ZipInputStream;
  * Created by guchenkai on 2015/12/10.
  */
 public final class FileUtils {
-    public static final String TAG = FileUtils.class.getSimpleName();
-    public static final int BYTE = 1024;
+    private static final String TAG = FileUtils.class.getSimpleName();
+    private static final int BYTE = 1024;
 
     private FileUtils() {
         throw new AssertionError();
@@ -39,7 +38,7 @@ public final class FileUtils {
     public static String getFormatSize(double size) {
         double kiloByte = size / BYTE;
         if (kiloByte < 1) {
-            return size + "B";
+            return Double.toString(size) + "B";
         }
 
         double megaByte = kiloByte / BYTE;
@@ -93,8 +92,7 @@ public final class FileUtils {
      * 获取文件大小
      *
      * @param file file
-     * @return file sizr
-     * @throws Exception exception
+     * @return file size
      */
     //Context.getExternalFilesDir (/files/) package name your application directory -- > SDCard/Android/data/, generally put some long time saved data.
     //(Context.getExternalCacheDir) -- > SDCard/Android/data/ your application package name /cache/ directory, the general store temporary data cache.
@@ -102,7 +100,7 @@ public final class FileUtils {
         long size = 0;
         try {
             File[] fileList = file.listFiles();
-            for (int i = 0; i < fileList.length; i++) {
+            for (int i = 0, length = fileList.length; i < length; i++) {
                 // If there are more files
                 if (fileList[i].isDirectory()) {
                     size = size + getFolderSize(fileList[i]);
@@ -124,22 +122,39 @@ public final class FileUtils {
      * @return file content
      */
     public static String readFile(File file, String charset) {
-        String fileContent = "";
+        String fileContent = null;
+        InputStreamReader read = null;
+        BufferedReader reader = null;
         try {
-            InputStreamReader read = new InputStreamReader(new FileInputStream(file), charset);
-            BufferedReader reader = new BufferedReader(read);
-            String line = "";
+            read = new InputStreamReader(new FileInputStream(file), charset);
+            reader = new BufferedReader(read);
+            String line;
             int i = 0;
             while ((line = reader.readLine()) != null) {
-                if (i == 0)
+                if (i == 0) {
                     fileContent = line;
-                else
+                } else {
                     fileContent = fileContent + "\n" + line;
+                }
                 i++;
             }
-            read.close();
         } catch (Exception e) {
-            Log.e("Error reading file", e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (read != null) {
+                try {
+                    read.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return fileContent;
     }
@@ -175,16 +190,16 @@ public final class FileUtils {
                 if (numRead > 0) digest.update(buffer, 0, numRead);
             }
             byte[] sha1Bytes = digest.digest();
-            String t = new String(buffer);
+//            String t = new String(buffer);
             value = convertHashToString(sha1Bytes);
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            e.printStackTrace();
         } finally {
             if (in != null)
                 try {
                     in.close();
                 } catch (IOException e) {
-                    Log.e(TAG, e.getMessage());
+                    e.printStackTrace();
                 }
         }
         return value;
@@ -198,7 +213,7 @@ public final class FileUtils {
      */
     private static String convertHashToString(byte[] hashBytes) {
         String returnVal = "";
-        for (int i = 0; i < hashBytes.length; i++) {
+        for (int i = 0, length = hashBytes.length; i < length; i++) {
             returnVal += Integer.toString((hashBytes[i] & 0xff) + 0x100, 16).substring(1);
         }
         return returnVal.toLowerCase();
@@ -240,7 +255,6 @@ public final class FileUtils {
                 return file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
-                return false;
             }
         }
         return false;
@@ -293,7 +307,7 @@ public final class FileUtils {
         // Using 1Mbuffer
         byte[] buffer = new byte[1024 * 1024];
         // Byte count at decompression
-        int count = 0;
+        int count;
         // If the entry point is empty that has all the traversal of compressed files and directories.
         while (zipEntry != null) {
             // If it is a directory
@@ -308,8 +322,9 @@ public final class FileUtils {
                 if (isReWrite || !file.exists()) {
                     file.createNewFile();
                     FileOutputStream fileOutputStream = new FileOutputStream(file);
-                    while ((count = zipInputStream.read(buffer)) > 0)
+                    while ((count = zipInputStream.read(buffer)) > 0) {
                         fileOutputStream.write(buffer, 0, count);
+                    }
                     fileOutputStream.close();
                 }
             }
@@ -317,6 +332,9 @@ public final class FileUtils {
             zipEntry = zipInputStream.getNextEntry();
         }
         zipInputStream.close();
+        if (inputStream != null) {
+            inputStream.close();
+        }
     }
 
     /**
@@ -355,8 +373,9 @@ public final class FileUtils {
                 if (isReWrite || !file.exists()) {
                     file.createNewFile();
                     FileOutputStream fileOutputStream = new FileOutputStream(file);
-                    while ((count = zipInputStream.read(buffer)) > 0)
+                    while ((count = zipInputStream.read(buffer)) > 0) {
                         fileOutputStream.write(buffer, 0, count);
+                    }
                     fileOutputStream.close();
                 }
             }
@@ -364,6 +383,7 @@ public final class FileUtils {
             zipEntry = zipInputStream.getNextEntry();
         }
         zipInputStream.close();
+        inputStream.close();
     }
 
     /**
@@ -411,18 +431,25 @@ public final class FileUtils {
     public static String getFileContent(String filePath) {
         File file = new File(filePath);
         if (file.exists()) {
+            BufferedReader br = null;
             try {
-                BufferedReader br = new BufferedReader(new FileReader(file));//Construct a BufferedReader class to read the file.
+                br = new BufferedReader(new FileReader(file));//Construct a BufferedReader class to read the file.
                 String result = null;
                 String s = null;
                 while ((s = br.readLine()) != null) {//Using the readLine method, read one line at a time.
                     result = result + "\n" + s;
                 }
-                br.close();
                 return result;
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e(TAG, e.getMessage());
+            } finally {
+                if (br != null) {
+                    try {
+                        br.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         } else {
             return null;
@@ -439,16 +466,25 @@ public final class FileUtils {
      * @return if you are successful [boolean]
      */
     public static boolean saveTextValue(String fileName, String content, boolean append) {
+        FileOutputStream os = null;
         try {
             File textFile = new File(fileName);
             if (!append && textFile.exists()) textFile.delete();
-            FileOutputStream os = new FileOutputStream(textFile);
+            os = new FileOutputStream(textFile);
             os.write(content.getBytes("UTF-8"));
-            os.close();
-        } catch (Exception ee) {
-            return false;
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (os != null) {
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        return true;
+        return false;
     }
 
     /**
@@ -488,13 +524,21 @@ public final class FileUtils {
             }
             fos.flush();
         } catch (IOException e) {
-            Log.e(TAG, e.getMessage());
+            e.printStackTrace();
         } finally {
-            try {
-                if (in != null) in.close();
-                if (fos != null) fos.close();
-            } catch (IOException e) {
-                Log.e(TAG, e.getMessage());
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return file;

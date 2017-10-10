@@ -54,6 +54,10 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+task assemble(type: Assemble) {
+    delete "$rootDir/app/build/outputs"
+}
+
 //Get version number
 def getVersionName() {
     int num = rootProject.properties["PROJ_VERSION_NUM"] as int

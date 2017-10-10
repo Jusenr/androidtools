@@ -41,15 +41,18 @@
         android:background="?android:attr/colorPrimary"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:ignore="NewApi">
 
         <Button
             android:id="@+id/btn_close"
-            android:layout_width="50dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@drawable/border_line"
+            android:singleLine="true"
             android:text="@string/btn_close"
             android:textColor="@android:color/white"
             android:textSize="9sp"
@@ -58,9 +61,11 @@
 
         <Button
             android:id="@+id/btn_trace"
-            android:layout_width="50dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@drawable/border_line"
+            android:singleLine="true"
             android:text="@string/btn_trace"
             android:textColor="@android:color/white"
             android:textSize="9sp"
@@ -69,10 +74,11 @@
 
         <Button
             android:id="@+id/btn_begin"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:background="@drawable/border_line"
+            android:singleLine="true"
             android:text="@string/btn_begin"
             android:textColor="@android:color/white"
             android:textSize="9sp"
@@ -81,10 +87,11 @@
 
         <Button
             android:id="@+id/btn_end"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:background="@drawable/border_line"
+            android:singleLine="true"
             android:text="@string/btn_end"
             android:textColor="@android:color/white"
             android:textSize="9sp"
@@ -93,9 +100,11 @@
 
         <Button
             android:id="@+id/btn_count"
-            android:layout_width="50dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@drawable/border_line"
+            android:singleLine="true"
             android:text="@string/btn_count"
             android:textColor="@android:color/white"
             android:textSize="9sp"
@@ -104,9 +113,11 @@
 
         <Button
             android:id="@+id/btn_delete"
-            android:layout_width="50dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@drawable/border_line"
+            android:singleLine="true"
             android:text="@string/btn_delete"
             android:textColor="@android:color/white"
             android:textSize="9sp"

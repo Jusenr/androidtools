@@ -98,6 +98,35 @@ public class PermissionsUtils {
     }
 
     /**
+     * 申请获取手机信息权限
+     */
+    public static void requestReadPhoneState(Context context, PermissionListener listener) {
+        getRationaleListener(context, context.getString(R.string.permission_tips_title_read_phone_state));
+        AndPermission.with(context)
+                .requestCode(REQUEST_CODE)
+                .permission(Manifest.permission.READ_PHONE_STATE)
+                .callback(listener)
+                .callback(mRationaleListener)
+                .start();
+    }
+
+
+    /**
+     * 申请获取手机信息权限
+     *
+     * @param activity
+     */
+    public static void requestReadPhoneState(final Activity activity, PermissionListener listener) {
+        getRationaleListener(activity, activity.getString(R.string.permission_tips_title_read_phone_state));
+        AndPermission.with(activity)
+                .requestCode(REQUEST_CODE)
+                .permission(Manifest.permission.READ_PHONE_STATE)
+                .callback(listener)
+                .rationale(mRationaleListener)
+                .start();
+    }
+
+    /**
      * Rationale支持
      *
      * @param context

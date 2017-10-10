@@ -5,10 +5,12 @@
     <string name="permission_tips_message">权限提示</string>
     <string name="permission_tips_title_sdcard">是否允许应用获取SDCard储存权限？</string>
     <string name="permission_tips_title_camera">是否允许应用获取相机权限？</string>
+    <string name="permission_tips_title_read_phone_state">是否允许应用获取手机信息权限？</string>
     <string name="permission_tips_title_cameraandaudio">是否允许应用获取相机和麦克风权限？</string>
     <string name="permission_tips_title_to_system_setting">我们需要的一些权限被您拒绝或者系统发生错误申请失败，请您到设置页面手动授权，否则某些功能无法正常使用！</string>
     <string name="permission_tips_write_sdcard">读写SDard的权限被拒绝</string>
     <string name="permission_tips_open_camera">相机权限被拒绝</string>
+    <string name="permission_tips_get_phone_state">获取手机信息权限被拒绝</string>
     <string name="permission_tips_denied">权限被拒绝</string>
     <string name="permission_button_item_agree">我同意</string>
     <string name="permission_button_item_refuse">我拒绝</string>

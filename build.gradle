@@ -56,9 +56,9 @@ task clean(type: Delete) {
 
 //Get version number
 def getVersionName() {
-    int num = rootProject.ext.VERSION_NUM
+    int num = rootProject.properties["PROJ_VERSION_NUM"] as int
     if (num > 0) {
-        return String.format("%s.%d", project.properties["PROJ_VERSIONNAME"], rootProject.ext.VERSION_NUM)
+        return String.format("%s.%d", project.properties["PROJ_VERSIONNAME"], num)
     } else {
         return project.properties["PROJ_VERSIONNAME"]
     }

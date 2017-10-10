@@ -120,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
             public void onSucceed(int requestCode, List<String> grantPermissions) {
                 if (AndPermission.hasPermission(mActivity, Manifest.permission.READ_PHONE_STATE)) {
                     String deviceInfo = AppUtils.getDeviceInfo(mActivity);
-                    ToastUtils.show(mActivity, deviceInfo);
                     Logger.d(deviceInfo);
 
                     TextView tvText3 = (TextView) findViewById(R.id.tv_text3);

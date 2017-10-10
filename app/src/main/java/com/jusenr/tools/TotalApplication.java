@@ -3,13 +3,17 @@ package com.jusenr.tools;
 import android.app.Application;
 import android.content.pm.ApplicationInfo;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jusenr.tools.api.BaseApi;
+import com.jusenr.tools.widgets.fresco.ImagePipelineFactory;
 import com.jusenr.toolslibrary.AndroidTools;
 import com.jusenr.toolslibrary.log.logger.Logger;
 import com.jusenr.toolslibrary.utils.AppUtils;
 import com.jusenr.toolslibrary.utils.DiskFileCacheHelper;
 import com.squareup.leakcanary.LeakCanary;
 import com.umeng.analytics.MobclickAgent;
+
+import okhttp3.OkHttpClient;
 
 /**
  * Description: Application
@@ -58,6 +62,10 @@ public class TotalApplication extends Application {
         Logger.i(umeng_channel);
 
         Logger.i(getCurPackageName());
+
+        Fresco.initialize(getApplicationContext(), ImagePipelineFactory.imagePipelineConfig(getApplicationContext()
+                , new OkHttpClient()
+                , getCacheDir().getAbsolutePath()));
     }
 
     private String getLogTag() {

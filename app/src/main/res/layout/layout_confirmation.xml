@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_20dp"
+        android:layout_marginRight="@dimen/margin_20dp"
+        android:background="@drawable/toast_alert_shape"
+        android:elevation="6dp"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="@dimen/margin_big">
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="@dimen/margin_big"
+            android:gravity="center"
+            android:text="Message"
+            android:textAllCaps="false"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/text_size_14sp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_big"
+            android:gravity="center"
+            android:text="Title"
+            android:textAllCaps="false"
+            android:textColor="#BB000000"
+            android:textSize="@dimen/text_size_16sp"/>
+
+        <!--提示描述-->
+        <TextView
+            android:id="@+id/tv_des"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:lineSpacingExtra="3dp"
+            android:text="desc"
+            android:textAllCaps="false"
+            android:textColor="#B5B5B5"
+            android:textSize="@dimen/text_size_12sp"
+            android:visibility="gone"/>
+
+        <com.jusenr.tools.widgets.fresco.FrescoImageView
+            android:id="@+id/fiv_icon"
+            style="@style/image_circle"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
+            app:placeholderImage="@mipmap/ic_launcher"/>
+
+        <TextView
+            android:id="@+id/tv_icon_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="@dimen/margin_10dp"
+            android:layout_marginRight="@dimen/margin_10dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:lineSpacingExtra="3dp"
+            android:text="谜之宝宝"
+            android:textAllCaps="false"
+            android:textColor="#90000000"
+            android:textSize="@dimen/text_size_14sp"
+            android:visibility="gone"/>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/divider_color"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_left"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/dialog_left_button_bg"
+                android:text="Left"
+                android:textAllCaps="false"
+                android:textColor="@color/theme"
+                android:textSize="@dimen/text_size_14sp"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/btn_right"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/dialog_right_button_bg"
+                android:text="Right"
+                android:textAllCaps="false"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_size_16sp"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

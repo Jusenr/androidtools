@@ -8,4 +8,74 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TransparentDialogTheme" parent="android:Theme.Dialog">
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:windowBackground">@android:color/transparent</item><!--对话框背景透明-->
+        <item name="android:backgroundDimEnabled">false</item><!--背景是否变暗-->
+    </style>
+
+    <style name="TranslucentDialogTheme" parent="android:Theme.Dialog">
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:windowBackground">@android:color/transparent</item><!--对话框背景透明-->
+        <item name="android:backgroundDimEnabled">true</item><!--背景是否变暗-->
+    </style>
+
+    <style name="TranslucetUpdateDialogTheme" parent="android:Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+    </style>
+
+    <!--图片加载主样式-->
+    <style name="image_style">
+        <!--加载图片比例类型-->
+        <item name="actualImageScaleType">focusCrop</item>
+        <!--占位图-->
+        <item name="placeholderImage">@mipmap/img_image_default_l</item>
+        <!--占位图比例类型-->
+        <item name="placeholderImageScaleType">fitCenter</item>
+        <!--加载失败图-->
+        <item name="failureImage">@mipmap/img_image_default_l</item>
+        <!--加载失败图比例类型-->
+        <item name="failureImageScaleType">centerInside</item>
+        <!--加载重试图比例类型-->
+        <item name="retryImageScaleType">centerCrop</item>
+        <!--加载时缓冲图比例类型-->
+        <item name="progressBarImageScaleType">centerInside</item>
+        <!--占位图比例类型-->
+        <item name="progressBarAutoRotateInterval">1000</item>
+    </style>
+
+    <!--4dp的圆角图片加载样式-->
+    <style name="image_round_4dp" parent="image_style">
+        <item name="roundBottomLeft">true</item>
+        <item name="roundBottomRight">true</item>
+        <item name="roundTopLeft">true</item>
+        <item name="roundTopRight">true</item>
+        <item name="roundedCornerRadius">4dp</item>
+    </style>
+
+    <!--10dp的圆角图片加载样式-->
+    <style name="image_round_10dp" parent="image_style">
+        <item name="roundBottomLeft">true</item>
+        <item name="roundBottomRight">true</item>
+        <item name="roundTopLeft">true</item>
+        <item name="roundTopRight">true</item>
+        <item name="roundedCornerRadius">10dp</item>
+    </style>
+
+    <!--圆形图片加载样式-->
+    <style name="image_circle" parent="image_style">
+        <item name="roundAsCircle">true</item>
+    </style>
+
 </resources>

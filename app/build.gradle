@@ -148,8 +148,15 @@ dependencies {
     compile rootProject.ext.dependencies.constraint_layout
     compile rootProject.ext.dependencies.appcompat_v7
 
+    compile rootProject.ext.dependencies.permission
+    compile rootProject.ext.dependencies.butterknife
+
     compile rootProject.ext.dependencies.analytics
 
+    compile 'com.facebook.fresco:fresco:1.2.0'
+    compile 'com.facebook.fresco:imagepipeline-okhttp3:1.2.0'
+
+    annotationProcessor rootProject.ext.dependencies.butterknife_compiler
 }
 
 //After the compilation is finished, the unaligned package is removed

@@ -26,6 +26,10 @@ ext {
             leakcanaryVersion    : "1.5.1",
             androidtoolsVersion  : PROJ_VERSIONNAME,
 
+            permissionVersion    : "1.0.7",
+            butterknifeVersion   : "8.5.1",
+            daggerVersion        : "2.10",
+
             constraintVersion    : "1.0.2",
             androidSupportVersion: "26.+",
 
@@ -39,6 +43,9 @@ ext {
             leakcanary_android_no_op: "com.squareup.leakcanary:leakcanary-android-no-op:${versions["leakcanaryVersion"]}",
 //            androidtools            : "com.github.Jusenr:androidtools:${versions["androidtoolsVersion"]}",
             androidtools            : "com.jusenr.android.library:androidtools:${versions["androidtoolsVersion"]}",
+            permission              : "com.yanzhenjie:permission:${versions["permissionVersion"]}",
+            butterknife             : "com.jakewharton:butterknife:${versions["butterknifeVersion"]}",
+            dagger                  : "com.google.dagger:dagger:${versions["daggerVersion"]}",
 
             constraint_layout       : "com.android.support.constraint:constraint-layout:${versions["constraintVersion"]}",
             appcompat_v7            : "com.android.support:appcompat-v7:${versions["androidSupportVersion"]}",
@@ -47,5 +54,9 @@ ext {
             gson                    : "com.google.code.gson:gson:${versions["gsonVersion"]}",
 
             analytics               : "com.umeng.analytics:analytics:latest.integration",
+
+            //annotationProcessor
+            butterknife_compiler    : "com.jakewharton:butterknife-compiler:${versions["butterknifeVersion"]}",
+            dagger_compiler         : "com.google.dagger:dagger-compiler:${versions["daggerVersion"]}",
     ]
 }

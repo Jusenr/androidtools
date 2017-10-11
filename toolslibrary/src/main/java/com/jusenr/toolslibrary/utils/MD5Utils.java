@@ -1,5 +1,9 @@
 package com.jusenr.toolslibrary.utils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -57,15 +61,15 @@ public final class MD5Utils {
     }
 
     private static String bufferToHex(byte bytes[], int m, int n) {
-        StringBuffer stringbuffer = new StringBuffer(2 * n);
+        StringBuilder stringBuilder = new StringBuilder(2 * n);
         int k = m + n;
         for (int l = m; l < k; l++) {
             char c0 = hexDigits[(bytes[l] & 0xf0) >> 4];
             char c1 = hexDigits[bytes[l] & 0xf];
-            stringbuffer.append(c0);
-            stringbuffer.append(c1);
+            stringBuilder.append(c0);
+            stringBuilder.append(c1);
         }
-        return stringbuffer.toString();
+        return stringBuilder.toString();
     }
 
     /**
@@ -88,7 +92,7 @@ public final class MD5Utils {
             byteArray[i] = (byte) charArray[i];
         }
         byte[] md5Bytes = md5.digest(byteArray);
-        StringBuffer hexValue = new StringBuffer();
+        StringBuilder hexValue = new StringBuilder(2 * md5Bytes.length);
         for (int i = 0; i < md5Bytes.length; i++) {
             int val = ((int) md5Bytes[i]) & 0xff;
             if (val < 16) {
@@ -127,5 +131,34 @@ public final class MD5Utils {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * Generate the MD5 checksum value of the file
+     *
+     * @param file file
+     * @return MD5 checksum value of the file
+     */
+    public static String getFileMD5String(File file) {
+        InputStream fis = null;
+        try {
+            fis = new FileInputStream(file);
+            byte[] buffer = new byte[1024];
+            int numRead = 0;
+            while ((numRead = fis.read(buffer)) > 0) {
+                messagedigest.update(buffer, 0, numRead);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return bufferToHex(messagedigest.digest());
     }
 }

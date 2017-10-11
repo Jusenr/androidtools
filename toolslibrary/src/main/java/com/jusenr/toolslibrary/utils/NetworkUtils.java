@@ -7,7 +7,6 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -39,8 +38,9 @@ public final class NetworkUtils {
     public static boolean isNetworkReachable(Context context) {
         ConnectivityManager mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
-        if (mNetworkInfo == null) return false;
-        return mNetworkInfo.isAvailable();
+//        if (mNetworkInfo == null) return false;
+//        return mNetworkInfo.isAvailable();
+        return mNetworkInfo != null && mNetworkInfo.isAvailable();
     }
 
     /**
@@ -52,7 +52,7 @@ public final class NetworkUtils {
     public static String getIp(Context context) {
         int networkType = getNetworkType(context);
         if (networkType == ConnectivityManager.TYPE_WIFI) {
-            WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+            WifiManager wifiManager = (WifiManager) context.getSystemService(context.WIFI_SERVICE);
             WifiInfo wifiInfo = wifiManager.getConnectionInfo();
             int ipAddress = wifiInfo.getIpAddress();
             return (ipAddress & 0xFF) + "." +
@@ -66,12 +66,12 @@ public final class NetworkUtils {
                     for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
                         InetAddress inetAddress = enumIpAddr.nextElement();
                         if (!inetAddress.isLoopbackAddress()) {
-                            return inetAddress.getHostAddress().toString();
+                            return inetAddress.getHostAddress();
                         }
                     }
                 }
-            } catch (SocketException ex) {
-                Log.e("getIp", "WifiPreference IpAddress" + ex.toString());
+            } catch (SocketException e) {
+                e.printStackTrace();
             }
             return null;
         }

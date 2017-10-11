@@ -292,48 +292,72 @@ public final class FileUtils {
      * @param assetName     zip file names
      * @param outputDirPath outputDirPath
      * @param isReWrite     param cover
-     * @throws IOException exception
      */
-    public static void unZipInAsset(Context context, String assetName, String outputDirPath, boolean isReWrite) throws IOException {
+    public static void unZipInAsset(Context context, String assetName, String outputDirPath, boolean isReWrite) {
         // Creating a decompression target directory.
         File file = new File(outputDirPath);
         // If the destination directory does not exist, create.
         if (!file.exists()) file.mkdirs();
         // Open zip file.
-        InputStream inputStream = ResourcesUtils.getAssets(context).open(assetName);
-        ZipInputStream zipInputStream = new ZipInputStream(inputStream);
-        // Read an entry point.
-        ZipEntry zipEntry = zipInputStream.getNextEntry();
-        // Using 1Mbuffer
-        byte[] buffer = new byte[1024 * 1024];
-        // Byte count at decompression
-        int count;
-        // If the entry point is empty that has all the traversal of compressed files and directories.
-        while (zipEntry != null) {
-            // If it is a directory
-            if (zipEntry.isDirectory()) {
-                file = new File(outputDirPath + File.separator + zipEntry.getName());
-                // The file needs to be covered or the file does not exist
-                if (isReWrite || !file.exists()) file.mkdir();
-            } else {
-                // If it is a file
-                file = new File(outputDirPath + File.separator + zipEntry.getName());
-                // The file needs to be overridden or the file does not exist, then unpack the file.
-                if (isReWrite || !file.exists()) {
-                    file.createNewFile();
-                    FileOutputStream fileOutputStream = new FileOutputStream(file);
-                    while ((count = zipInputStream.read(buffer)) > 0) {
-                        fileOutputStream.write(buffer, 0, count);
+        InputStream inputStream = null;
+        ZipInputStream zipInputStream = null;
+        FileOutputStream fileOutputStream = null;
+        try {
+            inputStream = ResourcesUtils.getAssets(context).open(assetName);
+            zipInputStream = new ZipInputStream(inputStream);
+            // Read an entry point.
+            ZipEntry zipEntry = zipInputStream.getNextEntry();
+            // Using 1Mbuffer
+            byte[] buffer = new byte[1024 * 1024];
+            // Byte count at decompression
+            int count;
+            // If the entry point is empty that has all the traversal of compressed files and directories.
+            while (zipEntry != null) {
+                // If it is a directory
+                if (zipEntry.isDirectory()) {
+                    file = new File(outputDirPath + File.separator + zipEntry.getName());
+                    // The file needs to be covered or the file does not exist
+                    if (isReWrite || !file.exists()) file.mkdir();
+                } else {
+                    // If it is a file
+                    file = new File(outputDirPath + File.separator + zipEntry.getName());
+                    // The file needs to be overridden or the file does not exist, then unpack the file.
+                    if (isReWrite || !file.exists()) {
+                        file.createNewFile();
+                        fileOutputStream = new FileOutputStream(file);
+                        while ((count = zipInputStream.read(buffer)) > 0) {
+                            fileOutputStream.write(buffer, 0, count);
+                        }
+                        fileOutputStream.flush();
                     }
+                }
+                // Locate next file entry.
+                zipEntry = zipInputStream.getNextEntry();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fileOutputStream != null) {
+                try {
                     fileOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-            // Locate next file entry.
-            zipEntry = zipInputStream.getNextEntry();
-        }
-        zipInputStream.close();
-        if (inputStream != null) {
-            inputStream.close();
+            if (zipInputStream != null) {
+                try {
+                    zipInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -343,47 +367,73 @@ public final class FileUtils {
      * @param zipPath       zip file Path
      * @param outputDirPath outputDirPath
      * @param isReWrite     param cover
-     * @throws IOException exception
      */
-    public static void unZipInSdCard(String zipPath, String outputDirPath, boolean isReWrite) throws IOException {
+    public static void unZipInSdCard(String zipPath, String outputDirPath, boolean isReWrite) {
         // Creating a decompression target directory.
         File file = new File(outputDirPath);
         // If the destination directory does not exist, create.
         if (!file.exists()) file.mkdirs();
         // Open zip file.
-        InputStream inputStream = new FileInputStream(new File(zipPath));
-        ZipInputStream zipInputStream = new ZipInputStream(inputStream);
-        // Read an entry point.
-        ZipEntry zipEntry = zipInputStream.getNextEntry();
-        // Using 1Mbuffer
-        byte[] buffer = new byte[1024 * 1024];
-        // Byte count at decompression
-        int count = 0;
-        // If the entry point is empty that has all the traversal of compressed files and directories.
-        while (zipEntry != null) {
-            // If it is a directory
-            if (zipEntry.isDirectory()) {
-                file = new File(outputDirPath + File.separator + zipEntry.getName());
-                // The file needs to be covered or the file does not exist
-                if (isReWrite || !file.exists()) file.mkdir();
-            } else {
-                // If it is a file
-                file = new File(outputDirPath + File.separator + zipEntry.getName());
-                // The file needs to be overridden or the file does not exist, then unpack the file
-                if (isReWrite || !file.exists()) {
-                    file.createNewFile();
-                    FileOutputStream fileOutputStream = new FileOutputStream(file);
-                    while ((count = zipInputStream.read(buffer)) > 0) {
-                        fileOutputStream.write(buffer, 0, count);
+        InputStream inputStream = null;
+        ZipInputStream zipInputStream = null;
+        FileOutputStream fileOutputStream = null;
+        try {
+            inputStream = new FileInputStream(new File(zipPath));
+            zipInputStream = new ZipInputStream(inputStream);
+            // Read an entry point.
+            ZipEntry zipEntry = zipInputStream.getNextEntry();
+            // Using 1Mbuffer
+            byte[] buffer = new byte[1024 * 1024];
+            // Byte count at decompression
+            int count = 0;
+            // If the entry point is empty that has all the traversal of compressed files and directories.
+            while (zipEntry != null) {
+                // If it is a directory
+                if (zipEntry.isDirectory()) {
+                    file = new File(outputDirPath + File.separator + zipEntry.getName());
+                    // The file needs to be covered or the file does not exist
+                    if (isReWrite || !file.exists()) file.mkdir();
+                } else {
+                    // If it is a file
+                    file = new File(outputDirPath + File.separator + zipEntry.getName());
+                    // The file needs to be overridden or the file does not exist, then unpack the file
+                    if (isReWrite || !file.exists()) {
+                        file.createNewFile();
+                        fileOutputStream = new FileOutputStream(file);
+                        while ((count = zipInputStream.read(buffer)) > 0) {
+                            fileOutputStream.write(buffer, 0, count);
+                        }
+                        fileOutputStream.flush();
                     }
+                }
+                // Locate next file entry.
+                zipEntry = zipInputStream.getNextEntry();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fileOutputStream != null) {
+                try {
                     fileOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-            // Locate next file entry.
-            zipEntry = zipInputStream.getNextEntry();
+            if (zipInputStream != null) {
+                try {
+                    zipInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        zipInputStream.close();
-        inputStream.close();
     }
 
     /**
@@ -526,16 +576,16 @@ public final class FileUtils {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (in != null) {
+            if (fos != null) {
                 try {
-                    in.close();
+                    fos.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-            if (fos != null) {
+            if (in != null) {
                 try {
-                    fos.close();
+                    in.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

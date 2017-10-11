@@ -54,7 +54,9 @@ public final class ToastUtils {
      * @param duration duration
      */
     public static void show(Context context, CharSequence text, int duration) {
-        Toast.makeText(context, text, duration).show();
+        if (!TextUtils.isEmpty(text)){
+            Toast.makeText(context, text, duration).show();
+        }
     }
 
     public static void show(Context context, @StringRes int resId, Object... args) {

@@ -5,6 +5,9 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ArrayRes;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -70,7 +73,7 @@ public final class ResourcesUtils {
      * @param resId resId
      * @return picture resource [BitmapDrawable]
      */
-    public static BitmapDrawable getBitmapDrawable(Context context, int resId) {
+    public static BitmapDrawable getBitmapDrawable(Context context, @DrawableRes int resId) {
         return (BitmapDrawable) context.getResources().getDrawable(resId);
     }
 
@@ -81,7 +84,7 @@ public final class ResourcesUtils {
      * @param resId   resId
      * @return string resource
      */
-    public static String getString(Context context, int resId) {
+    public static String getString(Context context, @StringRes int resId) {
         return context.getResources().getString(resId);
     }
 
@@ -92,7 +95,7 @@ public final class ResourcesUtils {
      * @param resId   resId
      * @return string array of resources
      */
-    public static String[] getStringArray(Context context, int resId) {
+    public static String[] getStringArray(Context context, @ArrayRes int resId) {
         return context.getResources().getStringArray(resId);
     }
 
@@ -103,7 +106,7 @@ public final class ResourcesUtils {
      * @param resId   resId
      * @return string array resource
      */
-    public static List<String> getStringList(Context context, int resId) {
+    public static List<String> getStringList(Context context, @ArrayRes int resId) {
         List<String> strings = new ArrayList<String>();
         String[] strs = getStringArray(context, resId);
         for (String string : strs) {
@@ -119,7 +122,7 @@ public final class ResourcesUtils {
      * @param resId   resId
      * @return resource [Drawable]
      */
-    public static Drawable getDrawable(Context context, int resId) {
+    public static Drawable getDrawable(Context context, @DrawableRes int resId) {
         return context.getResources().getDrawable(resId);
     }
 
@@ -130,7 +133,7 @@ public final class ResourcesUtils {
      * @param resId   resId
      * @return resource [Bitmap]
      */
-    public static Bitmap getBitmap(Context context, int resId) {
+    public static Bitmap getBitmap(Context context, @DrawableRes int resId) {
         Drawable drawable = getDrawable(context, resId);
         BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
         return bitmapDrawable.getBitmap();

@@ -3,7 +3,7 @@ Android Some of the tools used in development.
 
 ---
 
-[ ![Bintray](https://img.shields.io/badge/bintray-v1.3.6-brightgreen.svg) ](https://bintray.com/jusenr/maven/androidtools/_latestVersion)
+[ ![Bintray](https://img.shields.io/badge/bintray-v1.3.8-brightgreen.svg) ](https://bintray.com/jusenr/maven/androidtools/_latestVersion)
 [ ![Jitpack](https://jitpack.io/v/Jusenr/androidtools.svg) ](https://jitpack.io/#Jusenr/androidtools)
 [ ![API](https://img.shields.io/badge/API-15%2B-blue.svg) ](https://developer.android.com/about/versions/android-4.0.3.html)
 [ ![License](http://img.shields.io/badge/License-Apache%202.0-blue.svg) ](http://www.apache.org/licenses/LICENSE-2.0)
@@ -17,7 +17,7 @@ Android Some of the tools used in development.
 
 >Step 1. Dependent Manner
 
- The First： Add the JitPack repository to your build file
+ >>The First： Add the JitPack repository to your build file
 
 (1) Add it in your root build.gradle at the end of repositories:
 
@@ -32,16 +32,16 @@ Android Some of the tools used in development.
 
         dependencies {
          ...
-        compile 'com.github.Jusenr:androidtools:1.3.6'
+        compile 'com.github.Jusenr:androidtools:1.3.8'
         }
 
 ---
 
-  The Second: Add the dependency
+  >>The Second: Add the dependency
 
           dependencies {
            ...
-          compile 'com.jusenr.android.library:androidtools:1.3.6'
+          compile 'com.jusenr.android.library:androidtools:1.3.8'
           }
 
 -----

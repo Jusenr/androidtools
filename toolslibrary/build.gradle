@@ -47,4 +47,23 @@ dependencies {
 
 }
 
-apply from: "https://raw.githubusercontent.com/Jusenr/resources/master/bintray.gradle"
+// build a jar with source files.
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += configurations.compile
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+//apply from: "https://raw.githubusercontent.com/Jusenr/resources/master/bintray.gradle"

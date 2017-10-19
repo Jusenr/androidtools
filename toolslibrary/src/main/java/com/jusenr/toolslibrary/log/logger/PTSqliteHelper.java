@@ -89,10 +89,10 @@ public class PTSqliteHelper extends SQLiteOpenHelper {
             db = this.getReadableDatabase();
             Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_LEVEL + ">=? AND " + COLUMN_DATE + ">=? AND " + COLUMN_DATE + "<? ORDER BY " + COLUMN_DATE + " DESC LIMIT ?",
                     new String[]{
-                            String.valueOf(priority),
-                            String.valueOf(begin.getTime()),
-                            String.valueOf(end.getTime()),
-                            String.valueOf(limit)
+                            Integer.toString(priority),
+                            Long.toString(begin.getTime()),
+                            Long.toString(end.getTime()),
+                            Integer.toString(limit)
                     }
             );
 
@@ -126,8 +126,8 @@ public class PTSqliteHelper extends SQLiteOpenHelper {
             deleteCount = db.delete(TABLE_NAME,
                     COLUMN_LEVEL + ">=? AND " + COLUMN_DATE + "<?",
                     new String[]{
-                            String.valueOf(priority),
-                            String.valueOf(date.getTime()),
+                            Integer.toString(priority),
+                            Long.toString(date.getTime()),
                     });
 
         } catch (SQLException ex) {

@@ -85,8 +85,14 @@ public class MainActivity extends AppCompatActivity {
         TextView tvText2 = (TextView) findViewById(R.id.tv_text2);
 
         tvText1.setText(AppUtils.getVersionName(this));
-        tvText2.setText(String.valueOf(AppUtils.getVersionCode(this)));
-
+        tvText2.setText(Integer.toString(AppUtils.getVersionCode(this)));
+        final String s = null;
+        tvText1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean b = s.equals("s");
+            }
+        });
         Logger.d("d");
 
         applyReadPhoneStatePermissions();

@@ -9,6 +9,8 @@ import com.jusenr.toolslibrary.log.logger.Logger;
 import com.jusenr.toolslibrary.log.logger.PrettyFormatStrategy;
 import com.jusenr.toolslibrary.utils.PreferenceUtils;
 
+import java.util.Date;
+
 /**
  * Description: AndroidTools initialization.
  * Copyright  : Copyright (c) 2017
@@ -46,5 +48,8 @@ public final class AndroidTools {
 //                .tag("logtag")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
 //                .build();
         Logger.init(context, formatStrategy, logLevel);
+        //Log keeps one month time.
+        Date date = new Date(System.currentTimeMillis() - 30 * 24 * 60 * 60 * 1000L);
+        Logger.deleteLog(Logger.VERBOSE, date);
     }
 }

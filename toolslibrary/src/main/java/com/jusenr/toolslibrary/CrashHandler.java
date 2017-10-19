@@ -1,5 +1,7 @@
 package com.jusenr.toolslibrary;
 
+import android.os.Build;
+
 /**
  * UncaughtException processing class, when the program has a Uncaught exception,
  * it has the class to take over the program and record the error report.
@@ -7,7 +9,7 @@ package com.jusenr.toolslibrary;
  * Created by sunnybear on 15/3/13.
  */
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
-    public static final String TAG = CrashHandler.class.getSimpleName();
+    private static final String TAG = CrashHandler.class.getSimpleName();
 
     //The default UncaughtException processing class of the system.
     private Thread.UncaughtExceptionHandler mDefaultHandler;
@@ -49,7 +51,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         if (handlerException(t) && mDefaultHandler != null)
             mDefaultHandler.uncaughtException(thread, t);//If the user is not processing, let the default processor of the system handle it.
         if (mOnCrashHandler != null)
-            mOnCrashHandler.onCrashHandler(/*log, phoneInfo,*/ t);
+            mOnCrashHandler.onCrashHandler(getPhoneInfo(), t);
     }
 
     /**
@@ -67,6 +69,29 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      */
     public interface OnCrashHandler {
 
-        void onCrashHandler(Throwable t);
+        void onCrashHandler(String phoneInfo, Throwable e);
+    }
+
+    /**
+     * Get device information
+     *
+     * @return device information
+     */
+    private String getPhoneInfo() {
+        StringBuffer buffer = new StringBuffer();
+        String brand = Build.BRAND;
+        String model = Build.MODEL;
+        String sdk = Build.VERSION.SDK;
+        String release = Build.VERSION.RELEASE;
+        buffer.append("BRAND:")
+                .append(brand)
+                .append("  MODEL:")
+                .append(model)
+                .append("  SDK:")
+                .append(sdk)
+                .append("  RELEASE:")
+                .append(release)
+                .append("\n");
+        return buffer.toString();
     }
 }

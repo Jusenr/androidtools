@@ -7,6 +7,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jusenr.tools.api.BaseApi;
 import com.jusenr.tools.widgets.fresco.ImagePipelineFactory;
 import com.jusenr.toolslibrary.AndroidTools;
+import com.jusenr.toolslibrary.CrashHandler;
 import com.jusenr.toolslibrary.log.logger.Logger;
 import com.jusenr.toolslibrary.utils.AppUtils;
 import com.jusenr.toolslibrary.utils.DiskFileCacheHelper;
@@ -25,6 +26,7 @@ import okhttp3.OkHttpClient;
  * Project    ：AndroidTools.
  */
 public class TotalApplication extends Application {
+    private static final String TAG = TotalApplication.class.getSimpleName();
 
     private static DiskFileCacheHelper mCacheHelper;//磁盘文件缓存器
 
@@ -60,12 +62,18 @@ public class TotalApplication extends Application {
         MobclickAgent.openActivityDurationTrack(false);
 
         Logger.i(umeng_channel);
-
         Logger.i(getCurPackageName());
 
         Fresco.initialize(getApplicationContext(), ImagePipelineFactory.imagePipelineConfig(getApplicationContext()
                 , new OkHttpClient()
                 , getCacheDir().getAbsolutePath()));
+
+        CrashHandler.instance().init(new CrashHandler.OnCrashHandler() {
+            @Override
+            public void onCrashHandler(String phoneInfo, Throwable e) {
+                onCrash(phoneInfo, e);
+            }
+        });
     }
 
     private String getLogTag() {
@@ -78,5 +86,10 @@ public class TotalApplication extends Application {
 
     public static DiskFileCacheHelper getDiskFileCacheHelper() {
         return mCacheHelper;
+    }
+
+    private void onCrash(String phoneInfo, Throwable e) {
+        Logger.e(phoneInfo + "\n" + e.getMessage());
+        e.printStackTrace();
     }
 }

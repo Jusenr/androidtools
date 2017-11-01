@@ -1,4 +1,5 @@
 # AndroidTools #
+
 Android Some of the tools used in development.
 
 ---
@@ -13,13 +14,11 @@ Android Some of the tools used in development.
 
 ---
 
-#####  #####
-
 >Step 1. Dependent Manner
 
  >>The First： Add the JitPack repository to your build file
 
-(1) Add it in your root build.gradle at the end of repositories:
+ (1) Add it in your root build.gradle at the end of repositories:
 
     allprojects {
             repositories {

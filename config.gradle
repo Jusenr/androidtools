@@ -12,8 +12,8 @@ ext {
 
     androids = [
             compileSdkVersion   : 26,
-            buildToolsVersion   : "26.0.1",
-            minSdkVersion       : 15,
+            buildToolsVersion   : "26.0.2",
+            minSdkVersion       : 19,
             targetSdkVersion    : 26,
             applicationId       : "com.jusenr.tools",
             manifestPlaceholders: [UMENG_APPKEY_VALUE: "59a1173a7f2c747ef20009a3",
@@ -23,6 +23,7 @@ ext {
     versions = [
             junitVersion         : "4.12",
             debugDbVersion       : "1.0.0",
+            multidexVersion      : "1.0.1",
             leakcanaryVersion    : "1.5.1",
             androidtoolsVersion  : PROJ_VERSIONNAME,
 
@@ -34,13 +35,13 @@ ext {
             constraintVersion    : "1.0.2",
             androidSupportVersion: "26.+",
 
-            gsonVersion          : "2.4",
+            gsonVersion          : "2.8.2",
     ]
 
     dependencies = [
             junit                   : "junit:junit:${versions["junitVersion"]}",
             debug_db                : "com.amitshekhar.android:debug-db:${versions["debugDbVersion"]}",
-//            androidtools            : "com.github.Jusenr:androidtools:${versions["androidtoolsVersion"]}",
+            multidex                : "com.android.support:multidex:${versions["multidexVersion"]}",
             androidtools            : "com.jusenr.android.library:androidtools:${versions["androidtoolsVersion"]}",
             permission              : "com.yanzhenjie:permission:${versions["permissionVersion"]}",
             butterknife             : "com.jakewharton:butterknife:${versions["butterknifeVersion"]}",

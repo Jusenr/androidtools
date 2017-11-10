@@ -11,10 +11,11 @@
         android:supportsRtl="true"
         tools:replace="android:label">
 
-    </application>
+        <!--Log view page-->
+        <activity
+            android:name="com.jusenr.toolslibrary.log.PTLogActivity"
+            android:screenOrientation="portrait"/>
 
-    <activity
-        android:name="com.jusenr.toolslibrary.log.PTLogActivity"
-        android:screenOrientation="portrait"/>
+    </application>
 
 </manifest>

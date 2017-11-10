@@ -18,8 +18,6 @@ android {
         buildConfigField "boolean", "IS_TEST", "false"
         buildConfigField "int", "HOST_NOW", "1"
         multiDexEnabled true
-        renderscriptTargetApi 20
-        renderscriptSupportModeEnabled true
         testInstrumentationRunner "com.android.test.runner.MultiDexTestRunner"
         externalNativeBuild {
             cmake {
@@ -139,6 +137,7 @@ dependencies {
     testCompile rootProject.ext.dependencies.leakcanary_android_no_op
     releaseCompile rootProject.ext.dependencies.leakcanary_android_no_op
 
+    compile rootProject.ext.dependencies.multidex
     compile rootProject.ext.dependencies.constraint_layout
     compile rootProject.ext.dependencies.appcompat_v7
 

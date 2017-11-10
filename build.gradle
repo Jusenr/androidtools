@@ -4,6 +4,10 @@ apply from: "config.gradle"
 buildscript {
     repositories {
         jcenter()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
@@ -25,10 +29,18 @@ allprojects {
         flatDir {
             dirs 'libs'
         }
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
     //Set unified encoding
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
+        //Enabling the compilation of a single daemon
+        options.fork = true
+        //Incremental compiling
+        options.incremental = true
     }
     //Setting unified javaDoc encoding
     tasks.withType(Javadoc) {

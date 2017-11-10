@@ -2,7 +2,6 @@ package com.jusenr.toolslibrary;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.multidex.MultiDex;
 
 import com.jusenr.toolslibrary.log.logger.FormatStrategy;
 import com.jusenr.toolslibrary.log.logger.Logger;
@@ -34,8 +33,6 @@ public final class AndroidTools {
     }
 
     public static void init(@NonNull Context context, @NonNull FormatStrategy formatStrategy, int logLevel) {
-        //MultiDex initialization
-        MultiDex.install(context);
         //Preference file initialization.
         PreferenceUtils.init(context);
         //AndroidTools initialise.

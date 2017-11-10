@@ -4,9 +4,9 @@ Android Some of the tools used in development.
 
 ---
 
-[ ![Bintray](https://img.shields.io/badge/bintray-v1.3.8-brightgreen.svg) ](https://bintray.com/jusenr/maven/androidtools/_latestVersion)
+[ ![Bintray](https://img.shields.io/badge/bintray-v1.3.9-brightgreen.svg) ](https://bintray.com/jusenr/maven/androidtools/_latestVersion)
 [ ![Jitpack](https://jitpack.io/v/Jusenr/androidtools.svg) ](https://jitpack.io/#Jusenr/androidtools)
-[ ![API](https://img.shields.io/badge/API-15%2B-blue.svg) ](https://developer.android.com/about/versions/android-4.0.3.html)
+[ ![API](https://img.shields.io/badge/API-19%2B-blue.svg) ](https://developer.android.com/about/versions/android-4.4.html)
 [ ![License](http://img.shields.io/badge/License-Apache%202.0-blue.svg) ](http://www.apache.org/licenses/LICENSE-2.0)
 
 
@@ -31,7 +31,7 @@ Android Some of the tools used in development.
 
         dependencies {
          ...
-        compile 'com.github.Jusenr:androidtools:1.3.8'
+        compile 'com.github.Jusenr:androidtools:1.3.9'
         }
 
 ---
@@ -40,12 +40,12 @@ Android Some of the tools used in development.
 
           dependencies {
            ...
-          compile 'com.jusenr.android.library:androidtools:1.3.8'
+          compile 'com.jusenr.android.library:androidtools:1.3.9'
           }
 
------
+---
 
->Step 3. Add required permissions
+>Step 2. Add required permissions
 
     <manifest
         ...
@@ -67,7 +67,7 @@ Android Some of the tools used in development.
 
 ---
 
->Step 4. Initialization configuration
+>Step 3. Initialization configuration
 
     App extends Application{
 

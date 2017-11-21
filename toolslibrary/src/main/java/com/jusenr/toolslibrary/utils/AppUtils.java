@@ -727,9 +727,10 @@ public final class AppUtils {
      * Clean up background processes and services
      *
      * @param context context
+     * @param pid     current pid
      * @return The amount cleared
      */
-    public static int gc(Context context) {
+    public static int gc(Context context, int pid) {
         long i = getDeviceUsableMemory(context);
         int count = 0; // Number of cleared processes
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
@@ -738,7 +739,7 @@ public final class AppUtils {
         if (serviceList != null) {
             try {
                 for (ActivityManager.RunningServiceInfo service : serviceList) {
-                    if (service.pid == android.os.Process.myPid()) continue;
+                    if (service.pid == pid) continue;
                     android.os.Process.killProcess(service.pid);
                     count++;
                 }
@@ -919,5 +920,26 @@ public final class AppUtils {
             cachePath = context.getCacheDir().getPath();
         }
         return cachePath;
+    }
+
+    /**
+     * Get the process name based on process ID
+     *
+     * @param context context
+     * @param pid     current pid
+     * @return process name
+     */
+    public static String getProcessName(Context context, int pid) {
+        ActivityManager am = (ActivityManager) context.getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> processInfoList = am.getRunningAppProcesses();
+        if (processInfoList == null) {
+            return null;
+        }
+        for (ActivityManager.RunningAppProcessInfo processInfo : processInfoList) {
+            if (processInfo.pid == pid) {
+                return processInfo.processName;
+            }
+        }
+        return null;
     }
 }

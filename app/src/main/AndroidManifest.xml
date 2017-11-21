@@ -42,17 +42,20 @@
             </intent-filter>
         </activity>
 
-        <!--Log view page-->
+        <!-- Log view page -->
         <activity
             android:name="com.jusenr.toolslibrary.log.PTLogActivity"
             android:screenOrientation="portrait"/>
 
         <!-- Leakcanary -->
-        <!--<service android:name="com.squareup.leakcanary.DisplayLeakService"/>-->
-        <!--<service android:name="com.squareup.leakcanary.internal.HeapAnalyzerService"/>-->
+        <!-- <service android:name="com.squareup.leakcanary.DisplayLeakService"/> -->
+        <!-- <service android:name="com.squareup.leakcanary.internal.HeapAnalyzerService"/> -->
 
-        <!--<activity android:name="com.squareup.leakcanary.internal.DisplayLeakActivity"/>-->
 
+        <!-- <activity android:name="com.squareup.leakcanary.internal.DisplayLeakActivity"/> -->
+
+        <activity android:name=".SecondActivity">
+        </activity>
     </application>
 
 </manifest>

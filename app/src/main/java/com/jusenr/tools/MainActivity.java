@@ -2,8 +2,8 @@ package com.jusenr.tools;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,7 +18,7 @@ import com.yanzhenjie.permission.PermissionListener;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     protected Activity mActivity;
 
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         tvText1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean b = s.equals("s");
+                boolean b = "s".equals(s);
             }
         });
         Logger.d("d");
@@ -136,8 +136,15 @@ public class MainActivity extends AppCompatActivity {
                     Logger.d(imei);
 
                     String imsi = AppUtils.getIMSI(mActivity);
-                    tvText4.setText(imsi);
+                    tvText3.setText(imsi);
                     Logger.d(imsi);
+
+                    tvText4.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(getApplicationContext(), SecondActivity.class));
+                        }
+                    });
                 }
             }
 

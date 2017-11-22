@@ -13,7 +13,6 @@ import com.jusenr.toolslibrary.CrashHandler;
 import com.jusenr.toolslibrary.log.logger.Logger;
 import com.jusenr.toolslibrary.utils.AppUtils;
 import com.jusenr.toolslibrary.utils.DiskFileCacheHelper;
-import com.squareup.leakcanary.LeakCanary;
 import com.umeng.analytics.MobclickAgent;
 
 import okhttp3.OkHttpClient;
@@ -43,13 +42,13 @@ public class TotalApplication extends Application {
             //API initialise
             BaseApi.init();
 
-            //LeakCanary initialization
-            if (LeakCanary.isInAnalyzerProcess(this)) {
-                // This process is dedicated to LeakCanary for heap analysis
-                // You should not init your app in this process
-                return;
-            }
-            LeakCanary.install(this);
+//            //LeakCanary initialization
+//            if (LeakCanary.isInAnalyzerProcess(this)) {
+//                // This process is dedicated to LeakCanary for heap analysis
+//                // You should not init your app in this process
+//                return;
+//            }
+//            LeakCanary.install(this);
 
             //AndroidTools initialise
             AndroidTools.init(getApplicationContext(), getLogTag());

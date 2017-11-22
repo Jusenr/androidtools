@@ -96,6 +96,33 @@ public class MainActivity extends BaseActivity {
         Logger.d("d");
 
         applyReadPhoneStatePermissions();
+
+        findViewById(R.id.btn_1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                PreferenceUtils.save("isFirst", true);
+//                Boolean isFirst = PreferenceUtils.getValue("isFirst", false);
+//                Log.e(TAG, "onClick: isFirst：" + isFirst);
+            }
+        });
+        findViewById(R.id.btn_2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        findViewById(R.id.btn_3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        findViewById(R.id.btn_4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     /**

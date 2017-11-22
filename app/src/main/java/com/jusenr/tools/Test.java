@@ -17,5 +17,8 @@ public class Test {
         System.err.println(md5String);
         String date = DateUtils.getCurrentDate();
         System.out.println(date);
+
+
+//        System.out.println(isFirst);
     }
 }

@@ -16,6 +16,7 @@ import com.umeng.analytics.MobclickAgent;
  * Project    ：androidtools.
  */
 public abstract class BaseActivity extends AppCompatActivity {
+    public static final String TAG = "BaseActivity";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

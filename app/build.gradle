@@ -121,7 +121,7 @@ dependencies {
     //View the App database usage (method: 1. release comment. 2. recompile. 3. use the'DebugDB'field to retrieve log. 4. and access the retrieved connection. OK)
     debugCompile rootProject.ext.dependencies.debug_db
     //Leakcanary
-    debugCompile rootProject.ext.dependencies.leakcanary_android
+//    debugCompile rootProject.ext.dependencies.leakcanary_android
     testCompile rootProject.ext.dependencies.leakcanary_android_no_op
     releaseCompile rootProject.ext.dependencies.leakcanary_android_no_op
 

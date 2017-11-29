@@ -122,8 +122,8 @@ dependencies {
     debugCompile rootProject.ext.dependencies.debug_db
     //Leakcanary
 //    debugCompile rootProject.ext.dependencies.leakcanary_android
-    testCompile rootProject.ext.dependencies.leakcanary_android_no_op
-    releaseCompile rootProject.ext.dependencies.leakcanary_android_no_op
+//    testCompile rootProject.ext.dependencies.leakcanary_android_no_op
+//    releaseCompile rootProject.ext.dependencies.leakcanary_android_no_op
 
     compile rootProject.ext.dependencies.multidex
     compile rootProject.ext.dependencies.constraint_layout

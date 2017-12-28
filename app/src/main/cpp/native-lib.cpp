@@ -15,7 +15,7 @@ extern "C" {
 
 
 JNIEXPORT jstring JNICALL
-Java_com_jusenr_tools_MainActivity_stringFromJNI(
+Java_com_jusenr_tools_NativeLib_stringFromJNI(
         JNIEnv *env,
         jobject /* this */) {
     std::string hello = "Hello from C++";
@@ -24,7 +24,7 @@ Java_com_jusenr_tools_MainActivity_stringFromJNI(
 }
 
 JNIEXPORT jstring JNICALL
-Java_com_jusenr_tools_MainActivity_stringFJNI(
+Java_com_jusenr_tools_NativeLib_stringFJNI(
         JNIEnv *env,
         jobject /* this */) {
     std::string hello = "点我试试";

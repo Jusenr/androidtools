@@ -1,4 +1,4 @@
-package com.jusenr.tools;
+package com.jusenr.tools.activity;
 
 import android.Manifest;
 import android.app.Activity;
@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.jusenr.tools.NativeLib;
+import com.jusenr.tools.R;
+import com.jusenr.tools.base.BaseActivity;
 import com.jusenr.tools.utils.PermissionsUtils;
 import com.jusenr.toolslibrary.log.logger.Logger;
 import com.jusenr.toolslibrary.utils.AppUtils;
@@ -22,11 +25,6 @@ public class MainActivity extends BaseActivity {
 
     protected Activity mActivity;
 
-    // Used to load the 'native-lib' library on application startup.
-    static {
-        System.loadLibrary("native-lib");
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +34,8 @@ public class MainActivity extends BaseActivity {
 
         // Example of a call to a native method
         TextView tv = (TextView) findViewById(R.id.sample_text);
-        tv.setText(stringFJNI());
+        NativeLib nativeLib = new NativeLib();
+        tv.setText(nativeLib.stringFJNI());
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,14 +123,6 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
-
-    /**
-     * A native method that is implemented by the 'native-lib' native library,
-     * which is packaged with this application.
-     */
-    public native String stringFromJNI();
-
-    public native String stringFJNI();
 
     @Override
     protected void onResume() {

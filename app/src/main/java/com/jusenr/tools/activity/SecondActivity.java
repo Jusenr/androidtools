@@ -1,6 +1,9 @@
-package com.jusenr.tools;
+package com.jusenr.tools.activity;
 
 import android.os.Bundle;
+
+import com.jusenr.tools.R;
+import com.jusenr.tools.base.BaseActivity;
 
 public class SecondActivity extends BaseActivity {
 

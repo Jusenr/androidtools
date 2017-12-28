@@ -34,7 +34,7 @@
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL_VALUE}"/>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -54,7 +54,7 @@
 
         <!-- <activity android:name="com.squareup.leakcanary.internal.DisplayLeakActivity"/> -->
 
-        <activity android:name=".SecondActivity">
+        <activity android:name=".activity.SecondActivity">
         </activity>
     </application>
 

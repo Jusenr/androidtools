@@ -6,7 +6,7 @@ import android.os.Process;
 import android.support.multidex.MultiDex;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.jusenr.tools.api.BaseApi;
+import com.jusenr.tools.base.api.BaseApi;
 import com.jusenr.tools.widgets.fresco.ImagePipelineFactory;
 import com.jusenr.toolslibrary.AndroidTools;
 import com.jusenr.toolslibrary.CrashHandler;
@@ -58,16 +58,18 @@ public class TotalApplication extends Application {
 
             //UMeng initialise
             ApplicationInfo info = AppUtils.getApplicationInfo(getApplicationContext());
-            String umeng_appkey = info.metaData.getString("UMENG_APPKEY");
-            String umeng_channel = info.metaData.getString("UMENG_CHANNEL");
-            MobclickAgent.UMAnalyticsConfig config = new MobclickAgent.UMAnalyticsConfig(getApplicationContext(), umeng_appkey, umeng_channel);
-            MobclickAgent.startWithConfigure(config);
-            MobclickAgent.setDebugMode(BuildConfig.IS_TEST);
-            MobclickAgent.setCatchUncaughtExceptions(true);
-            MobclickAgent.openActivityDurationTrack(false);
+            if (info != null) {
+                String umeng_appkey = info.metaData.getString("UMENG_APPKEY");
+                String umeng_channel = info.metaData.getString("UMENG_CHANNEL");
+                MobclickAgent.UMAnalyticsConfig config = new MobclickAgent.UMAnalyticsConfig(getApplicationContext(), umeng_appkey, umeng_channel);
+                MobclickAgent.startWithConfigure(config);
+                MobclickAgent.setDebugMode(BuildConfig.IS_TEST);
+                MobclickAgent.setCatchUncaughtExceptions(true);
+                MobclickAgent.openActivityDurationTrack(false);
 
-            Logger.i(umeng_channel);
-            Logger.i(getCurPackageName());
+                Logger.i(umeng_channel);
+                Logger.i(getCurPackageName());
+            }
 
             Fresco.initialize(getApplicationContext(), ImagePipelineFactory.imagePipelineConfig(getApplicationContext()
                     , new OkHttpClient()

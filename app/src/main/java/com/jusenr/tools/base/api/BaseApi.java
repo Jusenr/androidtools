@@ -1,4 +1,4 @@
-package com.jusenr.tools.api;
+package com.jusenr.tools.base.api;
 
 import com.jusenr.tools.BuildConfig;
 import com.jusenr.tools.utils.LocaleUtils;

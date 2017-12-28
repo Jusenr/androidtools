@@ -17,7 +17,6 @@
 package com.jusenr.tools;
 
 import android.app.Application;
-import android.content.pm.ApplicationInfo;
 import android.os.Process;
 import android.support.multidex.MultiDex;
 
@@ -73,19 +72,11 @@ public class TotalApplication extends Application {
             mCacheHelper = DiskFileCacheHelper.get(getApplicationContext(), getLogTag());
 
             //UMeng initialise
-            ApplicationInfo info = AppUtils.getApplicationInfo(getApplicationContext());
-            if (info != null) {
-                String umeng_appkey = info.metaData.getString("UMENG_APPKEY");
-                String umeng_channel = info.metaData.getString("UMENG_CHANNEL");
-                MobclickAgent.UMAnalyticsConfig config = new MobclickAgent.UMAnalyticsConfig(getApplicationContext(), umeng_appkey, umeng_channel);
-                MobclickAgent.startWithConfigure(config);
-                MobclickAgent.setDebugMode(BuildConfig.IS_TEST);
-                MobclickAgent.setCatchUncaughtExceptions(true);
-                MobclickAgent.openActivityDurationTrack(false);
+            MobclickAgent.setDebugMode(BuildConfig.IS_TEST);
+            MobclickAgent.setCatchUncaughtExceptions(true);
+            MobclickAgent.openActivityDurationTrack(false);
 
-                Logger.i(umeng_channel);
-                Logger.i(getCurPackageName());
-            }
+            Logger.i(getCurPackageName());
 
             Fresco.initialize(getApplicationContext(), ImagePipelineFactory.imagePipelineConfig(getApplicationContext()
                     , new OkHttpClient()
@@ -115,5 +106,7 @@ public class TotalApplication extends Application {
     private void onCrash(String phoneInfo, Throwable e) {
         Logger.e(phoneInfo + "\n" + e.getMessage());
         e.printStackTrace();
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(0);
     }
 }

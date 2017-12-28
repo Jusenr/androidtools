@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Preferences settings file tools class
@@ -41,20 +42,35 @@ public final class PreferenceUtils {
 
     private static <T> void put(String key, T value) {
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString(key, String.valueOf(value));
+        if (value instanceof String) {
+            editor.putString(key, value.toString());
+        } else if (value instanceof Integer) {
+            editor.putInt(key, Integer.valueOf(value.toString()));
+        } else if (value instanceof Long) {
+            editor.putLong(key, Long.valueOf(value.toString()));
+        } else if (value instanceof Float) {
+            editor.putFloat(key, Float.valueOf(value.toString()));
+        } else if (value instanceof Boolean) {
+            editor.putBoolean(key, Boolean.valueOf(value.toString()));
+        }
         editor.apply();
     }
 
-    private static <T> T get(String key) {
-        return (T) sp.getString(key, null);
-    }
-
-    private static <T> T get(String key, T defaultVal) {
-        T value = get(key);
-        if (value == null) {
-            value = defaultVal;
+    private static <T> T get(String key, T defaultValue) {
+        Object value = null;
+        if (defaultValue instanceof String) {
+            value = sp.getString(key, defaultValue.toString());
+        } else if (defaultValue instanceof Integer) {
+            value = sp.getInt(key, Integer.valueOf(defaultValue.toString()));
+        } else if (defaultValue instanceof Long) {
+            value = sp.getLong(key, Long.valueOf(defaultValue.toString()));
+        } else if (defaultValue instanceof Float) {
+            value = sp.getFloat(key, Float.valueOf(defaultValue.toString()));
+        } else if (defaultValue instanceof Boolean) {
+            value = sp.getBoolean(key, Boolean.valueOf(defaultValue.toString()));
         }
-        return value;
+
+        return (T) value;
     }
 
     /**
@@ -89,6 +105,17 @@ public final class PreferenceUtils {
      */
     public static <T> T getValue(String key, T defValue) {
         return get(key, defValue);
+    }
+
+    /**
+     * Get preference setting data
+     *
+     * @param key      key
+     * @param defValue default values
+     * @return Preference setting data
+     */
+    public static <T extends Set> T getValue(String key, Set defValue) {
+        return (T) sp.getStringSet(key, defValue);
     }
 
     /**

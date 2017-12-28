@@ -1,3 +1,19 @@
+/*
+ * Copyright 2017 androidtools Jusenr
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.jusenr.toolslibrary.log.logger;
 
 import android.content.ContentValues;
@@ -87,7 +103,7 @@ public class PTSqliteHelper extends SQLiteOpenHelper {
         List<PTLogBean> logList = new ArrayList<PTLogBean>();
         try {
             db = this.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_LEVEL + ">=? AND " + COLUMN_DATE + ">=? AND " + COLUMN_DATE + "<? ORDER BY " + COLUMN_DATE + " DESC LIMIT ?",
+            Cursor cursor = db.rawQuery(String.format("SELECT * FROM %s WHERE %s>=? AND %s>=? AND %s<? ORDER BY %s DESC LIMIT ?", TABLE_NAME, COLUMN_LEVEL, COLUMN_DATE, COLUMN_DATE, COLUMN_DATE),
                     new String[]{
                             Integer.toString(priority),
                             Long.toString(begin.getTime()),

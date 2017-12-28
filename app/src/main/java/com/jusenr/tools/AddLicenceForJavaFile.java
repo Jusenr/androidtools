@@ -1,3 +1,19 @@
+/*
+ * Copyright 2017 androidtools Jusenr
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.jusenr.tools;
 
 import java.io.File;
@@ -39,7 +55,7 @@ public class AddLicenceForJavaFile {
                 " * limitations under the License.\n" +
                 " */";
         addLicenceForJavaFile(new File(projectPath), licence);
-        System.out.println("为 " + count + " 个Java源代码文件添加licence信息头");
+        System.out.println("\r\n为 " + count + " 个Java源代码文件添加licence信息头");
         if (fail.size() > 0) {
             System.out.println("处理失败个数 " + fail.size());
             for (String f : fail) {

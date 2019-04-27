@@ -56,8 +56,9 @@
 
         <!-- <activity android:name="com.squareup.leakcanary.internal.DisplayLeakActivity"/> -->
 
-        <activity android:name=".activity.SecondActivity">
-        </activity>
+        <activity
+            android:name=".activity.SecondActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

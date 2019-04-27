@@ -11,37 +11,40 @@ ext {
     ]
 
     androids = [
-            compileSdkVersion   : 26,
-            buildToolsVersion   : "26.0.2",
+            compileSdkVersion   : 28,
+            buildToolsVersion   : "28.0.0",
             minSdkVersion       : 19,
-            targetSdkVersion    : 26,
+            targetSdkVersion    : 28,
             applicationId       : "com.jusenr.tools",
             manifestPlaceholders: [UMENG_APPKEY_VALUE: "59a1173a7f2c747ef20009a3",
                                    APP_ID            : "6666"],
     ]
 
     versions = [
+            runnerVersion        : "1.0.2",
+            espressoCoreVersion  : "3.0.2",
             junitVersion         : "4.12",
             debugDbVersion       : "1.0.0",
-            multidexVersion      : "1.0.2",
             leakcanaryVersion    : "1.5.1",
             androidtoolsVersion  : PROJ_VERSIONNAME,
 
             permissionVersion    : "1.0.7",
             butterknifeVersion   : "8.5.1",
-            daggerVersion        : "2.11",
-            frescoVersion        : "1.3.0",
+            daggerVersion        : "2.10",
+            frescoVersion        : "1.2.0",
 
-            constraintVersion    : "1.0.2",
-            androidSupportVersion: "26.+",
+            constraintVersion    : "1.1.3",
+            androidSupportVersion: "28.0.0",
 
             gsonVersion          : "2.8.2",
     ]
 
     dependencies = [
+            runner                  : "com.android.support.test:runner:${versions["runnerVersion"]}",
+            espresso_core           : "com.android.support.test.espresso:espresso-core:${versions["espressoCoreVersion"]}",
             junit                   : "junit:junit:${versions["junitVersion"]}",
             debug_db                : "com.amitshekhar.android:debug-db:${versions["debugDbVersion"]}",
-            multidex                : "com.android.support:multidex:${versions["multidexVersion"]}",
+//            androidtools            : "com.github.Jusenr:androidtools:${versions["androidtoolsVersion"]}",
             androidtools            : "com.jusenr.android.library:androidtools:${versions["androidtoolsVersion"]}",
             permission              : "com.yanzhenjie:permission:${versions["permissionVersion"]}",
             butterknife             : "com.jakewharton:butterknife:${versions["butterknifeVersion"]}",
@@ -55,10 +58,12 @@ ext {
             constraint_layout       : "com.android.support.constraint:constraint-layout:${versions["constraintVersion"]}",
             appcompat_v7            : "com.android.support:appcompat-v7:${versions["androidSupportVersion"]}",
             cardview_v7             : "com.android.support:cardview-v7:${versions["androidSupportVersion"]}",
+            design                  : "com.android.support:design:${versions["androidSupportVersion"]}",
 
             gson                    : "com.google.code.gson:gson:${versions["gsonVersion"]}",
             dagger                  : "com.google.dagger:dagger:${versions["daggerVersion"]}",
 
+            common                  : "com.umeng.sdk:common:latest.integration",
             analytics               : "com.umeng.analytics:analytics:latest.integration",
 
             //annotationProcessor

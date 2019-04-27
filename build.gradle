@@ -3,15 +3,21 @@ apply from: "config.gradle"
 
 buildscript {
     repositories {
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+//        maven { url 'https://maven.aliyun.com/nexus/content/repositories/apache-snapshots' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
         jcenter()
         google()
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.4.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
 
         //maven
-        classpath 'com.novoda:bintray-release:0.5.0'
+        classpath 'com.novoda:bintray-release:0.4.0'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -20,8 +26,14 @@ buildscript {
 
 allprojects {
     repositories {
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+//        maven { url 'https://maven.aliyun.com/nexus/content/repositories/apache-snapshots' }
+
         jcenter()
         google()
+        mavenCentral()
         maven { url "https://jitpack.io" }
         //AAR local library dependencies
         flatDir {
@@ -31,10 +43,6 @@ allprojects {
     //Set unified encoding
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
-        //Enabling the compilation of a single daemon
-        options.fork = true
-        //Incremental compiling
-        options.incremental = true
     }
     //Setting unified javaDoc encoding
     tasks.withType(Javadoc) {
@@ -60,6 +68,10 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+task assemble(type: Assemble) {
+    delete "$rootDir/app/build/outputs"
+}
+
 //Get version number
 def getVersionName() {
     int num = rootProject.properties["PROJ_VERSION_NUM"] as int
@@ -69,6 +81,7 @@ def getVersionName() {
         return project.properties["PROJ_VERSIONNAME"]
     }
 }
+
 //Git commit times
 int gitVersionCode() {
     if (System.getenv("CI_BUILD")) {
@@ -77,9 +90,10 @@ int gitVersionCode() {
     def count = "git rev-list HEAD --count".execute().text.trim()
     return count.isInteger() ? count.toInteger() : 0
 }
+
 //Get current time
 def releaseTime(def format) {
-    return new Date().format(format)
+    return new Date().format(format/*, TimeZone.getTimeZone("UTC")*/)
 }
 
 //VersionCode is reassigned to the number of GIT commit
